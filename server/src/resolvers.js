@@ -99,9 +99,10 @@ const resolvers = {
           message: 'Failed to delete sheet',
         };
       }
-      const notebook = await context.dataSources.userAPI.getSheets(
+      const notebook = await context.dataSources.sheetAPI.getSheets(
         args.notebookId
       );
+      console.log(notebook);
 
       return { success: true, message: 'Sheet deleted', notebook };
     },
@@ -149,6 +150,19 @@ const resolvers = {
           auth: Buffer.from(args.email).toString('base64'),
         },
       };
+    },
+
+    deleteUser: async (_, __, context) => {
+      const user = Object.assign({}, context.user);
+      const deletedUser = await context.dataSources.userAPI.deleteUser();
+      if (!deletedUser) {
+        return {
+          success: false,
+          message: 'User not deleted',
+        };
+      }
+
+      return { success: true, message: 'User deleted', user };
     },
   },
 
