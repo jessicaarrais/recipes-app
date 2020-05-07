@@ -30,7 +30,15 @@ const typeDefs = gql`
 
     deleteSheet(sheetId: ID!, notebookId: ID!): SheetUpdateResponse
 
-    login(email: String): User
+    signin(email: String): UserResponse
+
+    login(email: String): UserResponse
+  }
+
+  type UserResponse {
+    success: Boolean
+    message: String
+    user: User
   }
 
   type TodoUpdateResponse {
@@ -59,12 +67,16 @@ const typeDefs = gql`
     sheet: [Todo]
   }
 
+  type Notebook {
+    notebookId: ID!
+    notebook: [Sheet]
+  }
+
   type User {
     userId: ID!
     email: String
-    notebookId: ID
-    notebook: [Sheet]
     auth: String
+    notebook: Notebook
   }
 `;
 
