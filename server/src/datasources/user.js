@@ -12,12 +12,6 @@ class User extends DataSource {
     this.context = config.context;
   }
 
-  async findUser() {
-    const email = this.context.user && this.context.user.email;
-    if (!isEmail.validate(email)) return null;
-    return await this.store.user.findOne({ where: { email } });
-  }
-
   async findUserByEmail(email) {
     if (!email || !isEmail.validate(email)) return null;
 

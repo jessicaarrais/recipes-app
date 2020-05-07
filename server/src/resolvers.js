@@ -133,18 +133,22 @@ const resolvers = {
       const user = await context.dataSources.userAPI.findUserByEmail(
         args.email
       );
-      if (user) {
+      if (!user) {
         return {
-          success: true,
-          message: 'Logged',
-          user: {
-            userId: user.userId,
-            notebookId: user.notebookId,
-            email: user.email,
-            auth: Buffer.from(args.email).toString('base64'),
-          },
+          success: false,
+          message: 'Failed logging in',
         };
       }
+      return {
+        success: true,
+        message: 'Logged',
+        user: {
+          userId: user.userId,
+          notebookId: user.notebookId,
+          email: user.email,
+          auth: Buffer.from(args.email).toString('base64'),
+        },
+      };
     },
   },
 
