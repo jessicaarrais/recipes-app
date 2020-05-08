@@ -102,7 +102,6 @@ const resolvers = {
       const notebook = await context.dataSources.sheetAPI.getSheets(
         args.notebookId
       );
-      console.log(notebook);
 
       return { success: true, message: 'Sheet deleted', notebook };
     },
