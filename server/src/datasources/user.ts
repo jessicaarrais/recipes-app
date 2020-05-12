@@ -10,11 +10,6 @@ class User extends DataSource {
   dbUser: UserStatic;
   context: Context;
 
-  constructor() {
-    super();
-    this.dbUser = dbUser;
-  }
-
   initialize(config: DataSourceConfig<Context>): void | Promise<void> {
     this.context = config.context;
   }
@@ -23,7 +18,7 @@ class User extends DataSource {
     if (!email || !isEmail.validate(email)) return null;
 
     await db.sync();
-    const user = await this.dbUser.findOne({ where: { email } });
+    const user = await dbUser.findOne({ where: { email } });
 
     return user;
   }
@@ -32,10 +27,10 @@ class User extends DataSource {
     if (!isEmail.validate(email)) return null;
 
     await db.sync();
-    const emailExists = await this.dbUser.findOne({ where: { email } });
+    const emailExists = await dbUser.findOne({ where: { email } });
     if (emailExists) throw new Error('Email already exists.');
 
-    const newUser = await this.dbUser.create({ email });
+    const newUser = await dbUser.create({ email });
     const newNotebook = await Notebook.create(newUser.id);
     if (newNotebook) {
       await newUser.update({
@@ -47,7 +42,7 @@ class User extends DataSource {
   }
 
   async deleteUser(): Promise<void> {
-    const user = await this.dbUser.findOne({
+    const user = await dbUser.findOne({
       where: { id: this.context.user.id },
     });
 

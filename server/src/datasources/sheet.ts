@@ -16,17 +16,12 @@ class Sheet extends DataSource {
   dbSheet: SheetStatic;
   context: Context;
 
-  constructor() {
-    super();
-    this.dbSheet = dbSheet;
-  }
-
-  initialize(config: DataSourceConfig<any>): void | Promise<void> {
+  initialize(config: DataSourceConfig<Context>): void | Promise<void> {
     this.context = config.context;
   }
 
   async getSheets(notebookId: number): Promise<Array<SheetGQL>> {
-    return await this.dbSheet
+    return await dbSheet
       .findAll({
         where: { notebookId },
       })
@@ -41,7 +36,7 @@ class Sheet extends DataSource {
   }
 
   async createSheet({ title, notebookId }: NewSheet): Promise<SheetModel> {
-    return await this.dbSheet.create({
+    return await dbSheet.create({
       title,
       notebookId,
     });
@@ -51,11 +46,11 @@ class Sheet extends DataSource {
     updatedSheet: UpdatedSheet,
     sheetId: number
   ): Promise<Array<any>> {
-    return this.dbSheet.update(updatedSheet, { where: { id: sheetId } });
+    return dbSheet.update(updatedSheet, { where: { id: sheetId } });
   }
 
   async deleteSheet(sheetId: number): Promise<number> {
-    return await this.dbSheet.destroy({ where: { id: sheetId } });
+    return await dbSheet.destroy({ where: { id: sheetId } });
   }
 }
 

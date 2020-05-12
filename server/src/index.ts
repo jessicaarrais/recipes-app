@@ -8,10 +8,10 @@ import Todo from './datasources/todo';
 import Sheet from './datasources/sheet';
 import { DataSources } from 'apollo-server-core/dist/graphqlOptions';
 
-export interface MyContext {
+interface MyContext {
   user: UserModel;
 }
-export interface MyDataSources {
+interface MyDataSources {
   dataSources: {
     userAPI: User;
     sheetAPI: Sheet;

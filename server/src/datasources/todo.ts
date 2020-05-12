@@ -18,17 +18,12 @@ class Todo extends DataSource {
   dbTodo: TodoStatic;
   context: Context;
 
-  constructor() {
-    super();
-    this.dbTodo = dbTodo;
-  }
-
-  initialize(config: DataSourceConfig<any>): void | Promise<void> {
+  initialize(config: DataSourceConfig<Context>): void | Promise<void> {
     this.context = config.context;
   }
 
   async getTodos(sheetId: number): Promise<Array<TodoGQL>> {
-    return await this.dbTodo
+    return await dbTodo
       .findAll({
         where: { sheetId },
       })
@@ -43,20 +38,20 @@ class Todo extends DataSource {
   }
 
   async createTodo({ text, isChecked, sheetId }: NewTodo): Promise<TodoModel> {
-    return await this.dbTodo.create({ text, isChecked, sheetId });
+    return await dbTodo.create({ text, isChecked, sheetId });
   }
 
   async updateTodo(
     updatedTodo: UpdatedTodo,
     todoId: number
   ): Promise<[number, TodoModel[]]> {
-    return await this.dbTodo.update(updatedTodo, {
+    return await dbTodo.update(updatedTodo, {
       where: { id: todoId },
     });
   }
 
   async deleteTodo(todoId: number): Promise<number> {
-    return this.dbTodo.destroy({ where: { id: todoId } });
+    return dbTodo.destroy({ where: { id: todoId } });
   }
 }
 
