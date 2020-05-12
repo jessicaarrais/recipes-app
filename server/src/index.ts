@@ -1,27 +1,38 @@
-const { ApolloServer } = require('apollo-server');
-const isEmail = require('isemail');
-const typeDefs = require('./schema');
-const resolvers = require('./resolvers');
-const createStore = require('./store');
-const User = require('./datasources/user');
-const Todo = require('./datasources/todo');
-const Sheet = require('./datasources/sheet');
+import { ApolloServer } from 'apollo-server';
+import isEmail from 'isemail';
+import typeDefs from './schema';
+import resolvers from './resolvers';
+import { dbUser, UserModel } from './store';
+import User from './datasources/user';
+import Todo from './datasources/todo';
+import Sheet from './datasources/sheet';
+import { DataSources } from 'apollo-server-core/dist/graphqlOptions';
 
-const store = createStore();
+export interface MyContext {
+  user: UserModel;
+}
+export interface MyDataSources {
+  dataSources: {
+    userAPI: User;
+    sheetAPI: Sheet;
+    todoAPI: Todo;
+  };
+}
+export type Context = MyContext & MyDataSources;
 
-const dataSources = () => ({
-  userAPI: new User(store),
-  sheetAPI: new Sheet(store),
-  todoAPI: new Todo(store),
+const dataSources = (): DataSources<Context> => ({
+  userAPI: new User(),
+  sheetAPI: new Sheet(),
+  todoAPI: new Todo(),
 });
 
-const context = async ({ req }) => {
+const context = async ({ req }): Promise<MyContext> => {
   const auth = (req.headers && req.headers.authorization) || '';
   const email = Buffer.from(auth, 'base64').toString('ascii');
   if (!isEmail.validate(email)) return { user: null };
-  const user = await store.user.findOne({ where: { email } });
+  const user = await dbUser.findOne({ where: { email } });
 
-  return { user: { ...user.dataValues } };
+  return { user: user };
 };
 
 const server = new ApolloServer({

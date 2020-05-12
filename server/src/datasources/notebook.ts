@@ -1,8 +1,10 @@
+import { db, dbNotebook, NotebookModel } from '../store';
+
 class Notebook {
-  static async create(store, userId) {
-    await store.db.sync();
-    return await store.notebook.create({ userId });
+  static async create(userId: number): Promise<NotebookModel> {
+    await db.sync();
+    return await dbNotebook.create({ userId });
   }
 }
 
-module.exports = Notebook;
+export default Notebook;

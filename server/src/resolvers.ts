@@ -1,6 +1,6 @@
 const resolvers = {
   Query: {
-    user: async (_, __, context) => await context.user,
+    user: (_, __, context) => context.user,
   },
 
   Mutation: {
@@ -115,7 +115,7 @@ const resolvers = {
           success: true,
           message: 'Created',
           user: {
-            userId: newUser.userId,
+            id: newUser.id,
             notebookId: newUser.notebookId,
             email: newUser.email,
             auth: Buffer.from(args.email).toString('base64'),
@@ -143,7 +143,7 @@ const resolvers = {
         success: true,
         message: 'Logged',
         user: {
-          userId: user.userId,
+          id: user.id,
           notebookId: user.notebookId,
           email: user.email,
           auth: Buffer.from(args.email).toString('base64'),
@@ -152,7 +152,7 @@ const resolvers = {
     },
 
     deleteUser: async (_, __, context) => {
-      const user = Object.assign({}, context.user);
+      const user = Object.assign({}, context.user.dataValues);
       const deletedUser = await context.dataSources.userAPI.deleteUser();
       if (!deletedUser) {
         return {
@@ -168,11 +168,11 @@ const resolvers = {
   User: {
     notebook: async (user, __, context) => {
       return {
-        notebookId: user.notebookId,
+        id: user.notebookId,
         notebook: context.dataSources.sheetAPI.getSheets(user.notebookId),
       };
     },
   },
 };
 
-module.exports = resolvers;
+export default resolvers;

@@ -1,51 +1,58 @@
-const { DataSource } = require('apollo-datasource');
-const isEmail = require('isemail');
-const Notebook = require('./notebook');
+import { DataSource, DataSourceConfig } from 'apollo-datasource';
+import isEmail from 'isemail';
+import Notebook from './notebook';
+import { db, dbUser, UserStatic, UserModel } from '../store';
+import { Sequelize } from 'sequelize/types';
+import { Context } from '..';
 
 class User extends DataSource {
-  constructor(store) {
+  db: Sequelize;
+  dbUser: UserStatic;
+  context: Context;
+
+  constructor() {
     super();
-    this.store = store;
+    this.dbUser = dbUser;
   }
 
-  initialize(config) {
+  initialize(config: DataSourceConfig<Context>): void | Promise<void> {
     this.context = config.context;
   }
 
-  async findUserByEmail(email) {
+  async findUserByEmail(email: string): Promise<UserModel> {
     if (!email || !isEmail.validate(email)) return null;
 
-    await this.store.db.sync();
-    const user = await this.store.user.findOne({ where: { email } });
+    await db.sync();
+    const user = await this.dbUser.findOne({ where: { email } });
 
     return user;
   }
 
-  async createUser(email) {
+  async createUser(email: string): Promise<UserModel> {
     if (!isEmail.validate(email)) return null;
 
-    await this.store.db.sync();
-    const emailExists = await this.store.user.findOne({ where: { email } });
+    await db.sync();
+    const emailExists = await this.dbUser.findOne({ where: { email } });
     if (emailExists) throw new Error('Email already exists.');
 
-    const newUser = await this.store.user.create({ email });
-    const newNotebook = await Notebook.create(this.store, newUser.userId);
+    const newUser = await this.dbUser.create({ email });
+    const newNotebook = await Notebook.create(newUser.id);
     if (newNotebook) {
       await newUser.update({
-        notebookId: newNotebook.notebookId,
+        notebookId: newNotebook.id,
       });
     }
 
     return newUser;
   }
 
-  async deleteUser() {
-    const user = await this.store.user.findOne({
-      where: { userId: this.context.user.userId },
+  async deleteUser(): Promise<void> {
+    const user = await this.dbUser.findOne({
+      where: { id: this.context.user.id },
     });
 
     return await user.destroy();
   }
 }
 
-module.exports = User;
+export default User;

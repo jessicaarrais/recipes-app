@@ -1,32 +1,7 @@
-import { gql } from 'apollo-server';
-
-export interface UserGQL {
-  id: number;
-  email: string;
-  auth: string;
-  notebook: Array<SheetGQL>;
-}
-
-export interface NotebookGQL {
-  id: number;
-  notebook: Array<SheetGQL>;
-}
-
-export interface SheetGQL {
-  id: number;
-  notebookId: number;
-  title: string;
-  sheet: Array<TodoGQL>;
-}
-
-export interface TodoGQL {
-  id: number;
-  sheetId: number;
-  text: string;
-  isChecked: boolean;
-}
-
-const typeDefs = gql`
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const apollo_server_1 = require("apollo-server");
+const typeDefs = apollo_server_1.gql `
   type Query {
     user(email: String): User
   }
@@ -108,5 +83,5 @@ const typeDefs = gql`
     notebook: Notebook
   }
 `;
-
-export default typeDefs;
+exports.default = typeDefs;
+//# sourceMappingURL=schema.js.map
