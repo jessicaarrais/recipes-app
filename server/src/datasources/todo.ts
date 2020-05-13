@@ -50,8 +50,8 @@ class Todo extends DataSource {
     });
   }
 
-  async deleteTodo(todoId: number): Promise<number> {
-    return dbTodo.destroy({ where: { id: todoId } });
+  async deleteTodo(todoId: number): Promise<boolean> {
+    return (await dbTodo.destroy({ where: { id: todoId } })) === 1;
   }
 }
 

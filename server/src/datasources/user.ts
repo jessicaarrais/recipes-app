@@ -1,9 +1,10 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
+import { Sequelize } from 'sequelize/types';
 import isEmail from 'isemail';
 import Notebook from './notebook';
 import { db, dbUser, UserStatic, UserModel } from '../store';
-import { Sequelize } from 'sequelize/types';
 import { Context } from '..';
+import { UserGQL } from '../schema';
 
 class User extends DataSource {
   db: Sequelize;
@@ -14,23 +15,34 @@ class User extends DataSource {
     this.context = config.context;
   }
 
-  async findUserByEmail(email: string): Promise<UserModel> {
+  async findUserByEmail(email: string): Promise<UserGQL> {
     if (!email || !isEmail.validate(email)) return null;
 
     await db.sync();
     const user = await dbUser.findOne({ where: { email } });
 
-    return user;
+    return {
+      id: user.id,
+      email: user.email,
+      token: user.token,
+      notebook: {
+        id: user.notebookId,
+        notebook: await this.context.dataSources.sheetAPI.getSheets(user.notebookId),
+      },
+    };
   }
 
-  async createUser(email: string): Promise<UserModel> {
+  async createUser(email: string): Promise<UserGQL> {
     if (!isEmail.validate(email)) return null;
 
     await db.sync();
     const emailExists = await dbUser.findOne({ where: { email } });
     if (emailExists) throw new Error('Email already exists.');
 
-    const newUser = await dbUser.create({ email });
+    const newUser = await dbUser.create({
+      email,
+      token: Buffer.from(email).toString('base64'),
+    });
     const newNotebook = await Notebook.create(newUser.id);
     if (newNotebook) {
       await newUser.update({
@@ -38,15 +50,20 @@ class User extends DataSource {
       });
     }
 
-    return newUser;
+    return {
+      id: newUser.id,
+      email: newUser.email,
+      token: newUser.token,
+      notebook: { id: newNotebook.id, notebook: [] },
+    };
   }
 
-  async deleteUser(): Promise<void> {
-    const user = await dbUser.findOne({
-      where: { id: this.context.user.id },
-    });
-
-    return await user.destroy();
+  async deleteUser(): Promise<boolean> {
+    return (
+      (await dbUser.destroy({
+        where: { id: this.context.user.id },
+      })) === 1
+    );
   }
 }
 

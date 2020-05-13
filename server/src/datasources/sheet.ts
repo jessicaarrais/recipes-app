@@ -42,15 +42,12 @@ class Sheet extends DataSource {
     });
   }
 
-  async updateSheet(
-    updatedSheet: UpdatedSheet,
-    sheetId: number
-  ): Promise<Array<any>> {
+  async updateSheet(updatedSheet: UpdatedSheet, sheetId: number): Promise<Array<any>> {
     return dbSheet.update(updatedSheet, { where: { id: sheetId } });
   }
 
-  async deleteSheet(sheetId: number): Promise<number> {
-    return await dbSheet.destroy({ where: { id: sheetId } });
+  async deleteSheet(sheetId: number): Promise<boolean> {
+    return (await dbSheet.destroy({ where: { id: sheetId } })) === 1;
   }
 }
 

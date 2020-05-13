@@ -3,8 +3,8 @@ import { gql } from 'apollo-server';
 export interface UserGQL {
   id: number;
   email: string;
-  auth: string;
-  notebook: Array<SheetGQL>;
+  token: string;
+  notebook: NotebookGQL;
 }
 
 export interface NotebookGQL {
@@ -26,17 +26,31 @@ export interface TodoGQL {
   isChecked: boolean;
 }
 
+export interface UserResponseGQL {
+  success: boolean;
+  message: string;
+  user: UserGQL;
+}
+
+export interface TodoUpdateResponseGQL {
+  success: Boolean;
+  message: string;
+  sheet: Array<TodoGQL>;
+}
+
+export interface SheetUpdateResponseGQL {
+  success: Boolean;
+  message: string;
+  notebook: Array<SheetGQL>;
+}
+
 const typeDefs = gql`
   type Query {
     user(email: String): User
   }
 
   type Mutation {
-    createTodo(
-      text: String
-      isChecked: Boolean
-      sheetId: ID!
-    ): TodoUpdateResponse
+    createTodo(text: String, isChecked: Boolean, sheetId: ID!): TodoUpdateResponse
 
     updateTodo(
       todoId: ID!
@@ -49,11 +63,7 @@ const typeDefs = gql`
 
     createSheet(title: String, notebookId: ID!): SheetUpdateResponse
 
-    updateSheet(
-      sheetId: ID!
-      title: String
-      notebookId: ID!
-    ): SheetUpdateResponse
+    updateSheet(sheetId: ID!, title: String, notebookId: ID!): SheetUpdateResponse
 
     deleteSheet(sheetId: ID!, notebookId: ID!): SheetUpdateResponse
 
@@ -104,7 +114,7 @@ const typeDefs = gql`
   type User {
     id: ID!
     email: String
-    auth: String
+    token: String
     notebook: Notebook
   }
 `;
