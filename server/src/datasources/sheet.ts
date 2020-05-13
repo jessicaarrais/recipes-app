@@ -1,5 +1,5 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
-import { dbSheet, SheetStatic, SheetModel } from '../store';
+import { dbSheet, SheetModel } from '../store';
 import { Context } from '..';
 import { SheetGQL } from '../schema';
 
@@ -13,7 +13,6 @@ interface UpdatedSheet {
 }
 
 class Sheet extends DataSource {
-  dbSheet: SheetStatic;
   context: Context;
 
   initialize(config: DataSourceConfig<Context>): void | Promise<void> {

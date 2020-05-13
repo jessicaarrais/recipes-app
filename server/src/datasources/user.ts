@@ -1,14 +1,11 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
-import { Sequelize } from 'sequelize/types';
 import isEmail from 'isemail';
 import Notebook from './notebook';
-import { db, dbUser, UserStatic, UserModel } from '../store';
+import { db, dbUser } from '../store';
 import { Context } from '..';
 import { UserGQL } from '../schema';
 
 class User extends DataSource {
-  db: Sequelize;
-  dbUser: UserStatic;
   context: Context;
 
   initialize(config: DataSourceConfig<Context>): void | Promise<void> {

@@ -1,5 +1,5 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
-import { dbTodo, TodoStatic, TodoModel } from '../store';
+import { dbTodo, TodoModel } from '../store';
 import { Context } from '..';
 import { TodoGQL } from '../schema';
 
@@ -15,7 +15,6 @@ interface UpdatedTodo {
 }
 
 class Todo extends DataSource {
-  dbTodo: TodoStatic;
   context: Context;
 
   initialize(config: DataSourceConfig<Context>): void | Promise<void> {
