@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import ApolloClient from 'apollo-client';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider, useQuery } from '@apollo/react-hooks';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 
 import gql from 'graphql-tag';
+
+import { typeDefs } from './resolvers';
+import Login from './pages/login';
+import Home from './pages/home';
+import NavigationBar from './components/navigationbar';
 
 const cache = new InMemoryCache();
 const client = new ApolloClient({
@@ -22,12 +26,37 @@ const client = new ApolloClient({
     },
   }),
   cache,
+  typeDefs,
 });
+
+cache.writeData({ data: { isLoggedIn: !!localStorage.getItem('token'), notebook: [] } });
+
+const IS_LOGGED_IN = gql`
+  query IsLoggedIn {
+    isLoggedIn @client
+  }
+`;
+
+function LandingPage() {
+  const { data } = useQuery(IS_LOGGED_IN);
+  console.log(data);
+
+  return data.isLoggedIn ? (
+    <div>
+      <NavigationBar />
+      <Home />
+    </div>
+  ) : (
+    <div>
+      <Login />
+    </div>
+  );
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <LandingPage />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
