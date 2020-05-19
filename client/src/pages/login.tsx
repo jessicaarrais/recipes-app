@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
@@ -8,13 +8,9 @@ const LOGIN = gql`
       success
       message
       user {
-        id
-        email
         token
         notebook {
-          id
           notebook {
-            id
             notebookId
             title
             sheet {
@@ -31,23 +27,25 @@ const LOGIN = gql`
 `;
 
 function Login() {
+  const [errorMessage, setErrorMessage] = useState(null);
   const client = useApolloClient();
   let inputLogin: HTMLInputElement;
 
-  const [login, { data, loading }] = useMutation(LOGIN, {
+  const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted(data) {
+      if (!data.login.success) {
+        setErrorMessage(data.login.message);
+        return null;
+      }
       localStorage.setItem('token', data.login.user.token);
       client.writeData({
         data: { isLoggedIn: true, notebook: data.login.user.notebook.notebook },
       });
     },
-    onError(error) {
-      console.log(error.message);
-      console.log(data);
-    },
   });
 
-  if (loading) return <h1>ahuashuashsu</h1>;
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <h1>An error has ocurred</h1>;
 
   return (
     <div>
@@ -65,6 +63,7 @@ function Login() {
         />
         <button type="submit">Login</button>
       </form>
+      {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 }
