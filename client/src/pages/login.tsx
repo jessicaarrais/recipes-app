@@ -35,7 +35,7 @@ function Login() {
     onCompleted(data) {
       if (!data.login.success) {
         setErrorMessage(data.login.message);
-        return null;
+        return;
       }
       localStorage.setItem('token', data.login.user.token);
       client.writeData({
