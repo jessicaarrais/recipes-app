@@ -9,14 +9,14 @@ export interface UserGQL {
 
 export interface NotebookGQL {
   id: number;
-  notebook: Array<SheetGQL>;
+  sheets: Array<SheetGQL>;
 }
 
 export interface SheetGQL {
   id: number;
   notebookId: number;
   title: string;
-  sheet: Array<TodoGQL>;
+  todos: Array<TodoGQL>;
 }
 
 export interface TodoGQL {
@@ -35,13 +35,13 @@ export interface UserResponseGQL {
 export interface TodoUpdateResponseGQL {
   success: Boolean;
   message: string;
-  sheet: Array<TodoGQL>;
+  todos: Array<TodoGQL>;
 }
 
 export interface SheetUpdateResponseGQL {
   success: Boolean;
   message: string;
-  notebook: Array<SheetGQL>;
+  sheets: Array<SheetGQL>;
 }
 
 const typeDefs = gql`
@@ -83,13 +83,13 @@ const typeDefs = gql`
   type TodoUpdateResponse {
     success: Boolean
     message: String
-    sheet: [Todo]
+    todos: [Todo]
   }
 
   type SheetUpdateResponse {
     success: Boolean
     message: String
-    notebook: [Sheet]
+    sheets: [Sheet]
   }
 
   type Todo {
@@ -103,12 +103,12 @@ const typeDefs = gql`
     id: ID!
     notebookId: ID!
     title: String
-    sheet: [Todo]
+    todos: [Todo]
   }
 
   type Notebook {
     id: ID!
-    notebook: [Sheet]
+    sheets: [Sheet]
   }
 
   type User {
