@@ -10,18 +10,6 @@ const LOGIN = gql`
       message
       user {
         token
-        notebook {
-          notebook {
-            notebookId
-            title
-            sheet {
-              id
-              sheetId
-              text
-              isChecked
-            }
-          }
-        }
       }
     }
   }
@@ -40,7 +28,7 @@ function Login() {
       }
       localStorage.setItem('token', data.login.user.token);
       client.writeData({
-        data: { isLoggedIn: true, notebook: data.login.user.notebook.notebook },
+        data: { isLoggedIn: true },
       });
     },
   });
