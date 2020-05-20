@@ -19,8 +19,8 @@ const CREATE_USER = gql`
 
 function Signin() {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [inputSignin, setInputSignin] = useState('');
   const client = useApolloClient();
-  let inputSignin: HTMLInputElement;
 
   const [signin, { error, loading }] = useMutation(CREATE_USER, {
     onCompleted(data) {
@@ -41,11 +41,15 @@ function Signin() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          signin({ variables: { email: inputSignin.value } });
-          inputSignin.value = '';
+          signin({ variables: { email: inputSignin } });
         }}
       >
-        <input ref={(node) => (inputSignin = node as HTMLInputElement)} />
+        <input
+          value={inputSignin}
+          onChange={(e) => {
+            setInputSignin(e.target.value);
+          }}
+        />
         <Button type="submit">Signin</Button>
       </form>
       {errorMessage && <p>{errorMessage}</p>}

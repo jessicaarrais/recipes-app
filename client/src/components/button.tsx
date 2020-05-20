@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 
 interface PropsType {
-  type: 'submit' | 'button' | 'reset' | undefined;
-  children?: string;
-  handleOnClick?(param?: any): void;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  children?: ButtonHTMLAttributes<HTMLButtonElement>['children'];
+  handleOnClick?: ButtonHTMLAttributes<HTMLButtonElement>['onClick'];
 }
 
 function Button(props: PropsType) {

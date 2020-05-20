@@ -29,8 +29,8 @@ const LOGIN = gql`
 
 function Login() {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [inputLogin, setInputLogin] = useState('');
   const client = useApolloClient();
-  let inputLogin: HTMLInputElement;
 
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted(data) {
@@ -53,11 +53,15 @@ function Login() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          login({ variables: { email: inputLogin.value } });
-          inputLogin.value = '';
+          login({ variables: { email: inputLogin } });
         }}
       >
-        <input ref={(node) => (inputLogin = node as HTMLInputElement)} />
+        <input
+          value={inputLogin}
+          onChange={(e) => {
+            setInputLogin(e.target.value);
+          }}
+        />
         <Button type="submit">Login</Button>
       </form>
       {errorMessage && <p>{errorMessage}</p>}
