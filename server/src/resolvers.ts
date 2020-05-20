@@ -26,7 +26,6 @@ const resolvers = {
 
   Mutation: {
     createTodo: async (_, args, context: Context): Promise<TodoUpdateResponseGQL> => {
-      const todos = await context.dataSources.todoAPI.getTodos(args.sheetId);
       const response = await context.dataSources.todoAPI.createTodo({
         text: args.text,
         isChecked: args.isChecked,
@@ -36,12 +35,15 @@ const resolvers = {
         return {
           success: false,
           message: 'Failed creating todo',
-          todos: null,
+          sheet: null,
         };
       }
-      todos.push(response);
-
-      return { success: true, message: 'Todo created', todos };
+      const todos = await context.dataSources.todoAPI.getTodos(args.sheetId);
+      return {
+        success: true,
+        message: 'Todo created',
+        sheet: { id: args.sheetId, todos: todos },
+      };
     },
 
     updateTodo: async (_, args, context: Context): Promise<TodoUpdateResponseGQL> => {
@@ -53,12 +55,15 @@ const resolvers = {
         return {
           success: false,
           message: 'Failed updating todo',
-          todos: null,
+          sheet: null,
         };
       }
       const todos = await context.dataSources.todoAPI.getTodos(args.sheetId);
-
-      return { success: true, message: 'Todo updated', todos };
+      return {
+        success: true,
+        message: 'Todo updated',
+        sheet: { id: args.sheetid, todos },
+      };
     },
 
     deleteTodo: async (_, args, context: Context): Promise<TodoUpdateResponseGQL> => {
@@ -67,12 +72,15 @@ const resolvers = {
         return {
           success: false,
           message: 'Failed deleting todo',
-          todos: null,
+          sheet: null,
         };
       }
       const todos = await context.dataSources.todoAPI.getTodos(args.sheetId);
-
-      return { success: true, message: 'Todo deleted', todos };
+      return {
+        success: true,
+        message: 'Todo deleted',
+        sheet: { id: args.sheetId, todos },
+      };
     },
 
     createSheet: async (_, args, context: Context): Promise<SheetUpdateResponseGQL> => {
@@ -84,12 +92,15 @@ const resolvers = {
         return {
           success: false,
           message: 'Failed creating sheet',
-          sheets: null,
+          notebook: null,
         };
       }
       const sheets = await context.dataSources.sheetAPI.getSheets(args.notebookId);
-
-      return { success: true, message: 'Sheet created', sheets };
+      return {
+        success: true,
+        message: 'Sheet created',
+        notebook: { id: args.notebookId, sheets },
+      };
     },
 
     updateSheet: async (_, args, context: Context): Promise<SheetUpdateResponseGQL> => {
@@ -101,12 +112,15 @@ const resolvers = {
         return {
           success: false,
           message: 'Failed to update sheet',
-          sheets: null,
+          notebook: null,
         };
       }
       const sheets = await context.dataSources.sheetAPI.getSheets(args.notebookId);
-
-      return { success: true, message: 'Sheet updated', sheets };
+      return {
+        success: true,
+        message: 'Sheet updated',
+        notebook: { id: args.notebookId, sheets },
+      };
     },
 
     deleteSheet: async (_, args, context: Context): Promise<SheetUpdateResponseGQL> => {
@@ -115,12 +129,15 @@ const resolvers = {
         return {
           success: false,
           message: 'Failed to delete sheet',
-          sheets: null,
+          notebook: null,
         };
       }
       const sheets = await context.dataSources.sheetAPI.getSheets(args.notebookId);
-
-      return { success: true, message: 'Sheet deleted', sheets };
+      return {
+        success: true,
+        message: 'Sheet deleted',
+        notebook: { id: args.notebookId, sheets },
+      };
     },
 
     signin: async (_, args, context: Context): Promise<UserResponseGQL> => {
@@ -176,7 +193,6 @@ const resolvers = {
           user: null,
         };
       }
-
       return { success: true, message: 'User deleted', user };
     },
   },

@@ -14,8 +14,8 @@ export interface NotebookGQL {
 
 export interface SheetGQL {
   id: number;
-  notebookId: number;
-  title: string;
+  notebookId?: number;
+  title?: string;
   todos: Array<TodoGQL>;
 }
 
@@ -35,13 +35,13 @@ export interface UserResponseGQL {
 export interface TodoUpdateResponseGQL {
   success: Boolean;
   message: string;
-  todos: Array<TodoGQL>;
+  sheet: SheetGQL;
 }
 
 export interface SheetUpdateResponseGQL {
   success: Boolean;
   message: string;
-  sheets: Array<SheetGQL>;
+  notebook: NotebookGQL;
 }
 
 const typeDefs = gql`
@@ -83,13 +83,13 @@ const typeDefs = gql`
   type TodoUpdateResponse {
     success: Boolean
     message: String
-    todos: [Todo]
+    sheet: Sheet
   }
 
   type SheetUpdateResponse {
     success: Boolean
     message: String
-    sheets: [Sheet]
+    notebook: Notebook
   }
 
   type Todo {
