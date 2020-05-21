@@ -46,8 +46,7 @@ function Sheet(props: SheetPropsType) {
       </ul>
       <Button
         type="button"
-        handleOnClick={(e) => {
-          e.preventDefault();
+        handleOnClick={() => {
           deleteSheet({
             variables: { sheetId: props.id, notebookId: props.notebookId },
           });

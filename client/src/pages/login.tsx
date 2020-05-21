@@ -39,8 +39,7 @@ function Login() {
   return (
     <div>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
+        onSubmit={() => {
           login({ variables: { email: inputLogin } });
         }}
       >

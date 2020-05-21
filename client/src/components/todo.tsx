@@ -41,8 +41,7 @@ function Todo(props: TodoPropsType) {
       <p>{props.text}</p>
       <Button
         type="button"
-        handleOnClick={(e) => {
-          e.preventDefault();
+        handleOnClick={() => {
           deleteTodo({ variables: { todoId: props.id, sheetId: props.sheetId } });
         }}
       >
