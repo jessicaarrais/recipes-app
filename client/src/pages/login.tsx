@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import Button from '../components/button';
 
 const LOGIN = gql`
-  mutation login($email: String!) {
+  mutation Login($email: String!) {
     login(email: $email) {
       success
       message
