@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import Sheet from './sheet';
+import Sheet, { SHEET_FRAGMENT } from './sheet';
 import Button from './button';
 
 const NOTEBOOK_FRAGMENT = gql`
@@ -9,17 +9,10 @@ const NOTEBOOK_FRAGMENT = gql`
     __typename
     id
     sheets {
-      id
-      notebookId
-      title
-      todos {
-        id
-        sheetId
-        text
-        isChecked
-      }
+      ...SheetFragment
     }
   }
+  ${SHEET_FRAGMENT}
 `;
 
 const GET_NOTEBOOK = gql`

@@ -3,6 +3,16 @@ import Button from './button';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 
+export const TODO_FRAGMENT = gql`
+  fragment TodoFragment on Todo {
+    __typename
+    id
+    sheetId
+    text
+    isChecked
+  }
+`;
+
 const DELETE_TODO = gql`
   mutation DeleteTodo($todoId: ID!, $sheetId: ID!) {
     deleteTodo(todoId: $todoId, sheetId: $sheetId) {

@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
-import Todo from './todo';
+import Todo, { TODO_FRAGMENT } from './todo';
 import Button from './button';
 import { useMutation } from '@apollo/react-hooks';
+
+export const SHEET_FRAGMENT = gql`
+  fragment SheetFragment on Sheet {
+    __typename
+    id
+    notebookId
+    title
+    todos {
+      ...TodoFragment
+    }
+  }
+  ${TODO_FRAGMENT}
+`;
 
 const DELETE_SHEET = gql`
   mutation DeleteSheet($sheetId: ID!, $notebookId: ID!) {
@@ -23,16 +36,11 @@ const CREATE_TODO = gql`
       success
       message
       sheet {
-        id
-        todos {
-          id
-          sheetId
-          text
-          isChecked
-        }
+        ...SheetFragment
       }
     }
   }
+  ${SHEET_FRAGMENT}
 `;
 
 interface SheetPropsType {
