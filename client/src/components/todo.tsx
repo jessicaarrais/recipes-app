@@ -24,12 +24,12 @@ interface TodoPropsType {
 }
 
 function Todo(props: TodoPropsType) {
+  const [deleteTodo, { error }] = useMutation(DELETE_TODO);
   const [isChecked, setIsChecked] = useState(props.isChecked);
+  const [text, setText] = useState(props.text);
+  const [isEditingText, setIsEditingText] = useState(false);
 
-  const [deleteTodo, { loading, error }] = useMutation(DELETE_TODO);
-
-  if (loading) return <h1>Loading...</h1>;
-  if (error) return <h1>An error has ocurred</h1>;
+  if (error) return <h1>An error has occurred</h1>;
 
   return (
     <li>
@@ -38,7 +38,24 @@ function Todo(props: TodoPropsType) {
         checked={isChecked}
         onChange={(e) => setIsChecked(e.target.checked)}
       />
-      <p>{props.text}</p>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setIsEditingText(false);
+        }}
+      >
+        {isEditingText ? (
+          <input
+            ref={(ref) => ref && ref.focus()}
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onBlur={() => setIsEditingText(false)}
+          />
+        ) : (
+          <p onClick={() => setIsEditingText(true)}>{text === '' ? 'todo' : text}</p>
+        )}
+      </form>
       <Button
         type="button"
         handleOnClick={() => {
