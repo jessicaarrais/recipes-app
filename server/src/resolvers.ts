@@ -26,8 +26,6 @@ const resolvers = {
 
   Mutation: {
     createTodo: async (_, args, context: Context): Promise<TodoUpdateResponseGQL> => {
-      console.log(_);
-
       const response = await context.dataSources.todoAPI.createTodo({
         text: args.text,
         isChecked: args.isChecked,
