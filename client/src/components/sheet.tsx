@@ -21,11 +21,11 @@ const UPDATE_SHEET = gql`
   mutation UpdateSheet($sheetId: ID!, $title: String, $notebookId: ID!) {
     updateSheet(sheetId: $sheetId, title: $title, notebookId: $notebookId) {
       sheet {
-        ...SheetFragment
+        id
+        title
       }
     }
   }
-  ${SHEET_FRAGMENT}
 `;
 
 const DELETE_SHEET = gql`
