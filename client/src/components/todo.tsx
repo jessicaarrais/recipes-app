@@ -44,18 +44,13 @@ interface TodoPropsType {
   text: string;
 }
 
-interface HandleUpdateTodoParams {
-  isChecked?: boolean;
-  text?: string;
-}
-
 function Todo(props: TodoPropsType) {
   const [updateTodo] = useMutation(UPDATE_TODO);
   const [deleteTodo, { error }] = useMutation(DELETE_TODO);
   const [newText, setNewText] = useState('');
   const [isEditingText, setIsEditingText] = useState(false);
 
-  const handleUpdateTodo = ({ isChecked, text }: HandleUpdateTodoParams): void => {
+  const handleUpdateTodoCheckbox = (isChecked: boolean): void => {
     if (isChecked !== props.isChecked) {
       updateTodo({
         variables: {
@@ -65,6 +60,9 @@ function Todo(props: TodoPropsType) {
         },
       });
     }
+  };
+
+  const handleUpdateTodoText = (text: string): void => {
     setIsEditingText(false);
     if (text !== props.text) {
       updateTodo({
@@ -85,7 +83,7 @@ function Todo(props: TodoPropsType) {
         type="checkbox"
         checked={props.isChecked}
         onChange={(e) => {
-          handleUpdateTodo({ isChecked: e.target.checked });
+          handleUpdateTodoCheckbox(e.target.checked);
         }}
       />
       {isEditingText ? (
@@ -95,9 +93,9 @@ function Todo(props: TodoPropsType) {
           value={newText}
           onChange={(e) => setNewText(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') handleUpdateTodo({ text: newText });
+            if (e.key === 'Enter') handleUpdateTodoText(newText);
           }}
-          onBlur={() => handleUpdateTodo({ text: newText })}
+          onBlur={() => handleUpdateTodoText(newText)}
         />
       ) : (
         <p
