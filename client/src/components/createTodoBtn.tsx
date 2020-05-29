@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { TODO_FRAGMENT } from './todo';
+import Button from './button';
 
 const CREATE_TODO = gql`
   mutation CreateTodo($text: String, $isChecked: Boolean, $sheetId: ID!) {
@@ -30,9 +31,9 @@ function CreateTodoBtn(props: CreateTodoBtnProps) {
   const [createTodo] = useMutation(CREATE_TODO);
 
   return (
-    <button type="button" onClick={() => createTodo({ variables: props })}>
+    <Button type="button" handleOnClick={() => createTodo({ variables: props })}>
       new todo
-    </button>
+    </Button>
   );
 }
 
