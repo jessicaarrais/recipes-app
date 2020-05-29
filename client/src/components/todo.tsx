@@ -1,6 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import DeleteTodoBtn from './DeleteTodoButton';
+import DeleteTodoButton from './DeleteTodoButton';
 import TodoCheckbox from './TodoCheckbox';
 import TodoText from './TodoText';
 
@@ -30,7 +30,7 @@ function Todo(props: Props) {
         sheetId={props.sheetId}
       />
       <TodoText todoId={props.id} text={props.text} sheetId={props.sheetId} />
-      <DeleteTodoBtn todoId={props.id} sheetId={props.sheetId} />
+      <DeleteTodoButton todoId={props.id} sheetId={props.sheetId} />
     </li>
   );
 }
