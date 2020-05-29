@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import Button from './button';
+import Button from './Button';
 
 const DELETE_SHEET = gql`
   mutation DeleteSheet($sheetId: ID!, $notebookId: ID!) {
@@ -16,12 +16,12 @@ const DELETE_SHEET = gql`
   }
 `;
 
-interface DeleteSheetProps {
+interface Props {
   sheetId: number;
   notebookId: number;
 }
 
-function DeleteSheet(props: DeleteSheetProps) {
+function DeleteSheetButton(props: Props) {
   const [deleteSheet] = useMutation(DELETE_SHEET);
 
   return (
@@ -31,4 +31,4 @@ function DeleteSheet(props: DeleteSheetProps) {
   );
 }
 
-export default DeleteSheet;
+export default DeleteSheetButton;

@@ -1,8 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import Sheet, { SHEET_FRAGMENT } from './sheet';
-import CreateSheetBtn from './createSheetBtn';
+import Sheet, { SHEET_FRAGMENT } from './Sheet';
+import CreateSheetButton from './CreateSheetButton';
 
 export const NOTEBOOK_FRAGMENT = gql`
   fragment NotebookFragment on Notebook {
@@ -34,7 +34,7 @@ function Notebook() {
 
   return (
     <div>
-      <CreateSheetBtn notebookId={data.user.notebook.id} />
+      <CreateSheetButton title={'Title'} notebookId={data.user.notebook.id} />
       <ul>
         {data?.user.notebook.sheets.map((sheet: any) => (
           <Sheet

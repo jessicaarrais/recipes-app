@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import Button from './button';
+import Button from './Button';
 
 const DELETE_TODO = gql`
   mutation DeleteTodo($todoId: ID!, $sheetId: ID!) {
@@ -16,12 +16,12 @@ const DELETE_TODO = gql`
   }
 `;
 
-interface DeleteTodoBtnProps {
+interface Props {
   todoId: number;
   sheetId: number;
 }
 
-function DeleteTodoBtn(props: DeleteTodoBtnProps) {
+function DeleteTodoButton(props: Props) {
   const [deleteTodo, { error }] = useMutation(DELETE_TODO);
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
@@ -33,4 +33,4 @@ function DeleteTodoBtn(props: DeleteTodoBtnProps) {
   );
 }
 
-export default DeleteTodoBtn;
+export default DeleteTodoButton;

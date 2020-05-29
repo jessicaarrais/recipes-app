@@ -1,9 +1,9 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import Todo, { TODO_FRAGMENT } from './todo';
-import CreateTodoBtn from './createTodoBtn';
-import DeleteSheet from './deleteSheetBtn';
-import SheetTitle from './sheetTitle';
+import Todo, { TODO_FRAGMENT } from './Todo';
+import CreateTodoButton from './CreateTodoButton';
+import DeleteSheetButton from './DeleteSheetButton';
+import SheetTitle from './SheetTitle';
 
 export const SHEET_FRAGMENT = gql`
   fragment SheetFragment on Sheet {
@@ -18,14 +18,14 @@ export const SHEET_FRAGMENT = gql`
   ${TODO_FRAGMENT}
 `;
 
-interface SheetPropsType {
+interface Props {
   id: number;
   notebookId: number;
   title: string;
   todos: [];
 }
 
-function Sheet(props: SheetPropsType) {
+function Sheet(props: Props) {
   return (
     <li>
       <SheetTitle id={props.id} notebookId={props.notebookId} title={props.title} />
@@ -40,8 +40,8 @@ function Sheet(props: SheetPropsType) {
           />
         ))}
       </ul>
-      <CreateTodoBtn text="todo" isChecked={false} sheetId={props.id} />
-      <DeleteSheet sheetId={props.id} notebookId={props.notebookId} />
+      <CreateTodoButton text="todo" isChecked={false} sheetId={props.id} />
+      <DeleteSheetButton sheetId={props.id} notebookId={props.notebookId} />
     </li>
   );
 }

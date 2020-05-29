@@ -15,13 +15,13 @@ const UPDATE_TODO = gql`
   }
 `;
 
-interface TodoCheckboxProps {
+interface Props {
   todoId: number;
   isChecked: boolean;
   sheetId: number;
 }
 
-function TodoCheckbox(props: TodoCheckboxProps) {
+function TodoCheckbox(props: Props) {
   const [updateTodo, { error }] = useMutation(UPDATE_TODO);
 
   const handleUpdateTodoCheckbox = (isChecked: boolean): void => {

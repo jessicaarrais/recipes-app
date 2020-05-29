@@ -1,8 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import { TODO_FRAGMENT } from './todo';
-import Button from './button';
+import { TODO_FRAGMENT } from './Todo';
+import Button from './Button';
 
 const CREATE_TODO = gql`
   mutation CreateTodo($text: String, $isChecked: Boolean, $sheetId: ID!) {
@@ -21,13 +21,13 @@ const CREATE_TODO = gql`
   ${TODO_FRAGMENT}
 `;
 
-interface CreateTodoBtnProps {
+interface Props {
   text: string;
   isChecked: boolean;
   sheetId: number;
 }
 
-function CreateTodoBtn(props: CreateTodoBtnProps) {
+function CreateTodoButton(props: Props) {
   const [createTodo] = useMutation(CREATE_TODO);
 
   return (
@@ -37,4 +37,4 @@ function CreateTodoBtn(props: CreateTodoBtnProps) {
   );
 }
 
-export default CreateTodoBtn;
+export default CreateTodoButton;

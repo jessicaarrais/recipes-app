@@ -1,8 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import DeleteTodoBtn from './deleteTodoBtn';
-import TodoCheckbox from './todoCheckbox';
-import TodoText from './todoText';
+import DeleteTodoBtn from './DeleteTodoButton';
+import TodoCheckbox from './TodoCheckbox';
+import TodoText from './TodoText';
 
 export const TODO_FRAGMENT = gql`
   fragment TodoFragment on Todo {
@@ -14,14 +14,14 @@ export const TODO_FRAGMENT = gql`
   }
 `;
 
-interface TodoPropsType {
+interface Props {
   id: number;
   sheetId: number;
   isChecked: boolean;
   text: string;
 }
 
-function Todo(props: TodoPropsType) {
+function Todo(props: Props) {
   return (
     <li>
       <TodoCheckbox

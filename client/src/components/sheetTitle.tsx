@@ -13,13 +13,13 @@ const UPDATE_SHEET = gql`
   }
 `;
 
-interface SheetTitleType {
+interface Props {
   id: number;
   notebookId: number;
   title: string;
 }
 
-function SheetTitle(props: SheetTitleType) {
+function SheetTitle(props: Props) {
   const [updateSheet, { error }] = useMutation(UPDATE_SHEET);
   const [newTitle, setNewTitle] = useState(props.title);
   const [isEditingTitle, setIsEditingTitle] = useState(false);

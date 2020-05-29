@@ -15,13 +15,13 @@ const UPDATE_TODO = gql`
   }
 `;
 
-interface TodoTextboxProps {
+interface Props {
   todoId: number;
   text: string;
   sheetId: number;
 }
 
-function TodoText(props: TodoTextboxProps) {
+function TodoText(props: Props) {
   const [updateTodo, { error }] = useMutation(UPDATE_TODO);
   const [newText, setNewText] = useState(props.text);
   const [isEditingText, setIsEditingText] = useState(false);

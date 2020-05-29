@@ -1,8 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import Button from './button';
-import { SHEET_FRAGMENT } from './sheet';
+import Button from './Button';
+import { SHEET_FRAGMENT } from './Sheet';
 
 const CREATE_SHEET = gql`
   mutation CreateSheet($title: String, $notebookId: ID!) {
@@ -18,11 +18,12 @@ const CREATE_SHEET = gql`
   ${SHEET_FRAGMENT}
 `;
 
-interface CreateSheetProps {
+interface Props {
+  title: string;
   notebookId: number;
 }
 
-function CreateSheetBtn(props: CreateSheetProps) {
+function CreateSheetButton(props: Props) {
   const [createSheet, { error }] = useMutation(CREATE_SHEET);
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
@@ -32,7 +33,7 @@ function CreateSheetBtn(props: CreateSheetProps) {
       type="button"
       handleOnClick={() =>
         createSheet({
-          variables: { title: 'Title', notebookId: props.notebookId },
+          variables: { title: props.title, notebookId: props.notebookId },
         })
       }
     >
@@ -41,4 +42,4 @@ function CreateSheetBtn(props: CreateSheetProps) {
   );
 }
 
-export default CreateSheetBtn;
+export default CreateSheetButton;
