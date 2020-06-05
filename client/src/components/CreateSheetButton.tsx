@@ -38,11 +38,16 @@ function CreateSheetButton(props: Props) {
           variables: { title: props.title, notebookId: props.notebookId },
         })
       }
-      handleOnKeyDown={() =>
-        createSheet({
-          variables: { title: props.title, notebookId: props.notebookId },
-        })
-      }
+      handleOnKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          createSheet({
+            variables: {
+              title: props.title,
+              notebookId: props.notebookId,
+            },
+          });
+        }
+      }}
     >
       New Sheet
     </Button>

@@ -32,7 +32,9 @@ function DeleteTodoButton(props: Props) {
       styleType="danger"
       icon="clear"
       handleOnClick={() => deleteTodo({ variables: props })}
-      handleOnKeyDown={() => deleteTodo({ variables: props })}
+      handleOnKeyDown={(e) => {
+        if (e.key === 'Enter') deleteTodo({ variables: props });
+      }}
     >
       delete todo
     </Button>

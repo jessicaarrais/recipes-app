@@ -57,9 +57,11 @@ function SheetTitle(props: Props) {
             setIsEditingTitle(true);
             setNewTitle(props.title);
           }}
-          onKeyDown={() => {
-            setIsEditingTitle(true);
-            setNewTitle(props.title);
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              setIsEditingTitle(true);
+              setNewTitle(props.title);
+            }
           }}
         >
           {props.title}
