@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
-import Button from './Button';
 import Settings from '../pages/Settings';
+import Button from './Button';
 
 const nav: CSSProperties = {
   display: 'flex',
@@ -17,12 +17,16 @@ function NavigationBar() {
     localStorage.clear();
     client.cache.reset();
     client.writeData({
-      data: { isLoggedIn: false, notebook: [] },
+      data: {
+        isLoggedIn: false,
+        username: '',
+      },
     });
   };
 
   return (
     <nav style={nav}>
+      <h3>{localStorage.getItem('username')}</h3>
       <Button styleType="default" icon="menu" />
       <Button
         type="button"

@@ -19,7 +19,7 @@ export const NOTEBOOK_FRAGMENT = gql`
   ${SHEET_FRAGMENT}
 `;
 
-const GET_NOTEBOOK = gql`
+export const GET_NOTEBOOK = gql`
   query User {
     user {
       notebook {
