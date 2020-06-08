@@ -10,23 +10,22 @@ const nav: CSSProperties = {
   boxShadow: '0 0 3px 0 gray',
 };
 
-function NavigationBar() {
+interface Props {
+  username: string;
+}
+
+function NavigationBar(props: Props) {
   const client = useApolloClient();
 
   const handleLogout = () => {
     localStorage.clear();
     client.cache.reset();
-    client.writeData({
-      data: {
-        isLoggedIn: false,
-        username: '',
-      },
-    });
+    client.writeData({ data: { isLoggedIn: false } });
   };
 
   return (
     <nav style={nav}>
-      <h3>{localStorage.getItem('username')}</h3>
+      <h3>{props.username}</h3>
       <Button styleType="default" icon="menu" />
       <Button
         type="button"

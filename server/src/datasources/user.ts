@@ -36,7 +36,7 @@ class User extends DataSource {
     };
   }
 
-  async createUser({ email, username: username }: NewUser): Promise<UserGQL> {
+  async createUser({ email, username }: NewUser): Promise<UserGQL> {
     if (!isEmail.validate(email)) throw new Error('Invalid email.');
 
     await db.sync();

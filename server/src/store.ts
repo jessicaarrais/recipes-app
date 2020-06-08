@@ -33,7 +33,6 @@ export const dbUser = <UserStatic>db.define('user', {
     unique: true,
     validate: {
       notEmpty: true,
-      len: [8, 16],
     },
   },
   email: {
