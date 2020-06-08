@@ -30,9 +30,7 @@ function Login() {
       }
       localStorage.setItem('token', data.login.user.token);
       localStorage.setItem('username', data.login.user.username);
-      client.writeData({
-        data: { isLoggedIn: true, username: data.login.user.username },
-      });
+      client.writeData({ data: { isLoggedIn: true } });
     },
   });
 
