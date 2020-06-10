@@ -33,13 +33,8 @@ function Todo(props: Props) {
   return (
     <li
       style={li}
-      tabIndex={0}
-      onFocus={(e) => {
-        setIsShowingDeleteTodoButton(true);
-      }}
-      onBlur={(e) => {
-        setIsShowingDeleteTodoButton(false);
-      }}
+      onFocus={() => setIsShowingDeleteTodoButton(true)}
+      onBlur={() => setIsShowingDeleteTodoButton(false)}
     >
       <TodoCheckbox
         todoId={props.id}
