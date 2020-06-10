@@ -38,6 +38,7 @@ interface Props {
   icon?: 'menu' | 'create' | 'add' | 'delete' | 'clear' | 'delete_forever';
   handleOnClick?: ButtonHTMLAttributes<HTMLButtonElement>['onClick'];
   handleOnKeyDown?: ButtonHTMLAttributes<HTMLButtonElement>['onKeyDown'];
+  handleOnBlur?: ButtonHTMLAttributes<HTMLButtonElement>['onBlur'];
 }
 
 function Button(props: Props) {
@@ -46,11 +47,11 @@ function Button(props: Props) {
       <button
         type={props.type}
         style={styles[props.styleType]}
-        tabIndex={0}
         onClick={props.handleOnClick}
         onKeyDown={props.handleOnKeyDown}
+        onBlur={props.handleOnBlur}
       >
-        <span className="material-icons md-18">{props.icon}</span>
+        <span className="material-icons">{props.icon}</span>
         {props.children}
       </button>
     </>
