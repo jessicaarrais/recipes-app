@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const nav: CSSProperties = {
   display: 'flex',
@@ -16,21 +16,12 @@ interface Props {
 }
 
 function NavigationBar(props: Props) {
-  const history = useHistory();
-
-  const handleToSettingsNavigation = () => history.push('/account-settings');
-
   return (
     <nav style={nav}>
-      <div
-        style={userInfo}
-        tabIndex={0}
-        onClick={handleToSettingsNavigation}
-        onKeyDown={handleToSettingsNavigation}
-      >
+      <Link to="/account-settings">
         <h3>{props.username}</h3>
         <img alt="user's avatar" />
-      </div>
+      </Link>
     </nav>
   );
 }

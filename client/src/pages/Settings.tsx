@@ -15,27 +15,15 @@ function Settings() {
     history.push('/');
   };
 
-  const handleBackToHomeNavigation = () => history.push('/home');
+  const navigateToHome = () => history.push('/home');
 
   return (
     <>
-      <Button
-        type="button"
-        styleType="default"
-        handleOnClick={handleBackToHomeNavigation}
-        handleOnKeyDown={handleBackToHomeNavigation}
-      >
+      <Button type="button" styleType="default" handleOnClick={navigateToHome}>
         Back to Home
       </Button>
       <DeleteUserButton />
-      <Button
-        type="button"
-        styleType="default"
-        handleOnClick={handleLogout}
-        handleOnKeyDown={(e) => {
-          if (e.key === 'Enter') handleLogout();
-        }}
-      >
+      <Button type="button" styleType="default" handleOnClick={handleLogout}>
         Logout
       </Button>
     </>
