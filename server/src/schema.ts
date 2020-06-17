@@ -5,7 +5,17 @@ export interface UserGQL {
   username: string;
   email: string;
   token: string;
+  avatar?: AvatarGQL;
   notebook: NotebookGQL;
+}
+
+export interface AvatarGQL {
+  id: number;
+  userId: number;
+  filename: string;
+  mimetype: string;
+  filesize: number;
+  encoding: string;
 }
 
 export interface NotebookGQL {
@@ -34,39 +44,45 @@ export interface UserResponseGQL {
 }
 
 export interface TodoCreateResponseGQL {
-  success: Boolean;
+  success: boolean;
   message: string;
   sheet: SheetGQL;
 }
 
 export interface TodoUpdateResponseGQL {
-  success: Boolean;
+  success: boolean;
   message: string;
   todo: TodoGQL;
 }
 
 export interface TodoDeleteResponseGQL {
-  success: Boolean;
+  success: boolean;
   message: string;
   sheet: SheetGQL;
 }
 
 export interface SheetCreateResponseGQL {
-  success: Boolean;
+  success: boolean;
   message: string;
   notebook: NotebookGQL;
 }
 
 export interface SheetUpdateResponseGQL {
-  success: Boolean;
+  success: boolean;
   message: string;
   sheet: SheetGQL;
 }
 
 export interface SheetDeleteResponseGQL {
-  success: Boolean;
+  success: boolean;
   message: string;
   notebook: NotebookGQL;
+}
+
+export interface AvatarResponseGQL {
+  success: boolean;
+  message: string;
+  avatar: AvatarGQL;
 }
 
 const typeDefs = gql`
@@ -99,6 +115,8 @@ const typeDefs = gql`
     updateUser(username: String): UserResponse
 
     deleteUser: UserResponse
+
+    uploadAvatar(file: Upload!): AvatarResponseGQL
   }
 
   type TodoCreateResponse {
@@ -137,6 +155,12 @@ const typeDefs = gql`
     notebook: Notebook
   }
 
+  type AvatarResponseGQL {
+    success: Boolean
+    message: String
+    avatar: Avatar
+  }
+
   type UserResponse {
     success: Boolean
     message: String
@@ -162,11 +186,21 @@ const typeDefs = gql`
     sheets: [Sheet]
   }
 
+  type Avatar {
+    id: ID!
+    userId: ID!
+    filename: String
+    mimetype: String
+    filesize: Int
+    encoding: String
+  }
+
   type User {
     id: ID!
     username: String
     email: String
     token: String
+    avatar: Avatar
     notebook: Notebook
   }
 `;

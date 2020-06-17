@@ -29,7 +29,7 @@ const avatar: CSSProperties = {
 
 interface Props {
   username: string;
-  avatar?: string;
+  avatarFilename?: string;
 }
 
 function NavigationBar(props: Props) {
@@ -37,7 +37,15 @@ function NavigationBar(props: Props) {
     <nav style={nav}>
       <Link to="/account-settings" style={link}>
         <span style={username}>{props.username}</span>
-        <img alt="user's avatar" src={props.avatar} style={avatar} />
+        <img
+          alt="user's avatar"
+          src={
+            props.avatarFilename
+              ? require(`./../../../server/images/${props.avatarFilename}`)
+              : require('./../assets/img/chinchilla.jpg')
+          }
+          style={avatar}
+        />
       </Link>
     </nav>
   );
