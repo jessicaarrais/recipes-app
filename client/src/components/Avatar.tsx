@@ -50,10 +50,7 @@ function Avatar(props: Props) {
       <input id="avatar" type="file" onChange={handleUploadAvatar} />
       {errorMessage && <p>{errorMessage}</p>}
       {filenameState && (
-        <img
-          src={require(`./../../../server/images/${filenameState}`)}
-          alt="user's avatar"
-        />
+        <img src={`http://localhost:4000/images/${filenameState}`} alt="user's avatar" />
       )}
     </div>
   );

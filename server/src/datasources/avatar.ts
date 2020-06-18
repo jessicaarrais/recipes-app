@@ -1,8 +1,7 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
-import mkdirp from 'mkdirp';
-import { Context } from '..';
-import { createWriteStream, unlink } from 'fs';
+import { createWriteStream, unlink, existsSync, mkdirSync } from 'fs';
 import path from 'path';
+import { Context } from '..';
 import { dbAvatar, db } from '../store';
 import { AvatarGQL } from '../schema';
 
@@ -30,16 +29,17 @@ class Avatar extends DataSource {
         });
       }
 
-      const UPLOAD_DIR = './images';
-      mkdirp.sync(UPLOAD_DIR);
+      existsSync(path.join(__dirname, '../../images')) ||
+        mkdirSync(path.join(__dirname, '../../images'));
+
       const stream = createReadStream();
-      const path = `${UPLOAD_DIR}/${filename}`;
+      const imgPath = path.join(__dirname, '../../images', filename);
 
       await new Promise((resolve, reject) => {
-        const writeStream = createWriteStream(path);
+        const writeStream = createWriteStream(imgPath);
         writeStream.on('finish', resolve);
         writeStream.on('error', (error) => {
-          unlink(path, () => {
+          unlink(imgPath, () => {
             reject(error);
           });
         });

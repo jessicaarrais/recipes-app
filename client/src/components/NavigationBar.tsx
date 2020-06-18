@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
+import standartAvatar from './../assets/img/chinchilla.jpg';
 
 const nav: CSSProperties = {
   display: 'flex',
@@ -41,8 +42,8 @@ function NavigationBar(props: Props) {
           alt="user's avatar"
           src={
             props.avatarFilename
-              ? require(`./../../../server/images/${props.avatarFilename}`)
-              : require('./../assets/img/chinchilla.jpg')
+              ? `http://localhost:4000/images/${props.avatarFilename}`
+              : standartAvatar
           }
           style={avatar}
         />
