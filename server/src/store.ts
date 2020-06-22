@@ -56,7 +56,6 @@ export interface AvatarModel extends Model {
   userId: number;
   filename: string;
   mimetype: string;
-  filesize: number;
   encoding: string;
   createdAt: Date;
   updatedAt: Date;
@@ -74,7 +73,6 @@ export const dbAvatar = <AvatarStatic>db.define('avatar', {
   userId: DataType.INTEGER,
   filename: DataType.STRING,
   mimetype: DataType.STRING,
-  filesize: DataType.INTEGER,
   encoding: DataType.STRING,
   createdAt: DataType.DATE,
   updatedAt: DataType.DATE,

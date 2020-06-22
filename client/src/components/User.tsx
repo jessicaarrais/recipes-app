@@ -19,7 +19,7 @@ const UPDATE_USER = gql`
 
 interface Props {
   username: string;
-  avatarFilename?: string;
+  uri?: string;
 }
 
 function User(props: Props) {
@@ -68,7 +68,7 @@ function User(props: Props) {
         </p>
       )}
       {errorMessage && <p>{errorMessage}</p>}
-      <Avatar avatarFilename={props.avatarFilename} />
+      <Avatar uri={props.uri} />
       <DeleteUserButton />
     </>
   );

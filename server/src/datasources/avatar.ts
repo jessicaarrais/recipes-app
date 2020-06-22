@@ -1,5 +1,6 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import { createWriteStream, unlink, existsSync, mkdirSync } from 'fs';
+import sharp from 'sharp';
 import path from 'path';
 import { Context } from '..';
 import { dbAvatar, db } from '../store';
@@ -24,7 +25,6 @@ class Avatar extends DataSource {
         await newAvatar.update({
           filename,
           mimetype,
-          filesize: 1,
           encoding,
         });
       }
@@ -35,6 +35,9 @@ class Avatar extends DataSource {
       const stream = createReadStream();
       const imgPath = path.join(__dirname, '../../images', filename);
 
+      const transform = sharp();
+      transform.resize(150, 150, { fit: 'cover' });
+
       await new Promise((resolve, reject) => {
         const writeStream = createWriteStream(imgPath);
         writeStream.on('finish', resolve);
@@ -44,20 +47,16 @@ class Avatar extends DataSource {
           });
         });
         stream.on('error', (error) => writeStream.destroy(error));
-        stream.pipe(writeStream);
+        stream.pipe(transform).pipe(writeStream);
       });
 
       return {
         id: newAvatar.id,
         userId: newAvatar.userId,
         filename: newAvatar.filename,
-        mimetype: newAvatar.mimetype,
-        filesize: newAvatar.filesize,
-        encoding: newAvatar.encoding,
+        uri: `http://localhost:4000/images/${filename}`,
       };
     } catch (error) {
-      console.log(error);
-
       throw new Error(error.errors[0].message);
     }
   }

@@ -9,18 +9,18 @@ const UPLOAD_AVATAR = gql`
       message
       avatar {
         id
-        filename
+        uri
       }
     }
   }
 `;
 
 interface Props {
-  avatarFilename?: string;
+  uri?: string;
 }
 
 function Avatar(props: Props) {
-  const [filenameState, setFilenameState] = useState(props.avatarFilename);
+  const [uriState, setUriState] = useState(props.uri);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [uploadAvatar, { loading, error }] = useMutation(UPLOAD_AVATAR, {
@@ -29,7 +29,7 @@ function Avatar(props: Props) {
         setErrorMessage(data.uploadAvatar.message);
         return;
       }
-      setFilenameState(data.uploadAvatar.avatar.filename);
+      setUriState(data.uploadAvatar.avatar.uri);
     },
   });
 
@@ -49,9 +49,7 @@ function Avatar(props: Props) {
       <label htmlFor="avatar">Upload photo</label>
       <input id="avatar" type="file" onChange={handleUploadAvatar} />
       {errorMessage && <p>{errorMessage}</p>}
-      {filenameState && (
-        <img src={`http://localhost:4000/images/${filenameState}`} alt="user's avatar" />
-      )}
+      {uriState && <img src={uriState} alt="user's avatar" />}
     </div>
   );
 }

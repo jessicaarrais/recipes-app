@@ -7,7 +7,7 @@ import User from '../components/User';
 
 interface Props {
   username: string;
-  avatarFilename?: string;
+  uri?: string;
 }
 
 function Settings(props: Props) {
@@ -27,7 +27,7 @@ function Settings(props: Props) {
       <Button type="button" styleType="default" handleOnClick={handleLogout}>
         Logout
       </Button>
-      <User username={props.username} avatarFilename={props.avatarFilename} />
+      <User username={props.username} uri={props.uri} />
     </>
   );
 }

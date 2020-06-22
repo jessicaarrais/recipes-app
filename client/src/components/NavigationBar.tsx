@@ -24,13 +24,14 @@ const avatar: CSSProperties = {
   marginLeft: '16px',
   width: '32px',
   height: '32px',
+  objectFit: 'cover',
   fontSize: '12px',
   boxShadow: '0 0 0 2px hotpink',
 };
 
 interface Props {
   username: string;
-  avatarFilename?: string;
+  uri?: string;
 }
 
 function NavigationBar(props: Props) {
@@ -40,11 +41,7 @@ function NavigationBar(props: Props) {
         <span style={username}>{props.username}</span>
         <img
           alt="user's avatar"
-          src={
-            props.avatarFilename
-              ? `http://localhost:4000/images/${props.avatarFilename}`
-              : standartAvatar
-          }
+          src={props.uri ? props.uri : standartAvatar}
           style={avatar}
         />
       </Link>

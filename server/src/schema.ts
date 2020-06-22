@@ -12,10 +12,8 @@ export interface UserGQL {
 export interface AvatarGQL {
   id: number;
   userId: number;
+  uri: string;
   filename: string;
-  mimetype: string;
-  filesize: number;
-  encoding: string;
 }
 
 export interface NotebookGQL {
@@ -189,10 +187,8 @@ const typeDefs = gql`
   type Avatar {
     id: ID!
     userId: ID!
+    uri: String
     filename: String
-    mimetype: String
-    filesize: Int
-    encoding: String
   }
 
   type User {
