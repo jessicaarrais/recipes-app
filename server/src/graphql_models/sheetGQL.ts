@@ -14,11 +14,9 @@ class SheetGQL {
   }
 
   async todos(_args, context: Context): Promise<Array<TodoGQL>> {
-    const todos = (await context.dataSources.todoAPI.getTodos(this.id)).map(
+    return (await context.dataSources.todoAPI.getTodos(this.id)).map(
       (todoModel) => new TodoGQL(todoModel)
     );
-    if (!todos) return null;
-    return todos;
   }
 }
 
