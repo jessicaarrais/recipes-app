@@ -12,6 +12,8 @@
 .todo-text {
   display: 'inline-block';
   margin-left: 8px;
+  width: 100%;
+  min-height: 16px;
 }
 
 .todo-text:hover {
