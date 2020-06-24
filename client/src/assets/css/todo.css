@@ -1,0 +1,23 @@
+.todo-li {
+  display: flex;
+  align-items: center;
+  width: 560px;
+  height: 64px;
+}
+
+.todo-checkbox {
+  box-shadow: 0 0 0 2px antiquewhite;
+}
+
+.todo-text {
+  display: 'inline-block';
+  margin-left: 8px;
+}
+
+.todo-text:hover {
+  background-color: antiquewhite;
+}
+
+.todo-text:active {
+  background-color: thistle;
+}

@@ -1,17 +1,10 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import gql from 'graphql-tag';
 import Todo, { TODO_FRAGMENT } from './Todo';
 import CreateTodoButton from './CreateTodoButton';
 import DeleteSheetButton from './DeleteSheetButton';
 import SheetTitle from './SheetTitle';
-
-const li: CSSProperties = {
-  padding: '24px',
-  marginBottom: '16px',
-  boxShadow: '1px 1px 3px 1px lightgray',
-  borderRadius: '8px',
-  listStyle: 'none',
-};
+import '../assets/css/sheet.css';
 
 export const SHEET_FRAGMENT = gql`
   fragment SheetFragment on Sheet {
@@ -36,7 +29,7 @@ interface Props {
 function Sheet(props: Props) {
   return (
     <>
-      <li style={li}>
+      <li className="sheet-li">
         <SheetTitle id={props.id} notebookId={props.notebookId} title={props.title} />
         <ul>
           {props.todos.map((todo: any) => (

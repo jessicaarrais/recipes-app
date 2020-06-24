@@ -1,10 +1,7 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import Sheet from './Sheet';
 import CreateSheetButton from './CreateSheetButton';
-
-const ul: CSSProperties = {
-  padding: '0',
-};
+import '../assets/css/notebook.css';
 
 interface Props {
   id: number;
@@ -15,7 +12,7 @@ function Notebook(props: Props) {
   return (
     <div>
       <CreateSheetButton title="Title" notebookId={props.id} />
-      <ul style={ul}>
+      <ul className="notebook-ul">
         {props.sheets.map((sheet: any) => (
           <Sheet
             key={sheet.id}
