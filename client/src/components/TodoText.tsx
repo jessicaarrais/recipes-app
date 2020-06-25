@@ -43,6 +43,7 @@ function TodoText(props: Props) {
       {isEditingText ? (
         <>
           <input
+            className="todo-text-input"
             ref={(ref) => ref && ref.focus()}
             type="text"
             value={newText}

@@ -7,6 +7,7 @@ import { SHEET_FRAGMENT } from '../components/Sheet';
 import NavigationBar from '../components/NavigationBar';
 import Settings from './Settings';
 import '../assets/css/loggedin.css';
+import Button from '../components/Button';
 
 export const NOTEBOOK_FRAGMENT = gql`
   fragment NotebookFragment on Notebook {
@@ -50,10 +51,15 @@ function LoggedIn() {
           <Route
             path="/home"
             render={() => (
-              <Home
-                notebookId={data.user.notebook.id}
-                sheets={data.user.notebook.sheets}
-              />
+              <>
+                <Home
+                  notebookId={data.user.notebook.id}
+                  sheets={data.user.notebook.sheets}
+                />
+                <div className="back-to-top-icon">
+                  <Button type="button" icon="keyboard_arrow_up" styleType="icon" />
+                </div>
+              </>
             )}
           />
           <Route

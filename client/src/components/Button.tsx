@@ -1,11 +1,21 @@
-import React, { ButtonHTMLAttributes, CSSProperties } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import '../assets/css/button.css';
 
 interface Props {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   children?: ButtonHTMLAttributes<HTMLButtonElement>['children'];
-  styleType: 'primary' | 'danger' | 'default';
-  icon?: 'menu' | 'create' | 'add' | 'delete' | 'clear' | 'delete_forever';
+  styleType: 'primary' | 'danger' | 'default' | 'icon-disguised' | 'icon';
+  icon?:
+    | 'menu'
+    | 'create'
+    | 'add'
+    | 'delete'
+    | 'clear'
+    | 'delete_forever'
+    | 'filter_list'
+    | 'sort'
+    | 'favorite_border'
+    | 'keyboard_arrow_up';
   handleOnClick?: ButtonHTMLAttributes<HTMLButtonElement>['onClick'];
 }
 

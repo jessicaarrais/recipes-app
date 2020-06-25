@@ -37,7 +37,7 @@ function SheetTitle(props: Props) {
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
   return (
-    <div>
+    <div className="sheet-title-container">
       {isEditingTitle ? (
         <input
           className="sheet-title-input"

@@ -6,12 +6,23 @@
   list-style: none;
 }
 
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sheet-title-container {
+  min-width: 25%;
+}
+
 .sheet-title,
 .sheet-title-input {
   display: inline-block;
-  font-size: 20px;
   width: 100%;
-  min-height: 32px;
+  min-height: 20px;
+  font-size: 20px;
 }
 
 .sheet-title-input {
