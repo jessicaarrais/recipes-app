@@ -82,7 +82,7 @@ function Recipe(props: Props) {
         </div>
         <div className="create-instruction-container">
           <CreateInstructionButton
-            step={props.instructions?.length ? ++props.instructions.length : 1}
+            step={props.instructions?.length ? props.instructions.length + 1 : 1}
             text={'Instruction'}
             recipeId={props.id}
           />
