@@ -33,21 +33,34 @@ interface Props {
 function InstructionStep(props: Props) {
   const [updateInstruction] = useMutation(UPDATE_INSTRUCTION);
 
-  const onSubmit = (step: string) => {
+  const validate = (step: string): number => {
     const stepToInt = parseInt(step, 10);
-    updateInstruction({
-      variables: {
-        instructionId: props.instructionId,
-        step: stepToInt,
-        recipeId: props.recipeId,
-      },
-    });
+    if (isNaN(stepToInt)) {
+      throw new Error('Step must be a number');
+    }
+    return stepToInt;
+  };
+
+  const onSubmit = (step: string): void => {
+    const validatedStep = validate(step);
+    if (validatedStep) {
+      updateInstruction({
+        variables: {
+          instructionId: props.instructionId,
+          step: parseInt(step, 10),
+          recipeId: props.recipeId,
+        },
+      });
+    }
   };
 
   return (
-    <EditableTextArea semanticalType="p" onSubmit={onSubmit}>
-      {props.step.toString()}
-    </EditableTextArea>
+    <div style={{ display: 'flex' }}>
+      <label>Step</label>
+      <EditableTextArea semanticalType="p" onSubmit={onSubmit}>
+        {props.step.toString()}
+      </EditableTextArea>
+    </div>
   );
 }
 

@@ -19,6 +19,7 @@ function Instruction(props: Props) {
 
   return (
     <li
+      style={{ marginBottom: '32px' }}
       className="instruction-li"
       onMouseOver={() => setIsShowingDeleteInstructionButton(true)}
       onMouseLeave={() => setIsShowingDeleteInstructionButton(false)}
