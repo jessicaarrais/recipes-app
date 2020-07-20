@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Redirect } from 'react-router';
+import { Router, Route, Redirect, Switch } from 'react-router';
 import { createBrowserHistory } from 'history';
 import gql from 'graphql-tag';
 import ApolloClient from 'apollo-client';
@@ -13,6 +13,7 @@ import LoggedIn from './pages/LoggedIn';
 import LoggedOut from './pages/LoggedOut';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
+import User from './pages/User';
 
 const httpLink = createUploadLink({ uri: 'http://localhost:4000/graphql' });
 const authLink = setContext((_, { headers }) => {
@@ -57,6 +58,9 @@ ReactDOM.render(
       <Router history={history}>
         <LandingPage />
         <Route exact path="/" component={LoggedOut} />
+        {/* <Switch>
+          <Route path="/:username" children={<User />} />
+        </Switch> */}
       </Router>
     </ApolloProvider>
   </React.StrictMode>,
