@@ -44,10 +44,8 @@ function LoggedIn() {
   const handleScroll = () => {
     if (window.scrollY <= 260) {
       setIsShowingArrowUp('hidden');
-      console.log('scrolled');
     } else {
       setIsShowingArrowUp('showed');
-      console.log('scrolled again');
     }
   };
 
