@@ -42,6 +42,7 @@ const resolvers = {
           email: args.email,
           username: args.username,
         });
+        context.user = newUserModel;
         return {
           success: true,
           message: 'Created',
@@ -59,6 +60,7 @@ const resolvers = {
     login: async (_, args, context: Context): Promise<MeResponseGQL> => {
       try {
         const meModel = await context.dataSources.userAPI.findUserByEmail(args.email);
+        context.user = meModel;
         return {
           success: true,
           message: 'Logged',
