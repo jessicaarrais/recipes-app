@@ -58,9 +58,6 @@ ReactDOM.render(
       <Router history={history}>
         <LandingPage />
         <Route exact path="/" component={LoggedOut} />
-        {/* <Switch>
-          <Route path="/:username" children={<User />} />
-        </Switch> */}
       </Router>
     </ApolloProvider>
   </React.StrictMode>,
