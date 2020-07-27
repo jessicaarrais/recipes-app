@@ -32,6 +32,7 @@ const GET_USER = gql`
 
 function User() {
   const { username } = useParams();
+
   const { data, loading, error } = useQuery(GET_USER, { variables: { username } });
 
   if (loading) return <h1>Loading...</h1>;
