@@ -69,7 +69,7 @@ function LandingPage() {
   return (
     <>
       {data.isLoggedIn ? <LoggedIn /> : <LoggedOut />}
-      <div className={`back-to-top-icon ${isShowingArrowUp}`}>
+      <div className={`back-to-top-icon ${isShowingArrowUp}`} title="back to top">
         <Button
           type="button"
           actionType="default"
