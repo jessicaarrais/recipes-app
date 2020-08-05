@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/client';
 import gql from 'graphql-tag';
 import Button from '../components/Button';
 import '../assets/css/login-signup.css';
@@ -29,7 +29,16 @@ function Login() {
         return;
       }
       localStorage.setItem('token', data.login.me.token);
-      client.writeData({ data: { isLoggedIn: true } });
+      client.cache.modify({
+        fields: {
+          isLoggedIn() {
+            return true;
+          },
+          me() {
+            return data.me;
+          },
+        },
+      });
     },
   });
 

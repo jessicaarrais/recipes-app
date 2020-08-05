@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
 import EditableTextArea from './EditableTextArea';
-import { useMutation } from '@apollo/react-hooks';
 
 const UPDATE_INSTRUCTION = gql`
   mutation UpdateInstruction(
