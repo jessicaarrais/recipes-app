@@ -21,7 +21,9 @@ import './index.css';
 
 const IS_LOGGED_IN = gql`
   query IsLoggedIn {
-    isLoggedIn @client
+    me {
+      id
+    }
   }
 `;
 
@@ -75,13 +77,6 @@ const client = new ApolloClient({
   resolvers: {},
 });
 
-client.writeQuery({
-  query: IS_LOGGED_IN,
-  data: {
-    isLoggedIn: !!localStorage.getItem('token'),
-  },
-});
-
 const history = createBrowserHistory();
 
 function LandingPage() {
@@ -104,7 +99,7 @@ function LandingPage() {
 
   return (
     <>
-      {data.isLoggedIn ? <LoggedInRoute /> : <LoggedOutRoute />}
+      {data?.me?.id ? <LoggedInRoute /> : <LoggedOutRoute />}
       <div className={`back-to-top-icon ${isShowingArrowUp}`} title="back to top">
         <Button
           type="button"
