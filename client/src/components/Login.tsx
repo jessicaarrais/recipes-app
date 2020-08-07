@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
-import gql from 'graphql-tag';
+import { gql, useMutation, useApolloClient } from '@apollo/client';
 import Button from '../components/Button';
 import '../assets/css/login-signup.css';
 
@@ -10,7 +9,6 @@ const LOGIN = gql`
       success
       message
       me {
-        username
         token
       }
     }
@@ -29,16 +27,7 @@ function Login() {
         return;
       }
       localStorage.setItem('token', data.login.me.token);
-      client.cache.modify({
-        fields: {
-          isLoggedIn() {
-            return true;
-          },
-          me() {
-            return data.me;
-          },
-        },
-      });
+      client.cache.reset();
     },
   });
 
@@ -53,6 +42,7 @@ function Login() {
         }}
       >
         <input
+          name="email"
           className="login-signup-input"
           placeholder="E-mail"
           value={inputLogin}

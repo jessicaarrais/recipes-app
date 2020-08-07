@@ -7,11 +7,11 @@ import {
   ApolloClient,
   ApolloLink,
   ApolloProvider,
-  HttpLink,
   InMemoryCache,
   gql,
   useQuery,
 } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import { typeDefs } from './resolvers';
 import LoggedInRoute from './pages/LoggedInRoute';
 import LoggedOutRoute from './pages/LoggedOutRoute';
@@ -25,7 +25,7 @@ const IS_LOGGED_IN = gql`
   }
 `;
 
-const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql' });
+const uploadLink = createUploadLink({ uri: 'http://localhost:4000/graphql' });
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
@@ -67,7 +67,9 @@ const cache = new InMemoryCache({
 });
 
 const client = new ApolloClient({
-  link: authMiddleware.concat(httpLink),
+  // typescript "Argument of type 'ApolloLink' is not assignable to parameter of type 'ApolloLink | RequestHandler'." error being ignored on uploadLink"
+  // @ts-ignore
+  link: authMiddleware.concat(uploadLink),
   cache,
   typeDefs,
   resolvers: {},

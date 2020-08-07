@@ -1,7 +1,6 @@
 import React from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useHistory } from 'react-router';
-import gql from 'graphql-tag';
 import Button from './Button';
 import Icon from './Icon';
 
@@ -23,14 +22,6 @@ function DeleteUserButton() {
     onCompleted() {
       localStorage.clear();
       client.cache.reset();
-      client.writeQuery({
-        query: gql`
-          query IsLoggedIn {
-            isLoggedIn
-          }
-        `,
-        data: { isLoggedIn: false, me: null },
-      });
       history.push('/home');
     },
   });
