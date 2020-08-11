@@ -1,11 +1,7 @@
 import { Sequelize, DataType, Model } from 'sequelize-typescript';
 import { BuildOptions } from 'sequelize/types';
 
-export const db = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
-  storage: './database.sqlite',
-  logging: false,
-});
+export const db = new Sequelize(process.env.DATABASE_URL);
 
 /* User Model */
 export interface UserModel extends Model {

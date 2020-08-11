@@ -1,0 +1,1 @@
+web: node ./src/src/index.tsx
