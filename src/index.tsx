@@ -26,6 +26,7 @@ const IS_LOGGED_IN = gql`
     }
   }
 `;
+
 const uploadLink = createUploadLink({
   uri: 'https://rocky-oasis-65465.herokuapp.com/graphql',
 });

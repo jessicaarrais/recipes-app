@@ -1,21 +1,45 @@
 .login-signup-card {
   width: 400px;
-  height: 320px;
-  margin: 32px;
+  margin: 32px auto;
   padding: 32px;
-  border: solid 1px gray;
-  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 1px 1px #bdbdbd;
+  border-radius: 8px;
 }
 
 .login-signup-input {
   display: block;
   width: 240px;
   height: 28px;
-  margin: 10% auto;
+  margin: 4px auto 28px;
+  padding: 0 8px;
   border: solid 1px gray;
   border-radius: 2px;
 }
 
 .login-signup-btn {
   display: block;
+}
+
+.input-msg-container > p {
+  width: 240px;
+  margin: 0 auto;
+}
+
+.wrong-typo {
+  outline-style: solid;
+  outline-color: red;
+}
+
+.error-message {
+  font-size: 12px;
+  color: red;
+}
+.hidden-error-msg {
+  display: none;
+}
+
+.password-hint {
+  font-size: 12px;
+  color: grey;
 }
