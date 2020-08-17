@@ -21,7 +21,7 @@ function Login() {
   const [passwordInputLogin, setPasswordInputLogin] = useState('');
   const client = useApolloClient();
 
-  const [login, { loading, error }] = useMutation(LOGIN, {
+  const [login, { error }] = useMutation(LOGIN, {
     onCompleted(data) {
       if (!data.login.success) {
         setErrorMessage(data.login.message);
@@ -32,7 +32,6 @@ function Login() {
     },
   });
 
-  if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>An error has ocurred</h1>;
 
   return (
@@ -68,7 +67,7 @@ function Login() {
           </Button>
         </div>
       </form>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }

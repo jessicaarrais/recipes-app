@@ -1,7 +1,7 @@
 .login-signup-card {
   width: 400px;
   margin: 32px auto;
-  padding: 32px;
+  padding: 40px 56px;
   background-color: #ffffff;
   box-shadow: 1px 1px 1px 1px #bdbdbd;
   border-radius: 8px;
@@ -9,37 +9,35 @@
 
 .login-signup-input {
   display: block;
-  width: 240px;
+  width: 100%;
   height: 28px;
-  margin: 4px auto 28px;
+  margin: 8px 0 32px;
   padding: 0 8px;
   border: solid 1px gray;
   border-radius: 2px;
 }
 
 .login-signup-btn {
-  display: block;
+  display: flex;
 }
 
-.input-msg-container > p {
-  width: 240px;
-  margin: 0 auto;
-}
-
-.wrong-typo {
+.invalid {
   outline-style: solid;
   outline-color: red;
+}
+.valid {
+  outline-style: solid;
+  outline-color: green;
 }
 
 .error-message {
   font-size: 12px;
   color: red;
 }
-.hidden-error-msg {
-  display: none;
-}
 
 .password-hint {
   font-size: 12px;
+  margin: 8px 0;
+  padding-left: 12px;
   color: grey;
 }

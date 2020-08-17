@@ -14,3 +14,14 @@ h1 {
   max-width: 968px;
   margin: 0 auto;
 }
+
+.buttons {
+  display: block;
+  width: 400px;
+  margin: 32px auto;
+}
+
+.buttons > div {
+  display: flex;
+  margin: 8px 0;
+}

@@ -10,27 +10,31 @@ function HomeLoggedOutPage() {
   return (
     <>
       <h1>Cookbook</h1>
-      <div>
-        <Button
-          type="button"
-          actionType="default"
-          handleOnClick={() => {
-            setLogin(true);
-            setSignin(false);
-          }}
-        >
-          Login
-        </Button>
-        <Button
-          type="button"
-          actionType="default"
-          handleOnClick={() => {
-            setSignin(true);
-            setLogin(false);
-          }}
-        >
-          Signin
-        </Button>
+      <div className="buttons">
+        <div>
+          <Button
+            type="button"
+            actionType="default"
+            handleOnClick={() => {
+              setLogin(true);
+              setSignin(false);
+            }}
+          >
+            Login
+          </Button>
+        </div>
+        <div>
+          <Button
+            type="button"
+            actionType="default"
+            handleOnClick={() => {
+              setSignin(true);
+              setLogin(false);
+            }}
+          >
+            Signin
+          </Button>
+        </div>
       </div>
       <div>
         {login && <Login />}

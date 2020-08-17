@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import Button from './Button';
 import '../assets/css/login-signup.css';
@@ -28,10 +28,6 @@ const CREATE_USER = gql`
 `;
 
 function Signup() {
-  const passwordInputRef = useRef<HTMLInputElement>(null);
-  const passwordErrorRef = useRef<HTMLParagraphElement>(null);
-  const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
-  const confirmPasswordErrorRef = useRef<HTMLParagraphElement>(null);
   const passwordRegex = new RegExp(
     '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,12}$'
   );
@@ -39,11 +35,13 @@ function Signup() {
   const [emailInputSignup, setEmailInputSignup] = useState('');
   const [usernameInputSignup, setUsernameInputSignup] = useState('');
   const [passwordInputSignup, setPasswordInputSignup] = useState('');
-  const [confirmPasswordInputSignup, setconfirmPasswordInputSignup] = useState('');
+  const [confirmPasswordInputSignup, setConfirmPasswordInputSignup] = useState('');
+  const [validPassword, setValidPassword] = useState('');
+  const [validConfirmPassword, setValidConfirmPassword] = useState('');
 
   const client = useApolloClient();
 
-  const [signup, { error, loading }] = useMutation(CREATE_USER, {
+  const [signup, { error }] = useMutation(CREATE_USER, {
     onCompleted(data) {
       if (!data.signup.success) {
         setErrorMessage(data.signup.message);
@@ -54,7 +52,6 @@ function Signup() {
     },
   });
 
-  if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>An error has ocurred</h1>;
 
   return (
@@ -84,56 +81,42 @@ function Signup() {
           value={usernameInputSignup}
           onChange={(e) => setUsernameInputSignup(e.target.value)}
         />
-        <div className="input-msg-container">
-          <p ref={passwordErrorRef} className="hidden-error-msg">
-            Invalid password format
-          </p>
+        <div>
+          {validPassword === 'invalid' && (
+            <p className="error-message">Invalid password format</p>
+          )}
           <input
-            ref={passwordInputRef}
-            className="login-signup-input"
+            className={`login-signup-input ${validPassword}`}
             type="password"
             placeholder="Password eg.: p@SSword2020"
             onChange={(e) => {
               setPasswordInputSignup(e.target.value);
-              if (passwordRegex.test(e.target.value) || e.target.value === '') {
-                passwordInputRef.current?.classList.remove('wrong-typo');
-                passwordErrorRef.current?.classList.replace(
-                  'error-message',
-                  'hidden-error-msg'
-                );
+              if (e.target.value === '') {
+                setValidPassword('');
+              } else if (passwordRegex.test(e.target.value)) {
+                setValidPassword('valid');
               } else {
-                passwordInputRef.current?.classList.add('wrong-typo');
-                passwordErrorRef.current?.classList.replace(
-                  'hidden-error-msg',
-                  'error-message'
-                );
+                setValidPassword('invalid');
               }
             }}
           />
         </div>
-        <div className="input-msg-container">
-          <p ref={confirmPasswordErrorRef} className="hidden-error-msg">
-            Passwords do not match
-          </p>
+        <div>
+          {validConfirmPassword === 'invalid' && (
+            <p className="error-message">Passwords do not match</p>
+          )}
           <input
-            ref={confirmPasswordInputRef}
-            className="login-signup-input"
+            className={`login-signup-input ${validConfirmPassword}`}
             type="password"
             placeholder="Confirm Password"
             onChange={(e) => {
-              setconfirmPasswordInputSignup(e.target.value);
-              if (passwordInputSignup !== e.target.value) {
-                confirmPasswordInputRef.current?.classList.add('wrong-typo');
-                confirmPasswordErrorRef.current?.classList.replace(
-                  'hidden-error-msg',
-                  'error-message'
-                );
+              setConfirmPasswordInputSignup(e.target.value);
+              if (e.target.value === '') {
+                setValidConfirmPassword('');
+              } else if (passwordInputSignup !== e.target.value) {
+                setValidConfirmPassword('invalid');
               } else {
-                confirmPasswordInputRef.current?.classList.remove('wrong-typo');
-                confirmPasswordErrorRef.current?.classList.replace(
-                  'error-message',
-                  'hidden-error-msg'
-                );
+                setValidConfirmPassword('valid');
               }
             }}
           />
@@ -150,7 +133,7 @@ function Signup() {
           </Button>
         </div>
       </form>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }
