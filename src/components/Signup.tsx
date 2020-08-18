@@ -27,17 +27,18 @@ const CREATE_USER = gql`
   }
 `;
 
+enum PasswordValidation {
+  standart = 'standart',
+  valid = 'valid',
+  invalid = 'invalid',
+}
+
 function Signup() {
-  const passwordRegex = new RegExp(
-    '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,12}$'
-  );
   const [errorMessage, setErrorMessage] = useState(null);
   const [emailInputSignup, setEmailInputSignup] = useState('');
   const [usernameInputSignup, setUsernameInputSignup] = useState('');
   const [passwordInputSignup, setPasswordInputSignup] = useState('');
   const [confirmPasswordInputSignup, setConfirmPasswordInputSignup] = useState('');
-  const [validPassword, setValidPassword] = useState('');
-  const [validConfirmPassword, setValidConfirmPassword] = useState('');
 
   const client = useApolloClient();
 
@@ -53,6 +54,11 @@ function Signup() {
   });
 
   if (error) return <h1>An error has ocurred</h1>;
+  const passwordValidation = validatePassword(passwordInputSignup);
+  const confirmPasswordValidation = validateConfirmPassword(
+    confirmPasswordInputSignup,
+    passwordInputSignup
+  );
 
   return (
     <div className="login-signup-card">
@@ -82,42 +88,28 @@ function Signup() {
           onChange={(e) => setUsernameInputSignup(e.target.value)}
         />
         <div>
-          {validPassword === 'invalid' && (
+          {passwordValidation === 'invalid' && (
             <p className="error-message">Invalid password format</p>
           )}
           <input
-            className={`login-signup-input ${validPassword}`}
+            className={`login-signup-input ${passwordValidation}`}
             type="password"
             placeholder="Password eg.: p@SSword2020"
             onChange={(e) => {
               setPasswordInputSignup(e.target.value);
-              if (e.target.value === '') {
-                setValidPassword('');
-              } else if (passwordRegex.test(e.target.value)) {
-                setValidPassword('valid');
-              } else {
-                setValidPassword('invalid');
-              }
             }}
           />
         </div>
         <div>
-          {validConfirmPassword === 'invalid' && (
+          {confirmPasswordValidation === 'invalid' && (
             <p className="error-message">Passwords do not match</p>
           )}
           <input
-            className={`login-signup-input ${validConfirmPassword}`}
+            className={`login-signup-input ${confirmPasswordValidation}`}
             type="password"
             placeholder="Confirm Password"
             onChange={(e) => {
               setConfirmPasswordInputSignup(e.target.value);
-              if (e.target.value === '') {
-                setValidConfirmPassword('');
-              } else if (passwordInputSignup !== e.target.value) {
-                setValidConfirmPassword('invalid');
-              } else {
-                setValidConfirmPassword('valid');
-              }
             }}
           />
         </div>
@@ -136,6 +128,30 @@ function Signup() {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
+}
+
+function validatePassword(password: string): PasswordValidation {
+  const passwordRegex = new RegExp(
+    '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,12}$'
+  );
+  if (password.length < 8) {
+    return PasswordValidation.standart;
+  }
+  return passwordRegex.test(password)
+    ? PasswordValidation.valid
+    : PasswordValidation.invalid;
+}
+
+function validateConfirmPassword(
+  confirmPassword: string,
+  password: string
+): PasswordValidation {
+  if (confirmPassword.length < 8) {
+    return PasswordValidation.standart;
+  }
+  return confirmPassword !== password
+    ? PasswordValidation.invalid
+    : PasswordValidation.valid;
 }
 
 export default Signup;
