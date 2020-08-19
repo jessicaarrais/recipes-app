@@ -13,9 +13,9 @@ import {
 } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
 import { typeDefs } from './resolvers';
-import LoggedInRoute from './pages/LoggedInRoute';
-import LoggedOutRoute from './pages/LoggedOutRoute';
-import Button from './components/Button';
+import LoggedInRoute from './pages/loggedin/LoggedInRoute';
+import LoggedOutRoute from './pages/loggedout/LoggedOutRoute';
+import Button from './components/styled-button/Button';
 import Icon from './components/Icon';
 import './index.css';
 
@@ -30,6 +30,9 @@ const IS_LOGGED_IN = gql`
 const uploadLink = createUploadLink({
   uri: 'https://rocky-oasis-65465.herokuapp.com/graphql',
 });
+// const uploadLink = createUploadLink({
+//   uri: 'http://localhost:4000/graphql',
+// });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({

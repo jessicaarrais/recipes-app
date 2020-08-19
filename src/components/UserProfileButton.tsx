@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import standartAvatar from './../assets/img/chinchilla.jpg';
+import Avatar from './avatar/Avatar';
 
 interface Props {
   username: string;
@@ -11,11 +11,9 @@ function UserProfileButton(props: Props) {
   return (
     <Link to={`/users/${props.username}`} className="nav-link">
       <span className="nav-span-username">{props.username}</span>
-      <img
-        className="nav-avatar"
-        alt="user's avatar"
-        src={props.uri ? props.uri : standartAvatar}
-      />
+      <div className="nav-avatar">
+        <Avatar uri={props.uri} />
+      </div>
     </Link>
   );
 }
