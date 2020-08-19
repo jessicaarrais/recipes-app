@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import DeleteUserButton from './DeleteUserButton';
-import Avatar from './Avatar';
-import EditableTextArea from './EditableTextArea';
+import UploadAvatar from './UploadAvatar';
+import EditableTextArea from './editable-text-area/EditableTextArea';
 
 const UPDATE_USER = gql`
   mutation UpdateUser($username: String) {
@@ -47,7 +47,7 @@ function UserSettings(props: Props) {
         {props.username}
       </EditableTextArea>
       <p>{errorMessage}</p>
-      <Avatar uri={props.uri} />
+      <UploadAvatar uri={props.uri} />
       <DeleteUserButton />
     </>
   );

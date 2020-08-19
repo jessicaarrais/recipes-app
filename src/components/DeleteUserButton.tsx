@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useHistory } from 'react-router';
-import Button from './Button';
+import Button from './styled-button/Button';
 import Icon from './Icon';
 
 const DELETE_USER = gql`

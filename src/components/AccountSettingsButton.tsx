@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from './Button';
+import Button from './styled-button/Button';
 import Icon from './Icon';
 
 function AccountSettingsButton() {
