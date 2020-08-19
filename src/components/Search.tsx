@@ -23,6 +23,7 @@ export function Search() {
       <input
         type="text"
         value={searchValue}
+        placeholder="Search Recipes"
         onChange={(e) => setSearchValue(e.target.value)}
       />
 
