@@ -3,6 +3,7 @@ import { useParams, useHistory, Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
+import urlParser from '../../utils/urlParser';
 import './search.css';
 
 const SEARCH_RECIPES = gql`
@@ -55,7 +56,7 @@ export function SearchResponse() {
   return data?.searchRecipes.length > 0 ? (
     <ul>
       {data.searchRecipes.map((recipe: any) => {
-        const titleURL = recipe.title.trim().replaceAll(' ', '-').toLowerCase();
+        const titleURL = urlParser(recipe.title);
         return (
           <Link to={`/${titleURL}/${recipe.id}`} key={recipe.id}>
             <li>

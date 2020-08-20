@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
 import Avatar from '../../components/avatar/Avatar';
+import urlParser from '../../utils/urlParser';
 import './user-profile-page.css';
 
 const GET_USER = gql`
@@ -48,7 +49,7 @@ function UserProfilePage() {
       </div>
       <ul className="recipes">
         {data.user.cookbook.recipes.map((recipe: any) => {
-          const titleURL = recipe.title.trim().replaceAll(' ', '-').toLowerCase();
+          const titleURL = urlParser(recipe.title);
           return (
             <Link to={`/${titleURL}/${recipe.id}`} key={recipe.id} className="recipe">
               <li>
