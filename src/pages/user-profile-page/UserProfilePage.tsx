@@ -47,13 +47,16 @@ function UserProfilePage() {
         <Avatar uri={data.user.avatar?.uri} />
       </div>
       <ul className="recipes">
-        {data.user.cookbook.recipes.map((recipe: any) => (
-          <Link to={`/${recipe.title}/${recipe.id}`} key={recipe.id} className="recipe">
-            <li>
-              <h3>{recipe.title}</h3>
-            </li>
-          </Link>
-        ))}
+        {data.user.cookbook.recipes.map((recipe: any) => {
+          const titleURL = recipe.title.trim().replaceAll(' ', '-').toLowerCase();
+          return (
+            <Link to={`/${titleURL}/${recipe.id}`} key={recipe.id} className="recipe">
+              <li>
+                <h3>{recipe.title}</h3>
+              </li>
+            </Link>
+          );
+        })}
       </ul>
     </div>
   ) : (

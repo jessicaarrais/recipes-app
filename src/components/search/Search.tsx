@@ -54,13 +54,16 @@ export function SearchResponse() {
 
   return data?.searchRecipes.length > 0 ? (
     <ul>
-      {data.searchRecipes.map((recipe: any) => (
-        <Link to={`/${recipe.title}/${recipe.id}`} key={recipe.id}>
-          <li>
-            <h3>{recipe.title}</h3>
-          </li>
-        </Link>
-      ))}
+      {data.searchRecipes.map((recipe: any) => {
+        const titleURL = recipe.title.trim().replaceAll(' ', '-').toLowerCase();
+        return (
+          <Link to={`/${titleURL}/${recipe.id}`} key={recipe.id}>
+            <li>
+              <h3>{recipe.title}</h3>
+            </li>
+          </Link>
+        );
+      })}
     </ul>
   ) : (
     <p>Could not find a recipe</p>
