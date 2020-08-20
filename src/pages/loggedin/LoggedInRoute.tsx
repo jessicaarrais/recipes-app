@@ -57,9 +57,9 @@ function LoggedInRoute() {
       />
       <section className="loggedin-section">
         <Switch>
-          <Redirect exact from="/" to="/home" />
+          <Redirect exact from="/recipes-app" to="/recipes-app/home" />
           <Route
-            path="/home"
+            path="/recipes-app/home"
             render={() => (
               <HomeLoggedInPage
                 cookbookId={data.me.cookbook.id}
@@ -68,7 +68,7 @@ function LoggedInRoute() {
             )}
           />
           <Route
-            path="/account-settings"
+            path="/recipes-app/account-settings"
             render={() => (
               <AccountSettingsPage
                 username={data.me.username}
@@ -76,9 +76,9 @@ function LoggedInRoute() {
               />
             )}
           />
-          <Route path="/users/:username" component={UserProfilePage} />
-          <Route path="/search/:value" component={SearchResponse} />
-          <Route path="/:recipeTitle/:recipeId" component={RecipePage} />
+          <Route path="/recipes-app/users/:username" component={UserProfilePage} />
+          <Route path="/recipes-app/search/:value" component={SearchResponse} />
+          <Route path="/recipes-app/:recipeTitle/:recipeId" component={RecipePage} />
         </Switch>
       </section>
     </div>

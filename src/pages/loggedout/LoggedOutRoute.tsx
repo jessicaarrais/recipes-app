@@ -13,11 +13,11 @@ function LoggedOutRoute() {
       <NavigationBar />
       <section className="loggedout-section">
         <Switch>
-          <Redirect from="/home" to="/" />
-          <Route exact path="/" component={HomeLoggedOutPage} />
-          <Route path="/users/:username" component={UserProfilePage} />
-          <Route path="/search/:value" component={SearchResponse} />
-          <Route path="/:recipeTitle/:recipeId" component={RecipePage} />
+          <Redirect from="/recipes-app/home" to="/" />
+          <Route exact path="/recipes-app" component={HomeLoggedOutPage} />
+          <Route path="/recipes-app/users/:username" component={UserProfilePage} />
+          <Route path="/recipes-app/search/:value" component={SearchResponse} />
+          <Route path="/recipes-app/:recipeTitle/:recipeId" component={RecipePage} />
         </Switch>
       </section>
     </div>

@@ -17,12 +17,12 @@ function AccountSettingsPage(props: Props) {
   const handleLogout = () => {
     localStorage.clear();
     client.cache.reset();
-    history.push('/home');
+    history.push('/recipes-app/home');
   };
 
   return (
     <>
-      <Link to="/home">Back to Home</Link>
+      <Link to="/recipes-app/home">Back to Home</Link>
       <Button type="button" actionType="default" handleOnClick={handleLogout}>
         Logout
       </Button>

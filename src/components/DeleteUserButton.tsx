@@ -22,7 +22,7 @@ function DeleteUserButton() {
     onCompleted() {
       localStorage.clear();
       client.cache.reset();
-      history.push('/home');
+      history.push('/recipes-app/home');
     },
   });
 
