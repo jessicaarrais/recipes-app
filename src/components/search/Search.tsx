@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
@@ -53,7 +53,15 @@ export function SearchResponse() {
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
   return data?.searchRecipes.length > 0 ? (
-    data.searchRecipes.map((recipe: any) => <h2 key={recipe.id}>{recipe.title}</h2>)
+    <ul>
+      {data.searchRecipes.map((recipe: any) => (
+        <Link to={`/${recipe.title}/${recipe.id}`} key={recipe.id}>
+          <li>
+            <h3>{recipe.title}</h3>
+          </li>
+        </Link>
+      ))}
+    </ul>
   ) : (
     <p>Could not find a recipe</p>
   );

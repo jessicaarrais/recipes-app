@@ -5,6 +5,7 @@ import AccountSettingsButton from '../../components/AccountSettingsButton';
 import AccountSettingsPage from '../AccountSettingsPage';
 import HomeLoggedInPage from './HomeLoggedInPage';
 import NavigationBar from '../../components/navigation-bar/NavigationBar';
+import RecipePage from '../recipe-page/RecipePage';
 import { RECIPE_FRAGMENT } from '../../components/recipe/Recipe';
 import { SearchResponse } from '../../components/search/Search';
 import UserProfileButton from '../../components/UserProfileButton';
@@ -77,7 +78,7 @@ function LoggedInRoute() {
           />
           <Route path="/users/:username" component={UserProfilePage} />
           <Route path="/search/:value" component={SearchResponse} />
-          <Route path="/:recipeTitle/:recipeId" render={() => <div>recipe page</div>} />
+          <Route path="/:recipeTitle/:recipeId" component={RecipePage} />
         </Switch>
       </section>
     </div>

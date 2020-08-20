@@ -50,7 +50,7 @@ function UserProfilePage() {
         {data.user.cookbook.recipes.map((recipe: any) => (
           <Link to={`/${recipe.title}/${recipe.id}`} key={recipe.id} className="recipe">
             <li>
-              <h2>{recipe.title}</h2>
+              <h3>{recipe.title}</h3>
             </li>
           </Link>
         ))}
