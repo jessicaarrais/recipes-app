@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/recipe-app/static/css/main.9390ba49.chunk.css",
-    "main.js": "/recipe-app/static/js/main.229c5ed5.chunk.js",
-    "main.js.map": "/recipe-app/static/js/main.229c5ed5.chunk.js.map",
-    "runtime-main.js": "/recipe-app/static/js/runtime-main.27c717ce.js",
-    "runtime-main.js.map": "/recipe-app/static/js/runtime-main.27c717ce.js.map",
-    "static/js/2.fca3ad06.chunk.js": "/recipe-app/static/js/2.fca3ad06.chunk.js",
-    "static/js/2.fca3ad06.chunk.js.map": "/recipe-app/static/js/2.fca3ad06.chunk.js.map",
-    "index.html": "/recipe-app/index.html",
-    "precache-manifest.bc76ce90fe4df2a0a015b7ed0fef050b.js": "/recipe-app/precache-manifest.bc76ce90fe4df2a0a015b7ed0fef050b.js",
-    "service-worker.js": "/recipe-app/service-worker.js",
-    "static/css/main.9390ba49.chunk.css.map": "/recipe-app/static/css/main.9390ba49.chunk.css.map",
-    "static/js/2.fca3ad06.chunk.js.LICENSE.txt": "/recipe-app/static/js/2.fca3ad06.chunk.js.LICENSE.txt",
-    "static/media/chinchilla.jpg": "/recipe-app/static/media/chinchilla.744b6572.jpg"
+    "main.css": "/recipes-app/static/css/main.9390ba49.chunk.css",
+    "main.js": "/recipes-app/static/js/main.60cb3dd2.chunk.js",
+    "main.js.map": "/recipes-app/static/js/main.60cb3dd2.chunk.js.map",
+    "runtime-main.js": "/recipes-app/static/js/runtime-main.1857afd5.js",
+    "runtime-main.js.map": "/recipes-app/static/js/runtime-main.1857afd5.js.map",
+    "static/js/2.fca3ad06.chunk.js": "/recipes-app/static/js/2.fca3ad06.chunk.js",
+    "static/js/2.fca3ad06.chunk.js.map": "/recipes-app/static/js/2.fca3ad06.chunk.js.map",
+    "index.html": "/recipes-app/index.html",
+    "precache-manifest.f3869887f464dc3c807e120d64f82e97.js": "/recipes-app/precache-manifest.f3869887f464dc3c807e120d64f82e97.js",
+    "service-worker.js": "/recipes-app/service-worker.js",
+    "static/css/main.9390ba49.chunk.css.map": "/recipes-app/static/css/main.9390ba49.chunk.css.map",
+    "static/js/2.fca3ad06.chunk.js.LICENSE.txt": "/recipes-app/static/js/2.fca3ad06.chunk.js.LICENSE.txt",
+    "static/media/chinchilla.jpg": "/recipes-app/static/media/chinchilla.744b6572.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.27c717ce.js",
+    "static/js/runtime-main.1857afd5.js",
     "static/js/2.fca3ad06.chunk.js",
     "static/css/main.9390ba49.chunk.css",
-    "static/js/main.229c5ed5.chunk.js"
+    "static/js/main.60cb3dd2.chunk.js"
   ]
 }
