@@ -2,6 +2,7 @@ import React from 'react';
 
 interface Props {
   icon:
+    | 'home'
     | 'menu'
     | 'create'
     | 'add'
@@ -12,11 +13,18 @@ interface Props {
     | 'sort'
     | 'search'
     | 'favorite_border'
-    | 'keyboard_arrow_up';
+    | 'keyboard_arrow_up'
+    | 'lock'
+    | 'lock_open';
+  title?: string;
 }
 
 function Icon(props: Props) {
-  return <span className="material-icons">{props.icon}</span>;
+  return (
+    <span className="material-icons" title={props.title}>
+      {props.icon}
+    </span>
+  );
 }
 
 export default Icon;

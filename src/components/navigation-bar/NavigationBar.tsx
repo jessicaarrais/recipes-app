@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Search } from '../search/Search';
 import './navigationbar.css';
+import Button from '../styled-button/Button';
+import Icon from '../Icon';
 
 interface Props {
   rightItems?: React.ReactNode;
@@ -13,8 +15,10 @@ function NavigationBar(props: Props) {
   return (
     <>
       <nav className="navbar">
-        <div>
-          <span onClick={() => history.push('/')} />
+        <div className="home-button" title="Home">
+          <Button actionType="default" handleOnClick={() => history.push('/')}>
+            <Icon icon="home" />
+          </Button>
           <Search />
         </div>
         <div>{props.rightItems}</div>

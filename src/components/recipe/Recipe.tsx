@@ -42,9 +42,9 @@ function Recipe(props: Props) {
     <li className="recipe-li">
       <div className="recipe-header">
         <RecipeTitle id={props.id} cookbookId={props.cookbookId} title={props.title} />
-        <div>
+        <div title="Public">
           <Button type="button" actionType="secondary">
-            <Icon icon="favorite_border" />
+            <Icon icon="lock_open" />
           </Button>
         </div>
       </div>

@@ -42,7 +42,7 @@ export const GET_COOKBOOK = gql`
 function LoggedInRoute() {
   const { data, loading, error } = useQuery(GET_COOKBOOK);
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <h2>Loading...</h2>;
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
   return (
