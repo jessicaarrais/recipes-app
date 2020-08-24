@@ -80,8 +80,6 @@ const client = new ApolloClient({
   resolvers: {},
 });
 
-const history = createBrowserHistory();
-
 function LandingPage() {
   const [isShowingArrowUp, setIsShowingArrowUp] = useState('hidden');
 
@@ -117,6 +115,8 @@ function LandingPage() {
     </>
   );
 }
+
+const history = createBrowserHistory({ basename: '/recipes-app' });
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
-import { useHistory } from 'react-router';
 import Button from './styled-button/Button';
 import Icon from './Icon';
 
@@ -17,12 +16,11 @@ const DELETE_USER = gql`
 
 function DeleteUserButton() {
   const client = useApolloClient();
-  const history = useHistory();
+
   const [deleteUser, { loading, error }] = useMutation(DELETE_USER, {
     onCompleted() {
       localStorage.clear();
       client.cache.reset();
-      history.push('/recipes-app/home');
     },
   });
 

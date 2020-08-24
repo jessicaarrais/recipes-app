@@ -1,3 +1,3 @@
 export default function urlParser(value: string): string {
-  return value.trim().replaceAll(' ', '-').toLowerCase();
+  return value.trim().replace(/ /g, '-').toLowerCase();
 }

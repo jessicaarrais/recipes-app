@@ -1,6 +1,5 @@
 import React from 'react';
 import { useApolloClient } from '@apollo/client';
-import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import Button from '../components/styled-button/Button';
 import UserSettings from '../components/UserSettings';
@@ -12,17 +11,15 @@ interface Props {
 
 function AccountSettingsPage(props: Props) {
   const client = useApolloClient();
-  const history = useHistory();
 
   const handleLogout = () => {
     localStorage.clear();
     client.cache.reset();
-    history.push('/recipes-app/home');
   };
 
   return (
     <>
-      <Link to="/recipes-app/home">Back to Home</Link>
+      <Link to="/">Back to Home</Link>
       <Button type="button" actionType="default" handleOnClick={handleLogout}>
         Logout
       </Button>

@@ -14,7 +14,7 @@ function NavigationBar(props: Props) {
     <>
       <nav className="navbar">
         <div>
-          <span onClick={() => history.push('/recipes-app/home')} />
+          <span onClick={() => history.push('/')} />
           <Search />
         </div>
         <div>{props.rightItems}</div>

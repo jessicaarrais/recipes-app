@@ -5,7 +5,7 @@ import Icon from './Icon';
 
 function AccountSettingsButton() {
   return (
-    <Link to="/recipes-app/account-settings">
+    <Link to="/account-settings">
       <Button actionType="default">
         <Icon icon="menu" />
       </Button>

@@ -33,7 +33,7 @@ export function Search() {
         actionType="secondary"
         disabled={searchValue === '' ? true : false}
         handleOnClick={() => {
-          history.push(`/recipes-app/search/${searchValue}`);
+          history.push(`/search/${searchValue}`);
           setSearchValue('');
         }}
       >
@@ -58,7 +58,7 @@ export function SearchResponse() {
       {data.searchRecipes.map((recipe: any) => {
         const titleURL = urlParser(recipe.title);
         return (
-          <Link to={`/recipes-app/${titleURL}/${recipe.id}`} key={recipe.id}>
+          <Link to={`/${titleURL}/${recipe.id}`} key={recipe.id}>
             <li>
               <h3>{recipe.title}</h3>
             </li>
