@@ -83,7 +83,7 @@ const client = new ApolloClient({
 function LandingPage() {
   const [isShowingArrowUp, setIsShowingArrowUp] = useState('hidden');
 
-  const { data } = useQuery(IS_LOGGED_IN);
+  const { data, loading } = useQuery(IS_LOGGED_IN);
 
   const handleScroll = () => {
     if (window.scrollY <= 260) {
@@ -98,6 +98,8 @@ function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   });
 
+  if (loading) return null;
+
   return (
     <>
       {data?.me?.id ? <LoggedInRoute /> : <LoggedOutRoute />}
@@ -109,7 +111,7 @@ function LandingPage() {
             window.scrollTo(0, 0);
           }}
         >
-          <Icon icon="keyboard_arrow_up" />
+          <Icon icon="keyboard_arrow_up" title="Scroll to top" />
         </Button>
       </div>
     </>

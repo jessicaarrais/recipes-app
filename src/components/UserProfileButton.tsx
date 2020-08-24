@@ -9,7 +9,7 @@ interface Props {
 
 function UserProfileButton(props: Props) {
   return (
-    <Link to={`/users/${props.username}`} className="nav-link">
+    <Link to={`/users/${props.username}`} className="nav-link" title="Perfil">
       <span className="nav-span-username">{props.username}</span>
       <div className="nav-avatar">
         <Avatar uri={props.uri} />

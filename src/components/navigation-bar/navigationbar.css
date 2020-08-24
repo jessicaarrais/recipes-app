@@ -16,14 +16,6 @@
   display: flex;
 }
 
-.navbar > div > span {
-  height: 32px;
-  width: 32px;
-  border-radius: 16px;
-  background-color: #cb9b8c;
-  cursor: pointer;
-}
-
 .nav-link {
   display: flex;
   align-items: center;
