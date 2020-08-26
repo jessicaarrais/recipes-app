@@ -59,6 +59,7 @@ function LoggedInRoute() {
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route
+            exact
             path="/home"
             render={() => (
               <HomeLoggedInPage
@@ -68,6 +69,7 @@ function LoggedInRoute() {
             )}
           />
           <Route
+            exact
             path="/account-settings"
             render={() => (
               <AccountSettingsPage
@@ -76,9 +78,14 @@ function LoggedInRoute() {
               />
             )}
           />
-          <Route path="/users/:username" component={UserProfilePage} />
-          <Route path="/search/:value" component={SearchResponse} />
-          <Route path="/:recipeTitle/:recipeId" component={RecipePage} />
+          <Route exact path="/users/:username" component={UserProfilePage} />
+          <Route exact path="/search/:value" component={SearchResponse} />
+          <Route
+            exact
+            path="/cookbook=:cookbookId/:recipeTitle/:recipeId"
+            component={RecipePage}
+          />
+          <Route render={() => <h2>Page not found :(</h2>} />
         </Switch>
       </section>
     </div>

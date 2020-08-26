@@ -10,6 +10,15 @@ interface Props {
   recipes: [];
 }
 
+interface RecipeMap {
+  id: number;
+  cookbookId: number;
+  title: string;
+  isPublic: boolean;
+  ingredients: [];
+  instructions: [];
+}
+
 function Cookbook(props: Props) {
   return (
     <div>
@@ -31,12 +40,13 @@ function Cookbook(props: Props) {
         </div>
       </div>
       <ul className="notebook-ul">
-        {props.recipes.map((recipe: any) => (
+        {props.recipes.map((recipe: RecipeMap) => (
           <Recipe
             key={recipe.id}
             id={recipe.id}
             cookbookId={recipe.cookbookId}
             title={recipe.title}
+            isPublic={recipe.isPublic}
             ingredients={recipe.ingredients}
             instructions={recipe.instructions}
           />

@@ -18,15 +18,7 @@ const GET_USER = gql`
         recipes {
           id
           title
-          ingredients {
-            id
-            text
-          }
-          instructions {
-            id
-            step
-            text
-          }
+          cookbookId
         }
       }
     }
@@ -48,16 +40,22 @@ function UserProfilePage() {
         <Avatar uri={data.user.avatar?.uri} />
       </div>
       <ul className="recipes">
-        {data.user.cookbook.recipes.map((recipe: any) => {
-          const titleURL = urlParser(recipe.title);
-          return (
-            <Link to={`/${titleURL}/${recipe.id}`} key={recipe.id} className="recipe">
-              <li>
-                <h3>{recipe.title}</h3>
-              </li>
-            </Link>
-          );
-        })}
+        {data.user.cookbook.recipes.map(
+          (recipe: { id: number; title: string; cookbookId: number }) => {
+            const titleURL = urlParser(recipe.title);
+            return (
+              <Link
+                to={`/cookbook=${recipe.cookbookId}/${titleURL}/${recipe.id}`}
+                key={recipe.id}
+                className="recipe"
+              >
+                <li>
+                  <h3>{recipe.title}</h3>
+                </li>
+              </Link>
+            );
+          }
+        )}
       </ul>
     </div>
   ) : (

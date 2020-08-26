@@ -1,13 +1,12 @@
 import React from 'react';
 import { gql } from '@apollo/client';
-import Button from '../styled-button/Button';
 import CreateIngredientButton from './CreateIngredientButton';
 import CreateInstructionButton from './CreateInstructionButton';
 import DeleteRecipeButton from './DeleteRecipeButton';
-import Icon from '../Icon';
 import Ingredient, { INGREDIENT_FRAGMENT } from '../ingredient/Ingredient';
 import Instruction from '../instruction/Instruction';
 import RecipeTitle from './RecipeTitle';
+import RecipeVisibility from './RecipeVisibility';
 import './recipe.css';
 
 export const RECIPE_FRAGMENT = gql`
@@ -16,6 +15,7 @@ export const RECIPE_FRAGMENT = gql`
     id
     cookbookId
     title
+    isPublic
     ingredients {
       ...IngredientFragment
     }
@@ -33,6 +33,7 @@ interface Props {
   id: number;
   cookbookId: number;
   title: string;
+  isPublic: boolean;
   ingredients: [];
   instructions?: [];
 }
@@ -42,11 +43,11 @@ function Recipe(props: Props) {
     <li className="recipe-li">
       <div className="recipe-header">
         <RecipeTitle id={props.id} cookbookId={props.cookbookId} title={props.title} />
-        <div title="Public">
-          <Button type="button" actionType="secondary">
-            <Icon icon="lock_open" />
-          </Button>
-        </div>
+        <RecipeVisibility
+          recipeId={props.id}
+          isPublic={props.isPublic}
+          cookbookId={props.cookbookId}
+        />
       </div>
       <ul>
         {props.ingredients.map((ingredient: any) => (
@@ -73,7 +74,7 @@ function Recipe(props: Props) {
         </ul>
       )}
       <div className="recipe-btns-container">
-        <div className="create-todo-container">
+        <div className="create-ingredient-container">
           <CreateIngredientButton recipeId={props.id} />
         </div>
         <div className="create-instruction-container">

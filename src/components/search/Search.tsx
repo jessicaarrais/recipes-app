@@ -11,6 +11,7 @@ const SEARCH_RECIPES = gql`
     searchRecipes(value: $value) {
       id
       title
+      cookbookId
     }
   }
 `;
@@ -55,16 +56,21 @@ export function SearchResponse() {
 
   return data?.searchRecipes.length > 0 ? (
     <ul>
-      {data.searchRecipes.map((recipe: any) => {
-        const titleURL = urlParser(recipe.title);
-        return (
-          <Link to={`/${titleURL}/${recipe.id}`} key={recipe.id}>
-            <li>
-              <h3>{recipe.title}</h3>
-            </li>
-          </Link>
-        );
-      })}
+      {data.searchRecipes.map(
+        (recipe: { id: number; title: string; cookbookId: number }) => {
+          const titleURL = urlParser(recipe.title);
+          return (
+            <Link
+              to={`/cookbook=${recipe.cookbookId}/${titleURL}/${recipe.id}`}
+              key={recipe.id}
+            >
+              <li>
+                <h3>{recipe.title}</h3>
+              </li>
+            </Link>
+          );
+        }
+      )}
     </ul>
   ) : (
     <p>Could not find a recipe</p>

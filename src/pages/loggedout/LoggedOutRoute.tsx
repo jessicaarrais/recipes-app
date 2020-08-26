@@ -16,9 +16,13 @@ function LoggedOutRoute() {
           <Redirect from="/account-settings" exact to="/" />
           <Redirect from="/home" exact to="/" />
           <Route exact path="/" component={HomeLoggedOutPage} />
-          <Route path="/users/:username" component={UserProfilePage} />
-          <Route path="/search/:value" component={SearchResponse} />
-          <Route path="/:recipeTitle/:recipeId" component={RecipePage} />
+          <Route exact path="/users/:username" component={UserProfilePage} />
+          <Route exact path="/search/:value" component={SearchResponse} />
+          <Route
+            path="/cookbook=:cookbookId/:recipeTitle/:recipeId"
+            component={RecipePage}
+          />
+          <Route render={() => <h2>Page not found :(</h2>} />
         </Switch>
       </section>
     </div>
