@@ -2,7 +2,7 @@ import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
-import { RECIPE_FRAGMENT } from '../recipe/Recipe';
+import { RECIPE_FRAGMENT, RecipeProps } from '../recipe/Recipe';
 
 const CREATE_RECIPE = gql`
   mutation CreateRecipe($title: String, $cookbookId: ID!) {
@@ -18,12 +18,16 @@ const CREATE_RECIPE = gql`
   ${RECIPE_FRAGMENT}
 `;
 
+interface CreateRecipeReponse {
+  createRecipe: { cookbook: { id: number; recipes: [RecipeProps] } };
+}
+
 interface Props {
   cookbookId: number;
 }
 
 function CreateRecipeButton(props: Props) {
-  const [createRecipe, { error }] = useMutation(CREATE_RECIPE);
+  const [createRecipe, { error }] = useMutation<CreateRecipeReponse>(CREATE_RECIPE);
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 

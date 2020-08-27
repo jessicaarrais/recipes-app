@@ -14,6 +14,15 @@ const UPDATE_RECIPE = gql`
   }
 `;
 
+interface UpdateRecipeTitleResponse {
+  updateRecipe: {
+    recipe?: {
+      id: number;
+      title: string;
+    };
+  };
+}
+
 interface Props {
   id: number;
   cookbookId: number;
@@ -21,7 +30,7 @@ interface Props {
 }
 
 function RecipeTitle(props: Props) {
-  const [updateRecipe, { error }] = useMutation(UPDATE_RECIPE);
+  const [updateRecipe, { error }] = useMutation<UpdateRecipeTitleResponse>(UPDATE_RECIPE);
 
   const onSubmit = (title: string) =>
     updateRecipe({

@@ -1,6 +1,7 @@
 import React from 'react';
 import HomeLoggedOutPage from './HomeLoggedOutPage';
 import NavigationBar from '../../components/navigation-bar/NavigationBar';
+import PageNotFound from '../PageNotFound/PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
 import { Route, Switch, Redirect } from 'react-router';
 import { SearchResponse } from '../../components/search/Search';
@@ -16,9 +17,13 @@ function LoggedOutRoute() {
           <Redirect from="/account-settings" exact to="/" />
           <Redirect from="/home" exact to="/" />
           <Route exact path="/" component={HomeLoggedOutPage} />
-          <Route path="/users/:username" component={UserProfilePage} />
-          <Route path="/search/:value" component={SearchResponse} />
-          <Route path="/:recipeTitle/:recipeId" component={RecipePage} />
+          <Route exact path="/users/:username" component={UserProfilePage} />
+          <Route exact path="/search/:value" component={SearchResponse} />
+          <Route
+            path="/cookbook/:cookbookId/recipe/:recipeTitle/:recipeId"
+            component={RecipePage}
+          />
+          <Route component={PageNotFound} />
         </Switch>
       </section>
     </div>

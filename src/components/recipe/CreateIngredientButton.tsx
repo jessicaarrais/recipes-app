@@ -2,13 +2,11 @@ import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
-import { INGREDIENT_FRAGMENT } from '../ingredient/Ingredient';
+import { INGREDIENT_FRAGMENT, IngredientProps } from '../ingredient/Ingredient';
 
 const CREATE_INGREDIENT = gql`
   mutation CreateIngredient($text: String, $isChecked: Boolean, $recipeId: ID!) {
     createIngredient(text: $text, isChecked: $isChecked, recipeId: $recipeId) {
-      success
-      message
       recipe {
         id
         title
@@ -21,12 +19,22 @@ const CREATE_INGREDIENT = gql`
   ${INGREDIENT_FRAGMENT}
 `;
 
+interface CreateIngredientResponse {
+  createIngredient: {
+    recipe?: {
+      id: number;
+      title: string;
+      ingredients: [IngredientProps];
+    };
+  };
+}
+
 interface Props {
   recipeId: number;
 }
 
 function CreateIngredientButton(props: Props) {
-  const [createIngredient] = useMutation(CREATE_INGREDIENT);
+  const [createIngredient] = useMutation<CreateIngredientResponse>(CREATE_INGREDIENT);
 
   return (
     <Button

@@ -1,13 +1,15 @@
 import React from 'react';
 import { gql } from '@apollo/client';
-import Button from '../styled-button/Button';
 import CreateIngredientButton from './CreateIngredientButton';
 import CreateInstructionButton from './CreateInstructionButton';
 import DeleteRecipeButton from './DeleteRecipeButton';
-import Icon from '../Icon';
-import Ingredient, { INGREDIENT_FRAGMENT } from '../ingredient/Ingredient';
-import Instruction from '../instruction/Instruction';
+import Ingredient, {
+  INGREDIENT_FRAGMENT,
+  IngredientProps,
+} from '../ingredient/Ingredient';
+import Instruction, { InstructionProps } from '../instruction/Instruction';
 import RecipeTitle from './RecipeTitle';
+import RecipeVisibility from './RecipeVisibility';
 import './recipe.css';
 
 export const RECIPE_FRAGMENT = gql`
@@ -16,6 +18,7 @@ export const RECIPE_FRAGMENT = gql`
     id
     cookbookId
     title
+    isPublic
     ingredients {
       ...IngredientFragment
     }
@@ -29,27 +32,28 @@ export const RECIPE_FRAGMENT = gql`
   ${INGREDIENT_FRAGMENT}
 `;
 
-interface Props {
+export interface RecipeProps {
   id: number;
   cookbookId: number;
   title: string;
-  ingredients: [];
-  instructions?: [];
+  isPublic: boolean;
+  ingredients: [IngredientProps];
+  instructions?: [InstructionProps];
 }
 
-function Recipe(props: Props) {
+function Recipe(props: RecipeProps) {
   return (
     <li className="recipe-li">
       <div className="recipe-header">
         <RecipeTitle id={props.id} cookbookId={props.cookbookId} title={props.title} />
-        <div title="Public">
-          <Button type="button" actionType="secondary">
-            <Icon icon="lock_open" />
-          </Button>
-        </div>
+        <RecipeVisibility
+          recipeId={props.id}
+          isPublic={props.isPublic}
+          cookbookId={props.cookbookId}
+        />
       </div>
       <ul>
-        {props.ingredients.map((ingredient: any) => (
+        {props.ingredients.map((ingredient) => (
           <Ingredient
             key={ingredient.id}
             id={ingredient.id}
@@ -61,7 +65,7 @@ function Recipe(props: Props) {
       </ul>
       {props.instructions && (
         <ul>
-          {props.instructions.map((instruction: any) => (
+          {props.instructions.map((instruction) => (
             <Instruction
               key={instruction.id}
               id={instruction.id}
@@ -73,7 +77,7 @@ function Recipe(props: Props) {
         </ul>
       )}
       <div className="recipe-btns-container">
-        <div className="create-todo-container">
+        <div className="create-ingredient-container">
           <CreateIngredientButton recipeId={props.id} />
         </div>
         <div className="create-instruction-container">

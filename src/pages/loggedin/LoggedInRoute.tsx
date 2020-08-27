@@ -5,8 +5,9 @@ import AccountSettingsButton from '../../components/AccountSettingsButton';
 import AccountSettingsPage from '../AccountSettingsPage';
 import HomeLoggedInPage from './HomeLoggedInPage';
 import NavigationBar from '../../components/navigation-bar/NavigationBar';
+import PageNotFound from '../PageNotFound/PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
-import { RECIPE_FRAGMENT } from '../../components/recipe/Recipe';
+import { RECIPE_FRAGMENT, RecipeProps } from '../../components/recipe/Recipe';
 import { SearchResponse } from '../../components/search/Search';
 import UserProfileButton from '../../components/UserProfileButton';
 import UserProfilePage from '../user-profile-page/UserProfilePage';
@@ -39,11 +40,24 @@ export const GET_COOKBOOK = gql`
   ${COOKBOOK_FRAGMENT}
 `;
 
+interface MeResponse {
+  me: {
+    id: number;
+    username: string;
+    avatar: { uri: string };
+    cookbook: {
+      id: number;
+      recipes: [RecipeProps];
+    };
+  };
+}
+
 function LoggedInRoute() {
-  const { data, loading, error } = useQuery(GET_COOKBOOK);
+  const { data, loading, error } = useQuery<MeResponse>(GET_COOKBOOK);
 
   if (loading) return <h2>Loading...</h2>;
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
+  if (!data) return null;
 
   return (
     <div className="body-loggedin">
@@ -59,6 +73,7 @@ function LoggedInRoute() {
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route
+            exact
             path="/home"
             render={() => (
               <HomeLoggedInPage
@@ -68,6 +83,7 @@ function LoggedInRoute() {
             )}
           />
           <Route
+            exact
             path="/account-settings"
             render={() => (
               <AccountSettingsPage
@@ -76,9 +92,14 @@ function LoggedInRoute() {
               />
             )}
           />
-          <Route path="/users/:username" component={UserProfilePage} />
-          <Route path="/search/:value" component={SearchResponse} />
-          <Route path="/:recipeTitle/:recipeId" component={RecipePage} />
+          <Route exact path="/users/:username" component={UserProfilePage} />
+          <Route exact path="/search/:value" component={SearchResponse} />
+          <Route
+            exact
+            path="/cookbook/:cookbookId/recipe/:recipeTitle/:recipeId"
+            component={RecipePage}
+          />
+          <Route component={PageNotFound} />
         </Switch>
       </section>
     </div>

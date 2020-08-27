@@ -14,10 +14,14 @@ const DELETE_USER = gql`
   }
 `;
 
+interface DeleteUserResponse {
+  deleteUser: { me?: { id: number; email: string } };
+}
+
 function DeleteUserButton() {
   const client = useApolloClient();
 
-  const [deleteUser, { loading, error }] = useMutation(DELETE_USER, {
+  const [deleteUser, { loading, error }] = useMutation<DeleteUserResponse>(DELETE_USER, {
     onCompleted() {
       localStorage.clear();
       client.cache.reset();

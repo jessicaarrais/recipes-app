@@ -17,20 +17,34 @@ const UPLOAD_AVATAR = gql`
   }
 `;
 
+interface UploadAvatarResponse {
+  uploadAvatar: {
+    success: boolean;
+    message: string;
+    me?: {
+      id: number;
+      avatar: { uri: string };
+    };
+  };
+}
+
 interface Props {
   uri?: string;
 }
 
 function UploadAvatar(props: Props) {
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const [uploadAvatar, { loading, error }] = useMutation(UPLOAD_AVATAR, {
-    onCompleted(data) {
-      if (!data.uploadAvatar.success) {
-        setErrorMessage(data.uploadAvatar.message);
-      }
-    },
-  });
+  const [uploadAvatar, { loading, error }] = useMutation<UploadAvatarResponse>(
+    UPLOAD_AVATAR,
+    {
+      onCompleted(data) {
+        if (!data.uploadAvatar.success) {
+          setErrorMessage(data.uploadAvatar.message);
+        }
+      },
+    }
+  );
 
   const handleUploadAvatar = ({
     target: { validity, files },
@@ -47,7 +61,7 @@ function UploadAvatar(props: Props) {
     <div>
       <label htmlFor="avatar">Upload photo</label>
       <input id="avatar" type="file" onChange={handleUploadAvatar} />
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage === '' && <p>{errorMessage}</p>}
       <div style={{ width: '100px' }}>
         <Avatar uri={props.uri} />
       </div>

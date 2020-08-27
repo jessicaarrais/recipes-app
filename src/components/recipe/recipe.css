@@ -20,7 +20,7 @@
   margin: 0 -4px;
 }
 
-.create-todo-container,
+.create-ingredient-container,
 .create-instruction-container,
 .delete-recipe-container {
   display: flex;

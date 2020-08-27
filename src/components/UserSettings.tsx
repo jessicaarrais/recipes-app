@@ -17,20 +17,31 @@ const UPDATE_USER = gql`
   }
 `;
 
+interface UpdateUserResponse {
+  updateUser: {
+    success: boolean;
+    message: string;
+    me?: {
+      id: number;
+      username: string;
+    };
+  };
+}
+
 interface Props {
   username: string;
   uri?: string;
 }
 
 function UserSettings(props: Props) {
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const [updateUser, { error }] = useMutation(UPDATE_USER, {
+  const [updateUser, { error }] = useMutation<UpdateUserResponse>(UPDATE_USER, {
     onCompleted(data) {
       if (!data.updateUser.success) {
         setErrorMessage(data.updateUser.message);
       } else {
-        setErrorMessage(null);
+        setErrorMessage('');
       }
     },
   });
@@ -46,7 +57,7 @@ function UserSettings(props: Props) {
       <EditableTextArea semanticalType="p" onSubmit={onSubmit}>
         {props.username}
       </EditableTextArea>
-      <p>{errorMessage}</p>
+      {errorMessage === '' && <p>{errorMessage}</p>}
       <UploadAvatar uri={props.uri} />
       <DeleteUserButton />
     </>

@@ -15,19 +15,29 @@ const LOGIN = gql`
   }
 `;
 
+interface LoginResponse {
+  login: {
+    success: boolean;
+    message: string;
+    me?: {
+      token: string;
+    };
+  };
+}
+
 function Login() {
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const [emailInputLogin, setemailInputLogin] = useState('');
   const [passwordInputLogin, setPasswordInputLogin] = useState('');
   const client = useApolloClient();
 
-  const [login, { error }] = useMutation(LOGIN, {
+  const [login, { error }] = useMutation<LoginResponse>(LOGIN, {
     onCompleted(data) {
       if (!data.login.success) {
         setErrorMessage(data.login.message);
         return;
       }
-      localStorage.setItem('token', data.login.me.token);
+      data.login.me && localStorage.setItem('token', data.login.me.token);
       client.cache.reset();
     },
   });
@@ -67,7 +77,7 @@ function Login() {
           </Button>
         </div>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage === '' && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }

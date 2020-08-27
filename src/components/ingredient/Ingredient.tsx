@@ -15,14 +15,14 @@ export const INGREDIENT_FRAGMENT = gql`
   }
 `;
 
-interface Props {
+export interface IngredientProps {
   id: number;
   recipeId: number;
   isChecked: boolean;
   text: string;
 }
 
-function Ingredient(props: Props) {
+function Ingredient(props: IngredientProps) {
   const [isShowingDeleteIngredientButton, setIsShowingDeleteIngredientButton] = useState(
     false
   );

@@ -16,13 +16,21 @@ const DELETE_INGREDIENT = gql`
   }
 `;
 
+interface DeleteIngredientResponse {
+  deleteIngredient: {
+    recipe?: { id: number; ingredients: [{ id: number }] };
+  };
+}
+
 interface Props {
   ingredientId: number;
   recipeId: number;
 }
 
 function DeleteIngredientButton(props: Props) {
-  const [deleteIngredient, { error }] = useMutation(DELETE_INGREDIENT);
+  const [deleteIngredient, { error }] = useMutation<DeleteIngredientResponse>(
+    DELETE_INGREDIENT
+  );
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
