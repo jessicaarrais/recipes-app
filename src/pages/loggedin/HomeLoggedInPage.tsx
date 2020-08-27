@@ -1,9 +1,10 @@
 import React from 'react';
 import Cookbook from '../../components/cookbook/Cookbook';
+import { RecipeProps } from '../../components/recipe/Recipe';
 
 interface Props {
   cookbookId: number;
-  recipes: [];
+  recipes: [RecipeProps];
 }
 
 function HomeLoggedInPage(props: Props) {

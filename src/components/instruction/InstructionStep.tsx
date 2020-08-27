@@ -23,6 +23,12 @@ const UPDATE_INSTRUCTION = gql`
   }
 `;
 
+interface UpdateInstructionStepResponse {
+  updateInstruction: {
+    instruction?: { id: number; step: string };
+  };
+}
+
 interface Props {
   instructionId: number;
   recipeId: number;
@@ -30,7 +36,9 @@ interface Props {
 }
 
 function InstructionStep(props: Props) {
-  const [updateInstruction] = useMutation(UPDATE_INSTRUCTION);
+  const [updateInstruction] = useMutation<UpdateInstructionStepResponse>(
+    UPDATE_INSTRUCTION
+  );
 
   const onSubmit = (step: string): void => {
     updateInstruction({

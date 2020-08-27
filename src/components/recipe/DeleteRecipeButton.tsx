@@ -16,13 +16,19 @@ const DELETE_RECIPE = gql`
   }
 `;
 
+interface DeleteRecipeResponse {
+  deleteRecipe: {
+    cookbook?: { id: number; recipes: [{ id: number }] };
+  };
+}
+
 interface Props {
   recipeId: number;
   cookbookId: number;
 }
 
 function DeleteRecipeButton(props: Props) {
-  const [deleteRecipe] = useMutation(DELETE_RECIPE);
+  const [deleteRecipe] = useMutation<DeleteRecipeResponse>(DELETE_RECIPE);
 
   return (
     <Button

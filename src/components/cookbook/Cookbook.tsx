@@ -1,5 +1,5 @@
 import React from 'react';
-import Recipe from '../recipe/Recipe';
+import Recipe, { RecipeProps } from '../recipe/Recipe';
 import CreateRecipeButton from './CreateRecipeButton';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
@@ -7,16 +7,7 @@ import './cookbook.css';
 
 interface Props {
   id: number;
-  recipes: [];
-}
-
-interface RecipeMap {
-  id: number;
-  cookbookId: number;
-  title: string;
-  isPublic: boolean;
-  ingredients: [];
-  instructions: [];
+  recipes: [RecipeProps];
 }
 
 function Cookbook(props: Props) {
@@ -40,7 +31,7 @@ function Cookbook(props: Props) {
         </div>
       </div>
       <ul className="notebook-ul">
-        {props.recipes.map((recipe: RecipeMap) => (
+        {props.recipes.map((recipe) => (
           <Recipe
             key={recipe.id}
             id={recipe.id}

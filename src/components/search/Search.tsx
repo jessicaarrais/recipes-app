@@ -16,6 +16,10 @@ const SEARCH_RECIPES = gql`
   }
 `;
 
+interface SearchResponse {
+  searchRecipes: [{ id: number; title: string; cookbookId: number }];
+}
+
 export function Search() {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
@@ -47,30 +51,28 @@ export function Search() {
 export function SearchResponse() {
   const { value } = useParams();
 
-  const { data, loading, error } = useQuery(SEARCH_RECIPES, {
+  const { data, loading, error } = useQuery<SearchResponse>(SEARCH_RECIPES, {
     variables: { value },
   });
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
-  return data?.searchRecipes.length > 0 ? (
+  return data && data.searchRecipes.length > 0 ? (
     <ul>
-      {data.searchRecipes.map(
-        (recipe: { id: number; title: string; cookbookId: number }) => {
-          const titleURL = urlParser(recipe.title);
-          return (
-            <Link
-              to={`/cookbook=${recipe.cookbookId}/${titleURL}/${recipe.id}`}
-              key={recipe.id}
-            >
-              <li>
-                <h3>{recipe.title}</h3>
-              </li>
-            </Link>
-          );
-        }
-      )}
+      {data.searchRecipes.map((recipe) => {
+        const titleURL = urlParser(recipe.title);
+        return (
+          <Link
+            to={`/cookbook/${recipe.cookbookId}/recipe/${titleURL}/${recipe.id}`}
+            key={recipe.id}
+          >
+            <li>
+              <h3>{recipe.title}</h3>
+            </li>
+          </Link>
+        );
+      })}
     </ul>
   ) : (
     <p>Could not find a recipe</p>

@@ -1,6 +1,7 @@
 import React from 'react';
 import HomeLoggedOutPage from './HomeLoggedOutPage';
 import NavigationBar from '../../components/navigation-bar/NavigationBar';
+import PageNotFound from '../PageNotFound/PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
 import { Route, Switch, Redirect } from 'react-router';
 import { SearchResponse } from '../../components/search/Search';
@@ -19,10 +20,10 @@ function LoggedOutRoute() {
           <Route exact path="/users/:username" component={UserProfilePage} />
           <Route exact path="/search/:value" component={SearchResponse} />
           <Route
-            path="/cookbook=:cookbookId/:recipeTitle/:recipeId"
+            path="/cookbook/:cookbookId/recipe/:recipeTitle/:recipeId"
             component={RecipePage}
           />
-          <Route render={() => <h2>Page not found :(</h2>} />
+          <Route component={PageNotFound} />
         </Switch>
       </section>
     </div>

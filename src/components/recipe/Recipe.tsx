@@ -3,8 +3,11 @@ import { gql } from '@apollo/client';
 import CreateIngredientButton from './CreateIngredientButton';
 import CreateInstructionButton from './CreateInstructionButton';
 import DeleteRecipeButton from './DeleteRecipeButton';
-import Ingredient, { INGREDIENT_FRAGMENT } from '../ingredient/Ingredient';
-import Instruction from '../instruction/Instruction';
+import Ingredient, {
+  INGREDIENT_FRAGMENT,
+  IngredientProps,
+} from '../ingredient/Ingredient';
+import Instruction, { InstructionProps } from '../instruction/Instruction';
 import RecipeTitle from './RecipeTitle';
 import RecipeVisibility from './RecipeVisibility';
 import './recipe.css';
@@ -29,16 +32,16 @@ export const RECIPE_FRAGMENT = gql`
   ${INGREDIENT_FRAGMENT}
 `;
 
-interface Props {
+export interface RecipeProps {
   id: number;
   cookbookId: number;
   title: string;
   isPublic: boolean;
-  ingredients: [];
-  instructions?: [];
+  ingredients: [IngredientProps];
+  instructions?: [InstructionProps];
 }
 
-function Recipe(props: Props) {
+function Recipe(props: RecipeProps) {
   return (
     <li className="recipe-li">
       <div className="recipe-header">
@@ -50,7 +53,7 @@ function Recipe(props: Props) {
         />
       </div>
       <ul>
-        {props.ingredients.map((ingredient: any) => (
+        {props.ingredients.map((ingredient) => (
           <Ingredient
             key={ingredient.id}
             id={ingredient.id}
@@ -62,7 +65,7 @@ function Recipe(props: Props) {
       </ul>
       {props.instructions && (
         <ul>
-          {props.instructions.map((instruction: any) => (
+          {props.instructions.map((instruction) => (
             <Instruction
               key={instruction.id}
               id={instruction.id}

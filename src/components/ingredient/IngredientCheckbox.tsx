@@ -18,12 +18,21 @@ const UPDATE_INGREDIENT = gql`
       ingredient {
         id
         recipeId
-        text
         isChecked
       }
     }
   }
 `;
+
+interface UpdateIngredientCheckboxResponse {
+  updateIngredient?: {
+    ingredient: {
+      id: number;
+      recipeId: number;
+      ishecked: boolean;
+    };
+  };
+}
 
 interface Props {
   ingredientId: number;
@@ -32,7 +41,9 @@ interface Props {
 }
 
 function IngredientCheckbox(props: Props) {
-  const [updateIngredient, { error }] = useMutation(UPDATE_INGREDIENT);
+  const [updateIngredient, { error }] = useMutation<UpdateIngredientCheckboxResponse>(
+    UPDATE_INGREDIENT
+  );
 
   const handleUpdateIngredientCheckbox = (isChecked: boolean): void => {
     if (isChecked !== props.isChecked) {

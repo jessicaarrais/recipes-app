@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
@@ -20,41 +21,43 @@ const RECIPE = gql`
   }
 `;
 
+interface RecipeResponse {
+  recipe: {
+    id: number;
+    title: string;
+    ingredients: [{ id: number; text: string }];
+    instructions: [{ id: number; step: string; text: string }];
+  };
+}
+
 function RecipePage() {
   const { cookbookId, recipeId } = useParams();
 
-  const { data, loading, error } = useQuery(RECIPE, {
+  const { data, loading, error } = useQuery<RecipeResponse>(RECIPE, {
     variables: { recipeId, cookbookId },
   });
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return null;
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
+  if (!data?.recipe) return <PageNotFound />;
 
   return (
     <div>
-      {data.recipe ? (
-        <>
-          <h2>{data.recipe.title}</h2>
-          <h3>Ingredients</h3>
-          <ul>
-            {data.recipe.ingredients.map((ingredient: { id: number; text: string }) => (
-              <li key={ingredient.id}>{ingredient.text}</li>
-            ))}
-          </ul>
-          <hr />
-          <h3>Instructions</h3>
-          {data.recipe.instructions.map(
-            (instruction: { id: number; step: string; text: string }) => (
-              <div key={instruction.id}>
-                <p>{instruction.step}</p>
-                <p>{instruction.text}</p>
-              </div>
-            )
-          )}
-        </>
-      ) : (
-        <p>Recipe not found</p>
-      )}
+      <h2>{data.recipe.title}</h2>
+      <h3>Ingredients</h3>
+      <ul>
+        {data.recipe.ingredients.map((ingredient) => (
+          <li key={ingredient.id}>{ingredient.text}</li>
+        ))}
+      </ul>
+      <hr />
+      <h3>Instructions</h3>
+      {data.recipe.instructions.map((instruction) => (
+        <div key={instruction.id}>
+          <p>{instruction.step}</p>
+          <p>{instruction.text}</p>
+        </div>
+      ))}
     </div>
   );
 }

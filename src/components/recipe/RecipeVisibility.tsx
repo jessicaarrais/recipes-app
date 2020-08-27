@@ -14,13 +14,24 @@ const UPDATE_RECIPE = gql`
   }
 `;
 
+interface UpdateRecipeIsPublicResponse {
+  updateRecipe: {
+    recipe?: {
+      id: number;
+      isPublic: boolean;
+    };
+  };
+}
+
 interface Props {
   recipeId: number;
   isPublic: boolean;
   cookbookId: number;
 }
 function RecipeVisibility(props: Props) {
-  const [updateRecipe, { error }] = useMutation(UPDATE_RECIPE);
+  const [updateRecipe, { error }] = useMutation<UpdateRecipeIsPublicResponse>(
+    UPDATE_RECIPE
+  );
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 

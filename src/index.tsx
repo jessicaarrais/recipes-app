@@ -83,7 +83,7 @@ const client = new ApolloClient({
 function LandingPage() {
   const [isShowingArrowUp, setIsShowingArrowUp] = useState('hidden');
 
-  const { data, loading } = useQuery(IS_LOGGED_IN);
+  const { data, loading } = useQuery<{ me?: { id: number } }>(IS_LOGGED_IN);
 
   const handleScroll = () => {
     if (window.scrollY <= 260) {

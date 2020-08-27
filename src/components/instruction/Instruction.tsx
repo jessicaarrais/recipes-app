@@ -4,14 +4,14 @@ import InstructionStep from './InstructionStep';
 import InstructionText from './InstructionText';
 import './instruction.css';
 
-interface Props {
+export interface InstructionProps {
   id: number;
   recipeId: number;
   step: string;
   text: string;
 }
 
-function Instruction(props: Props) {
+function Instruction(props: InstructionProps) {
   const [
     isShowingDeleteInstructionButton,
     setIsShowingDeleteInstructionButton,

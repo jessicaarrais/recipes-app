@@ -15,47 +15,65 @@ const GET_USER = gql`
         uri
       }
       cookbook {
+        id
         recipes {
           id
           title
-          cookbookId
         }
       }
     }
   }
 `;
 
+interface UserResponse {
+  user?: {
+    id: number;
+    username: string;
+    avatar?: { uri: string };
+    cookbook: {
+      id: number;
+      recipes: [
+        {
+          id: number;
+          title: string;
+        }
+      ];
+    };
+  };
+}
+
 function UserProfilePage() {
   const { username } = useParams();
 
-  const { data, loading, error } = useQuery(GET_USER, { variables: { username } });
+  const { data, loading, error } = useQuery<UserResponse>(GET_USER, {
+    variables: { username },
+  });
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
-  return data.user ? (
+  const user = data?.user;
+  return user ? (
     <div>
-      <h2>{data.user.username}</h2>
+      <h2>{user.username}</h2>
       <div className="user-profile-avatar">
-        <Avatar uri={data.user.avatar?.uri} />
+        <Avatar uri={user.avatar?.uri} />
       </div>
       <ul className="recipes">
-        {data.user.cookbook.recipes.map(
-          (recipe: { id: number; title: string; cookbookId: number }) => {
-            const titleURL = urlParser(recipe.title);
-            return (
-              <Link
-                to={`/cookbook=${recipe.cookbookId}/${titleURL}/${recipe.id}`}
-                key={recipe.id}
-                className="recipe"
-              >
-                <li>
-                  <h3>{recipe.title}</h3>
-                </li>
-              </Link>
-            );
-          }
-        )}
+        {user.cookbook.recipes.map((recipe) => {
+          const titleURL = urlParser(recipe.title);
+          return (
+            <Link
+              to={`/cookbook/${user.cookbook.id}/recipe/${titleURL}/${recipe.id}`}
+              key={recipe.id}
+              className="recipe"
+            >
+              <li>
+                <h3>{recipe.title}</h3>
+              </li>
+            </Link>
+          );
+        })}
       </ul>
     </div>
   ) : (

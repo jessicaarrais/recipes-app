@@ -16,13 +16,24 @@ const DELETE_INSTRUCTION = gql`
   }
 `;
 
+interface DeleteInstructionResponse {
+  deleteInstruction: {
+    recipe?: {
+      id: number;
+      instructions: [{ id: number }];
+    };
+  };
+}
+
 interface Props {
   instructionId: number;
   recipeId: number;
 }
 
 function DeleteInstructionButton(props: Props) {
-  const [deleteInstruction, { error }] = useMutation(DELETE_INSTRUCTION);
+  const [deleteInstruction, { error }] = useMutation<DeleteInstructionResponse>(
+    DELETE_INSTRUCTION
+  );
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 

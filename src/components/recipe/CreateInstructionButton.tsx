@@ -10,21 +10,27 @@ const CREATE_INSTRUCTION = gql`
         id
         instructions {
           id
-          recipeId
-          step
-          text
         }
       }
     }
   }
 `;
 
+interface CreateInstructionResponse {
+  createInstruction: {
+    recipe?: {
+      id: number;
+      instruction: [{ id: number }];
+    };
+  };
+}
+
 interface Props {
   recipeId: number;
 }
 
 function CreateInstructionButton(props: Props) {
-  const [createInstruction] = useMutation(CREATE_INSTRUCTION);
+  const [createInstruction] = useMutation<CreateInstructionResponse>(CREATE_INSTRUCTION);
 
   return (
     <Button

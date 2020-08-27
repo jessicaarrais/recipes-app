@@ -19,11 +19,16 @@ const UPDATE_INGREDIENT = gql`
         id
         recipeId
         text
-        isChecked
       }
     }
   }
 `;
+
+interface UpdateIngredientTextResponse {
+  updateIngredient: {
+    ingredient?: { id: number; recipeId: number; text: string };
+  };
+}
 
 interface Props {
   ingredientId: number;
@@ -32,7 +37,9 @@ interface Props {
 }
 
 function IngredientText(props: Props) {
-  const [updateIngredient, { error }] = useMutation(UPDATE_INGREDIENT);
+  const [updateIngredient, { error }] = useMutation<UpdateIngredientTextResponse>(
+    UPDATE_INGREDIENT
+  );
 
   const onSubmit = (text: string): void => {
     updateIngredient({

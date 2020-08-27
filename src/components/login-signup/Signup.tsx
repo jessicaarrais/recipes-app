@@ -20,12 +20,21 @@ const CREATE_USER = gql`
       success
       message
       me {
-        username
         token
       }
     }
   }
 `;
+
+interface SignupResponse {
+  signup: {
+    success: boolean;
+    message: string;
+    me?: {
+      token: string;
+    };
+  };
+}
 
 enum PasswordValidation {
   standart = 'standart',
@@ -34,7 +43,7 @@ enum PasswordValidation {
 }
 
 function Signup() {
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const [emailInputSignup, setEmailInputSignup] = useState('');
   const [usernameInputSignup, setUsernameInputSignup] = useState('');
   const [passwordInputSignup, setPasswordInputSignup] = useState('');
@@ -42,13 +51,13 @@ function Signup() {
 
   const client = useApolloClient();
 
-  const [signup, { error }] = useMutation(CREATE_USER, {
+  const [signup, { error }] = useMutation<SignupResponse>(CREATE_USER, {
     onCompleted(data) {
       if (!data.signup.success) {
         setErrorMessage(data.signup.message);
         return;
       }
-      localStorage.setItem('token', data.signup.me.token);
+      data.signup.me && localStorage.setItem('token', data.signup.me.token);
       client.cache.reset();
     },
   });
