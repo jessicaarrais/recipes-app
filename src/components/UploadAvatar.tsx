@@ -61,7 +61,7 @@ function UploadAvatar(props: Props) {
     <div>
       <label htmlFor="avatar">Upload photo</label>
       <input id="avatar" type="file" onChange={handleUploadAvatar} />
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage === '' && <p>{errorMessage}</p>}
       <div style={{ width: '100px' }}>
         <Avatar uri={props.uri} />
       </div>

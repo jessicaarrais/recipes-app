@@ -57,7 +57,7 @@ function UserSettings(props: Props) {
       <EditableTextArea semanticalType="p" onSubmit={onSubmit}>
         {props.username}
       </EditableTextArea>
-      <p>{errorMessage}</p>
+      {errorMessage === '' && <p>{errorMessage}</p>}
       <UploadAvatar uri={props.uri} />
       <DeleteUserButton />
     </>

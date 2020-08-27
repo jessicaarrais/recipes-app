@@ -134,7 +134,7 @@ function Signup() {
           </Button>
         </div>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage === '' && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }
