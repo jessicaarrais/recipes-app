@@ -4,18 +4,22 @@ import CreateRecipeButton from './CreateRecipeButton';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
 import './cookbook.css';
+import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
 
-interface Props {
+interface CookbookProps {
   id: number;
   recipes: [RecipeProps];
+  order: RecipesListOrder;
+  refetchRecipes(order: RecipesListOrder): void;
+  setOrder(order: RecipesListOrder): void;
 }
 
-function Cookbook(props: Props) {
+export default function Cookbook(props: CookbookProps) {
   return (
     <div>
       <div className="notebook-header">
         <div className="create-sheet-container">
-          <CreateRecipeButton cookbookId={props.id} />
+          <CreateRecipeButton cookbookId={props.id} order={props.order} />
         </div>
         <div className="notebook-list-organizers-container">
           <div className="filter-list-container">
@@ -23,11 +27,12 @@ function Cookbook(props: Props) {
               <Icon icon="filter_list" />
             </Button>
           </div>
-          <div className="sort-list-container">
-            <Button type="button" actionType="default">
-              <Icon icon="sort" />
-            </Button>
-          </div>
+          <SortList
+            cookbookId={props.id}
+            order={props.order}
+            refetchRecipes={props.refetchRecipes}
+            setOrder={props.setOrder}
+          />
         </div>
       </div>
       <ul className="notebook-ul">
@@ -40,10 +45,37 @@ function Cookbook(props: Props) {
             isPublic={recipe.isPublic}
             ingredients={recipe.ingredients}
             instructions={recipe.instructions}
+            order={props.order}
           />
         ))}
       </ul>
     </div>
   );
 }
-export default Cookbook;
+
+interface SortListProps {
+  cookbookId: number;
+  order: RecipesListOrder;
+  refetchRecipes(order: RecipesListOrder): void;
+  setOrder(oreder: RecipesListOrder): void;
+}
+
+function SortList(props: SortListProps) {
+  const nextOrder =
+    props.order === RecipesListOrder.TITLE_ASCENDING
+      ? RecipesListOrder.DEFAULT
+      : RecipesListOrder.TITLE_ASCENDING;
+
+  const handleOnSortList = (): void => {
+    props.refetchRecipes(nextOrder);
+    props.setOrder(nextOrder);
+  };
+
+  return (
+    <div className="sort-list-container" onClick={handleOnSortList}>
+      <Button type="button" actionType="default">
+        <Icon icon="sort" />
+      </Button>
+    </div>
+  );
+}

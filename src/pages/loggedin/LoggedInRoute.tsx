@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
 import AccountSettingsButton from '../../components/AccountSettingsButton';
@@ -17,7 +17,7 @@ export const COOKBOOK_FRAGMENT = gql`
   fragment CookbookFragment on Cookbook {
     __typename
     id
-    recipes {
+    recipes(order: $recipesListOrder) {
       ...RecipeFragment
     }
   }
@@ -25,7 +25,7 @@ export const COOKBOOK_FRAGMENT = gql`
 `;
 
 export const GET_COOKBOOK = gql`
-  query Me {
+  query Me($recipesListOrder: RecipesListOrder) {
     me {
       id
       username
@@ -40,6 +40,11 @@ export const GET_COOKBOOK = gql`
   ${COOKBOOK_FRAGMENT}
 `;
 
+export enum RecipesListOrder {
+  DEFAULT = 'DEFAULT',
+  TITLE_ASCENDING = 'TITLE_ASCENDING',
+}
+
 interface MeResponse {
   me: {
     id: number;
@@ -53,9 +58,13 @@ interface MeResponse {
 }
 
 function LoggedInRoute() {
-  const { data, loading, error } = useQuery<MeResponse>(GET_COOKBOOK);
+  const [order, setOrder] = useState(RecipesListOrder.DEFAULT);
 
-  if (loading) return <h2>Loading...</h2>;
+  const { data, loading, error, refetch } = useQuery<MeResponse>(GET_COOKBOOK, {
+    variables: { recipesListOrder: order },
+  });
+
+  if (loading) return null;
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
   if (!data) return null;
 
@@ -79,6 +88,9 @@ function LoggedInRoute() {
               <HomeLoggedInPage
                 cookbookId={data.me.cookbook.id}
                 recipes={data.me.cookbook.recipes}
+                order={order}
+                refetchRecipes={(order) => refetch({ recipesListOrder: order })}
+                setOrder={setOrder}
               />
             )}
           />

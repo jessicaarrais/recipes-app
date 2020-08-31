@@ -8,6 +8,7 @@ import Ingredient, {
   IngredientProps,
 } from '../ingredient/Ingredient';
 import Instruction, { InstructionProps } from '../instruction/Instruction';
+import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
 import RecipeTitle from './RecipeTitle';
 import RecipeVisibility from './RecipeVisibility';
 import './recipe.css';
@@ -39,11 +40,12 @@ export interface RecipeProps {
   isPublic: boolean;
   ingredients: [IngredientProps];
   instructions?: [InstructionProps];
+  order: RecipesListOrder;
 }
 
 function Recipe(props: RecipeProps) {
   return (
-    <li className="recipe-li">
+    <li className="recipe-li" id={props.id.toString()}>
       <div className="recipe-header">
         <RecipeTitle id={props.id} cookbookId={props.cookbookId} title={props.title} />
         <RecipeVisibility
@@ -84,7 +86,11 @@ function Recipe(props: RecipeProps) {
           <CreateInstructionButton recipeId={props.id} />
         </div>
         <div className="delete-recipe-container">
-          <DeleteRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
+          <DeleteRecipeButton
+            recipeId={props.id}
+            cookbookId={props.cookbookId}
+            order={props.order}
+          />
         </div>
       </div>
     </li>
