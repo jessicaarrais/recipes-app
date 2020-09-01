@@ -18,13 +18,13 @@ const DELETE_INGREDIENT = gql`
 
 interface DeleteIngredientResponse {
   deleteIngredient: {
-    recipe?: { id: number; ingredients: [{ id: number }] };
+    recipe?: { id: string; ingredients: [{ id: string }] };
   };
 }
 
 interface Props {
-  ingredientId: number;
-  recipeId: number;
+  ingredientId: string;
+  recipeId: string;
 }
 
 function DeleteIngredientButton(props: Props) {

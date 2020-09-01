@@ -1,6 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import EditableTextArea from '../editable-text-area/EditableTextArea';
+import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
 import './recipe-title.css';
 
 const UPDATE_RECIPE = gql`
@@ -17,15 +18,15 @@ const UPDATE_RECIPE = gql`
 interface UpdateRecipeTitleResponse {
   updateRecipe: {
     recipe?: {
-      id: number;
+      id: string;
       title: string;
     };
   };
 }
 
 interface Props {
-  id: number;
-  cookbookId: number;
+  id: string;
+  cookbookId: string;
   title: string;
 }
 
@@ -35,6 +36,12 @@ function RecipeTitle(props: Props) {
   const onSubmit = (title: string) =>
     updateRecipe({
       variables: { recipeId: props.id, title, cookbookId: props.cookbookId },
+      refetchQueries: [
+        {
+          query: GET_COOKBOOK,
+          variables: { recipesListOrder: RecipesListOrder.TITLE_ASCENDING },
+        },
+      ],
     });
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;

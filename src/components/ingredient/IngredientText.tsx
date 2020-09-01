@@ -26,14 +26,14 @@ const UPDATE_INGREDIENT = gql`
 
 interface UpdateIngredientTextResponse {
   updateIngredient: {
-    ingredient?: { id: number; recipeId: number; text: string };
+    ingredient?: { id: string; recipeId: string; text: string };
   };
 }
 
 interface Props {
-  ingredientId: number;
+  ingredientId: string;
   text: string;
-  recipeId: number;
+  recipeId: string;
 }
 
 function IngredientText(props: Props) {

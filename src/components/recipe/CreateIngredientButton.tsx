@@ -22,7 +22,7 @@ const CREATE_INGREDIENT = gql`
 interface CreateIngredientResponse {
   createIngredient: {
     recipe?: {
-      id: number;
+      id: string;
       title: string;
       ingredients: [IngredientProps];
     };
@@ -30,7 +30,7 @@ interface CreateIngredientResponse {
 }
 
 interface Props {
-  recipeId: number;
+  recipeId: string;
 }
 
 function CreateIngredientButton(props: Props) {

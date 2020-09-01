@@ -17,7 +17,7 @@ const SEARCH_RECIPES = gql`
 `;
 
 interface SearchResponse {
-  searchRecipes: [{ id: number; title: string; cookbookId: number }];
+  searchRecipes: [{ id: string; title: string; cookbookId: string }];
 }
 
 export function Search() {

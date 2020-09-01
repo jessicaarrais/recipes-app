@@ -22,7 +22,7 @@ interface UpdateUserResponse {
     success: boolean;
     message: string;
     me?: {
-      id: number;
+      id: string;
       username: string;
     };
   };

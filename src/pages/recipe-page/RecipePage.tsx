@@ -23,10 +23,10 @@ const RECIPE = gql`
 
 interface RecipeResponse {
   recipe: {
-    id: number;
+    id: string;
     title: string;
-    ingredients: [{ id: number; text: string }];
-    instructions: [{ id: number; step: string; text: string }];
+    ingredients: [{ id: string; text: string }];
+    instructions: [{ id: string; step: string; text: string }];
   };
 }
 

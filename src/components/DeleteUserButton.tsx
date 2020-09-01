@@ -15,7 +15,7 @@ const DELETE_USER = gql`
 `;
 
 interface DeleteUserResponse {
-  deleteUser: { me?: { id: number; email: string } };
+  deleteUser: { me?: { id: string; email: string } };
 }
 
 function DeleteUserButton() {

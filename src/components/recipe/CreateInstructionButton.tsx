@@ -19,14 +19,14 @@ const CREATE_INSTRUCTION = gql`
 interface CreateInstructionResponse {
   createInstruction: {
     recipe?: {
-      id: number;
-      instruction: [{ id: number }];
+      id: string;
+      instruction: [{ id: string }];
     };
   };
 }
 
 interface Props {
-  recipeId: number;
+  recipeId: string;
 }
 
 function CreateInstructionButton(props: Props) {

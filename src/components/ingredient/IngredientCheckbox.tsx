@@ -27,17 +27,17 @@ const UPDATE_INGREDIENT = gql`
 interface UpdateIngredientCheckboxResponse {
   updateIngredient?: {
     ingredient: {
-      id: number;
-      recipeId: number;
+      id: string;
+      recipeId: string;
       ishecked: boolean;
     };
   };
 }
 
 interface Props {
-  ingredientId: number;
+  ingredientId: string;
   isChecked: boolean;
-  recipeId: number;
+  recipeId: string;
 }
 
 function IngredientCheckbox(props: Props) {

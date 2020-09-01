@@ -19,15 +19,15 @@ const DELETE_INSTRUCTION = gql`
 interface DeleteInstructionResponse {
   deleteInstruction: {
     recipe?: {
-      id: number;
-      instructions: [{ id: number }];
+      id: string;
+      instructions: [{ id: string }];
     };
   };
 }
 
 interface Props {
-  instructionId: number;
-  recipeId: number;
+  instructionId: string;
+  recipeId: string;
 }
 
 function DeleteInstructionButton(props: Props) {
