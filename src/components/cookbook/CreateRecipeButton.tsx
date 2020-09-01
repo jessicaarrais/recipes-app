@@ -3,13 +3,18 @@ import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
 import { RECIPE_FRAGMENT, RecipeProps } from '../recipe/Recipe';
+import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
 
 const CREATE_RECIPE = gql`
-  mutation CreateRecipe($title: String, $cookbookId: ID!) {
+  mutation CreateRecipe(
+    $title: String
+    $cookbookId: ID!
+    $recipesListOrder: RecipesListOrder
+  ) {
     createRecipe(title: $title, cookbookId: $cookbookId) {
       cookbook {
         id
-        recipes {
+        recipes(order: $recipesListOrder) {
           ...RecipeFragment
         }
       }
@@ -24,6 +29,7 @@ interface CreateRecipeReponse {
 
 interface Props {
   cookbookId: number;
+  order: RecipesListOrder;
 }
 
 function CreateRecipeButton(props: Props) {
@@ -35,11 +41,15 @@ function CreateRecipeButton(props: Props) {
     <Button
       type="button"
       actionType="primary"
-      handleOnClick={() =>
+      handleOnClick={() => {
         createRecipe({
-          variables: { title: 'Title', cookbookId: props.cookbookId },
-        })
-      }
+          variables: {
+            title: 'Title',
+            cookbookId: props.cookbookId,
+            recipesListOrder: props.order,
+          },
+        });
+      }}
     >
       <Icon icon="create" />
       New Recipe
