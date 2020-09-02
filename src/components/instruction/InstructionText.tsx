@@ -25,13 +25,13 @@ const UPDATE_INSTRUCTION = gql`
 
 interface UpdateInstructionTextResponse {
   updateInstruction: {
-    instruction?: { id: number; text: string };
+    instruction?: { id: string; text: string };
   };
 }
 
 interface Props {
-  instructionId: number;
-  recipeId: number;
+  instructionId: string;
+  recipeId: string;
   text: string;
 }
 

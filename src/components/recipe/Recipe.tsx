@@ -34,8 +34,8 @@ export const RECIPE_FRAGMENT = gql`
 `;
 
 export interface RecipeProps {
-  id: number;
-  cookbookId: number;
+  id: string;
+  cookbookId: string;
   title: string;
   isPublic: boolean;
   ingredients: [IngredientProps];
@@ -86,11 +86,7 @@ function Recipe(props: RecipeProps) {
           <CreateInstructionButton recipeId={props.id} />
         </div>
         <div className="delete-recipe-container">
-          <DeleteRecipeButton
-            recipeId={props.id}
-            cookbookId={props.cookbookId}
-            order={props.order}
-          />
+          <DeleteRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
         </div>
       </div>
     </li>

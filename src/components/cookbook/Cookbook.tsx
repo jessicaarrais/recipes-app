@@ -7,7 +7,7 @@ import './cookbook.css';
 import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
 
 interface CookbookProps {
-  id: number;
+  id: string;
   recipes: [RecipeProps];
   order: RecipesListOrder;
   refetchRecipes(order: RecipesListOrder): void;
@@ -19,7 +19,7 @@ export default function Cookbook(props: CookbookProps) {
     <div>
       <div className="notebook-header">
         <div className="create-sheet-container">
-          <CreateRecipeButton cookbookId={props.id} order={props.order} />
+          <CreateRecipeButton cookbookId={props.id} />
         </div>
         <div className="notebook-list-organizers-container">
           <div className="filter-list-container">
@@ -54,7 +54,7 @@ export default function Cookbook(props: CookbookProps) {
 }
 
 interface SortListProps {
-  cookbookId: number;
+  cookbookId: string;
   order: RecipesListOrder;
   refetchRecipes(order: RecipesListOrder): void;
   setOrder(oreder: RecipesListOrder): void;

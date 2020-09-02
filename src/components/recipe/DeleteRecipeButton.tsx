@@ -2,35 +2,23 @@ import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
-import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
+import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
 
 const DELETE_RECIPE = gql`
-  mutation DeleteRecipe(
-    $recipeId: ID!
-    $cookbookId: ID!
-    $recipesListOrder: RecipesListOrder
-  ) {
+  mutation DeleteRecipe($recipeId: ID!, $cookbookId: ID!) {
     deleteRecipe(recipeId: $recipeId, cookbookId: $cookbookId) {
-      cookbook {
-        id
-        recipes(order: $recipesListOrder) {
-          id
-        }
-      }
+      success
     }
   }
 `;
 
 interface DeleteRecipeResponse {
-  deleteRecipe: {
-    cookbook?: { id: number; recipes: [{ id: number }] };
-  };
+  deleteRecipe: { success: boolean };
 }
 
 interface Props {
-  recipeId: number;
-  cookbookId: number;
-  order: RecipesListOrder;
+  recipeId: string;
+  cookbookId: string;
 }
 
 function DeleteRecipeButton(props: Props) {
@@ -45,8 +33,17 @@ function DeleteRecipeButton(props: Props) {
           variables: {
             recipeId: props.recipeId,
             cookbookId: props.cookbookId,
-            recipesListOrder: props.order,
           },
+          refetchQueries: [
+            {
+              query: GET_COOKBOOK,
+              variables: { recipesListOrder: RecipesListOrder.DEFAULT },
+            },
+            {
+              query: GET_COOKBOOK,
+              variables: { recipesListOrder: RecipesListOrder.TITLE_ASCENDING },
+            },
+          ],
         })
       }
     >

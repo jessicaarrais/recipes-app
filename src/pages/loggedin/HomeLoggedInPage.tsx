@@ -4,7 +4,7 @@ import { RecipeProps } from '../../components/recipe/Recipe';
 import { RecipesListOrder } from './LoggedInRoute';
 
 interface Props {
-  cookbookId: number;
+  cookbookId: string;
   recipes: [RecipeProps];
   order: RecipesListOrder;
   refetchRecipes(order: RecipesListOrder): void;

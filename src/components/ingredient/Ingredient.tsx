@@ -16,8 +16,8 @@ export const INGREDIENT_FRAGMENT = gql`
 `;
 
 export interface IngredientProps {
-  id: number;
-  recipeId: number;
+  id: string;
+  recipeId: string;
   isChecked: boolean;
   text: string;
 }

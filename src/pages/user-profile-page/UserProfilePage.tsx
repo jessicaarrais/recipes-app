@@ -27,14 +27,14 @@ const GET_USER = gql`
 
 interface UserResponse {
   user?: {
-    id: number;
+    id: string;
     username: string;
     avatar?: { uri: string };
     cookbook: {
-      id: number;
+      id: string;
       recipes: [
         {
-          id: number;
+          id: string;
           title: string;
         }
       ];

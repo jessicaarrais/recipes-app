@@ -2,34 +2,22 @@ import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
-import { RECIPE_FRAGMENT, RecipeProps } from '../recipe/Recipe';
-import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
+import { RecipesListOrder, GET_COOKBOOK } from '../../pages/loggedin/LoggedInRoute';
 
 const CREATE_RECIPE = gql`
-  mutation CreateRecipe(
-    $title: String
-    $cookbookId: ID!
-    $recipesListOrder: RecipesListOrder
-  ) {
+  mutation CreateRecipe($title: String, $cookbookId: ID!) {
     createRecipe(title: $title, cookbookId: $cookbookId) {
-      cookbook {
-        id
-        recipes(order: $recipesListOrder) {
-          ...RecipeFragment
-        }
-      }
+      success
     }
   }
-  ${RECIPE_FRAGMENT}
 `;
 
 interface CreateRecipeReponse {
-  createRecipe: { cookbook: { id: number; recipes: [RecipeProps] } };
+  createRecipe: { success: boolean };
 }
 
 interface Props {
-  cookbookId: number;
-  order: RecipesListOrder;
+  cookbookId: string;
 }
 
 function CreateRecipeButton(props: Props) {
@@ -46,8 +34,17 @@ function CreateRecipeButton(props: Props) {
           variables: {
             title: 'Title',
             cookbookId: props.cookbookId,
-            recipesListOrder: props.order,
           },
+          refetchQueries: [
+            {
+              query: GET_COOKBOOK,
+              variables: { recipesListOrder: RecipesListOrder.DEFAULT },
+            },
+            {
+              query: GET_COOKBOOK,
+              variables: { recipesListOrder: RecipesListOrder.TITLE_ASCENDING },
+            },
+          ],
         });
       }}
     >

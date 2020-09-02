@@ -47,11 +47,11 @@ export enum RecipesListOrder {
 
 interface MeResponse {
   me: {
-    id: number;
+    id: string;
     username: string;
     avatar: { uri: string };
     cookbook: {
-      id: number;
+      id: string;
       recipes: [RecipeProps];
     };
   };

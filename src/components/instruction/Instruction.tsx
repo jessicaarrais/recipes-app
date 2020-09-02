@@ -5,8 +5,8 @@ import InstructionText from './InstructionText';
 import './instruction.css';
 
 export interface InstructionProps {
-  id: number;
-  recipeId: number;
+  id: string;
+  recipeId: string;
   step: string;
   text: string;
 }

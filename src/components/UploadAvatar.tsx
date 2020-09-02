@@ -22,7 +22,7 @@ interface UploadAvatarResponse {
     success: boolean;
     message: string;
     me?: {
-      id: number;
+      id: string;
       avatar: { uri: string };
     };
   };

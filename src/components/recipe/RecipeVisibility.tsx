@@ -17,16 +17,16 @@ const UPDATE_RECIPE = gql`
 interface UpdateRecipeIsPublicResponse {
   updateRecipe: {
     recipe?: {
-      id: number;
+      id: string;
       isPublic: boolean;
     };
   };
 }
 
 interface Props {
-  recipeId: number;
+  recipeId: string;
   isPublic: boolean;
-  cookbookId: number;
+  cookbookId: string;
 }
 function RecipeVisibility(props: Props) {
   const [updateRecipe, { error }] = useMutation<UpdateRecipeIsPublicResponse>(
