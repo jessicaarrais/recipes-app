@@ -19,8 +19,9 @@ const CREATE_USER = gql`
       __typename
       success
       message
+      token
       me {
-        token
+        id
       }
     }
   }
@@ -30,8 +31,9 @@ interface SignupResponse {
   signup: {
     success: boolean;
     message: string;
+    token?: string;
     me?: {
-      token: string;
+      id: string;
     };
   };
 }
@@ -57,7 +59,7 @@ function Signup() {
         setErrorMessage(data.signup.message);
         return;
       }
-      data.signup.me && localStorage.setItem('token', data.signup.me.token);
+      data.signup.token && localStorage.setItem('token', data.signup.token);
       client.cache.reset();
     },
   });

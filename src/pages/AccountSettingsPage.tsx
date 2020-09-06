@@ -20,7 +20,7 @@ interface Props {
 function AccountSettingsPage(props: Props) {
   const client = useApolloClient();
 
-  const [logout, { error }] = useMutation(LOGOUT, {
+  const [logout, { error }] = useMutation<{ logout: { success: boolean } }>(LOGOUT, {
     onCompleted(data) {
       if (data.logout.success) {
         localStorage.clear();

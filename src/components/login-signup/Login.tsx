@@ -8,8 +8,9 @@ const LOGIN = gql`
     login(email: $email, password: $password) {
       success
       message
+      token
       me {
-        token
+        id
       }
     }
   }
@@ -19,8 +20,9 @@ interface LoginResponse {
   login: {
     success: boolean;
     message: string;
+    token?: string;
     me?: {
-      token: string;
+      id: string;
     };
   };
 }
@@ -37,7 +39,7 @@ function Login() {
         setErrorMessage(data.login.message);
         return;
       }
-      data.login.me && localStorage.setItem('token', data.login.me.token);
+      data.login.token && localStorage.setItem('token', data.login.token);
       client.cache.reset();
     },
   });
