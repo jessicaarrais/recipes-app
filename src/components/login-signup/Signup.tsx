@@ -63,6 +63,7 @@ function Signup() {
   });
 
   if (error) return <h1>An error has ocurred</h1>;
+
   const passwordValidation = validatePassword(passwordInputSignup);
   const confirmPasswordValidation = validateConfirmPassword(
     confirmPasswordInputSignup,
@@ -134,7 +135,7 @@ function Signup() {
           </Button>
         </div>
       </form>
-      {errorMessage === '' && <p className="error-message">{errorMessage}</p>}
+      {errorMessage !== '' && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }

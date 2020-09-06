@@ -1,8 +1,16 @@
 import React from 'react';
-import { useApolloClient } from '@apollo/client';
+import { gql, useApolloClient, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import Button from '../components/styled-button/Button';
 import UserSettings from '../components/UserSettings';
+
+const LOGOUT = gql`
+  mutation Logout($token: String) {
+    logout(token: $token) {
+      success
+    }
+  }
+`;
 
 interface Props {
   username: string;
@@ -12,15 +20,25 @@ interface Props {
 function AccountSettingsPage(props: Props) {
   const client = useApolloClient();
 
-  const handleLogout = () => {
-    localStorage.clear();
-    client.cache.reset();
-  };
+  const [logout, { error }] = useMutation(LOGOUT, {
+    onCompleted(data) {
+      if (data.logout.success) localStorage.clear();
+      client.cache.reset();
+    },
+  });
+
+  if (error) return <h1>An error has ocurred</h1>;
 
   return (
     <>
       <Link to="/">Back to Home</Link>
-      <Button type="button" actionType="default" handleOnClick={handleLogout}>
+      <Button
+        type="button"
+        actionType="default"
+        handleOnClick={() =>
+          logout({ variables: { token: localStorage.getItem('token') } })
+        }
+      >
         Logout
       </Button>
       <UserSettings username={props.username} uri={props.uri} />
