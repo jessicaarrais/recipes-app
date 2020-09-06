@@ -5,8 +5,8 @@ import Button from '../components/styled-button/Button';
 import UserSettings from '../components/UserSettings';
 
 const LOGOUT = gql`
-  mutation Logout($token: String) {
-    logout(token: $token) {
+  mutation Logout {
+    logout {
       success
     }
   }
@@ -22,8 +22,10 @@ function AccountSettingsPage(props: Props) {
 
   const [logout, { error }] = useMutation(LOGOUT, {
     onCompleted(data) {
-      if (data.logout.success) localStorage.clear();
-      client.cache.reset();
+      if (data.logout.success) {
+        localStorage.clear();
+        client.cache.reset();
+      }
     },
   });
 
@@ -32,13 +34,7 @@ function AccountSettingsPage(props: Props) {
   return (
     <>
       <Link to="/">Back to Home</Link>
-      <Button
-        type="button"
-        actionType="default"
-        handleOnClick={() =>
-          logout({ variables: { token: localStorage.getItem('token') } })
-        }
-      >
+      <Button type="button" actionType="default" handleOnClick={() => logout()}>
         Logout
       </Button>
       <UserSettings username={props.username} uri={props.uri} />
