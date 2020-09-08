@@ -20,9 +20,6 @@ const CREATE_USER = gql`
       success
       message
       token
-      me {
-        id
-      }
     }
   }
 `;
@@ -32,9 +29,6 @@ interface SignupResponse {
     success: boolean;
     message: string;
     token?: string;
-    me?: {
-      id: string;
-    };
   };
 }
 

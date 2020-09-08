@@ -9,9 +9,6 @@ const LOGIN = gql`
       success
       message
       token
-      me {
-        id
-      }
     }
   }
 `;
@@ -21,9 +18,6 @@ interface LoginResponse {
     success: boolean;
     message: string;
     token?: string;
-    me?: {
-      id: string;
-    };
   };
 }
 
