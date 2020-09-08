@@ -19,9 +19,7 @@ const CREATE_USER = gql`
       __typename
       success
       message
-      me {
-        token
-      }
+      token
     }
   }
 `;
@@ -30,9 +28,7 @@ interface SignupResponse {
   signup: {
     success: boolean;
     message: string;
-    me?: {
-      token: string;
-    };
+    token?: string;
   };
 }
 
@@ -57,12 +53,13 @@ function Signup() {
         setErrorMessage(data.signup.message);
         return;
       }
-      data.signup.me && localStorage.setItem('token', data.signup.me.token);
+      data.signup.token && localStorage.setItem('token', data.signup.token);
       client.cache.reset();
     },
   });
 
   if (error) return <h1>An error has ocurred</h1>;
+
   const passwordValidation = validatePassword(passwordInputSignup);
   const confirmPasswordValidation = validateConfirmPassword(
     confirmPasswordInputSignup,
@@ -134,7 +131,7 @@ function Signup() {
           </Button>
         </div>
       </form>
-      {errorMessage === '' && <p className="error-message">{errorMessage}</p>}
+      {errorMessage !== '' && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }
