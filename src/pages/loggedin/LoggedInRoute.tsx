@@ -35,20 +35,19 @@ interface MeResponse {
 function LoggedInRoute() {
   const { data, loading, error } = useQuery<MeResponse>(ME);
 
-  if (loading) return null;
-  if (error) return <h1>An error has occurred. ${error.message}</h1>;
-  if (!data) return null;
-
   return (
     <div className="body-loggedin">
-      <NavigationBar
-        rightItems={
-          <>
-            <UserProfileButton username={data.me.username} uri={data.me.avatar?.uri} />
-            <AccountSettingsButton />
-          </>
-        }
-      />
+      {error && <h1>An error has occurred. ${error.message}</h1>}
+      {loading || !data ? null : (
+        <NavigationBar
+          rightItems={
+            <>
+              <UserProfileButton username={data.me.username} uri={data.me.avatar?.uri} />
+              <AccountSettingsButton />
+            </>
+          }
+        />
+      )}
       <section className="loggedin-section">
         <Switch>
           <Redirect exact from="/" to="/home" />

@@ -92,10 +92,11 @@ function LandingPage() {
       setIsShowingArrowUp('showed');
     }
   };
-
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   });
 
   if (loading) return null;

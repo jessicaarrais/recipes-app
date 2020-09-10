@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
-import urlParser from '../../utils/urlParser';
 import './search.css';
+import PublicRecipeCard from '../recipe/public-list-view/PublicRecipeCard';
 
 const SEARCH_RECIPES = gql`
   query SearchRecipes($value: String) {
@@ -61,17 +61,7 @@ export function SearchResponse() {
   return data && data.searchRecipes.length > 0 ? (
     <ul>
       {data.searchRecipes.map((recipe) => {
-        const titleURL = urlParser(recipe.title);
-        return (
-          <Link
-            to={`/cookbook/${recipe.cookbookId}/recipe/${titleURL}/${recipe.id}`}
-            key={recipe.id}
-          >
-            <li>
-              <h3>{recipe.title}</h3>
-            </li>
-          </Link>
-        );
+        return <PublicRecipeCard key={recipe.id} {...recipe} />;
       })}
     </ul>
   ) : (
