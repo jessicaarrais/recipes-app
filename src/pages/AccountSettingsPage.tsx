@@ -1,43 +1,42 @@
 import React from 'react';
-import { gql, useApolloClient, useMutation } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import Button from '../components/styled-button/Button';
 import UserSettings from '../components/UserSettings';
+import LogoutButton from '../components/logout/LogoutButton';
 
-const LOGOUT = gql`
-  mutation Logout {
-    logout {
-      success
+export const ME = gql`
+  query Me {
+    me {
+      id
+      username
+      avatar {
+        uri
+      }
     }
   }
 `;
 
-interface Props {
-  username: string;
-  uri?: string;
+interface MeResponse {
+  me: {
+    id: string;
+    username: string;
+    avatar?: { uri: string };
+  };
 }
 
-function AccountSettingsPage(props: Props) {
-  const client = useApolloClient();
+function AccountSettingsPage() {
+  const { data, loading, error } = useQuery<MeResponse>(ME);
 
-  const [logout, { error }] = useMutation<{ logout: { success: boolean } }>(LOGOUT, {
-    onCompleted(data) {
-      if (data.logout.success) {
-        localStorage.clear();
-        client.cache.reset();
-      }
-    },
-  });
-
-  if (error) return <h1>An error has ocurred</h1>;
+  if (loading) return null;
+  if (error) return <h1>An error has occurred. ${error.message}</h1>;
+  if (!data) return null;
 
   return (
     <>
       <Link to="/">Back to Home</Link>
-      <Button type="button" actionType="default" handleOnClick={() => logout()}>
-        Logout
-      </Button>
-      <UserSettings username={props.username} uri={props.uri} />
+      <LogoutButton />
+      <hr />
+      <UserSettings username={data.me.username} uri={data.me.avatar?.uri} />
     </>
   );
 }

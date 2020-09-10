@@ -2,7 +2,8 @@ import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
-import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
+import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
+import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
 const DELETE_RECIPE = gql`
   mutation DeleteRecipe($recipeId: ID!, $cookbookId: ID!) {
