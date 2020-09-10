@@ -1,7 +1,8 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import EditableTextArea from '../editable-text-area/EditableTextArea';
-import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
+import { ME } from '../../pages/loggedin/LoggedInRoute';
+import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 import './recipe-title.css';
 
 const UPDATE_RECIPE = gql`
@@ -38,7 +39,7 @@ function RecipeTitle(props: Props) {
       variables: { recipeId: props.id, title, cookbookId: props.cookbookId },
       refetchQueries: [
         {
-          query: GET_COOKBOOK,
+          query: ME,
           variables: { recipesListOrder: RecipesListOrder.TITLE_ASCENDING },
         },
       ],

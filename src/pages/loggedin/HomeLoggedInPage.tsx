@@ -1,25 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import Cookbook from '../../components/cookbook/Cookbook';
-import { RecipeProps } from '../../components/recipe/Recipe';
-import { RecipesListOrder } from './LoggedInRoute';
+import { RECIPE_FRAGMENT, RecipeProps } from '../../components/recipe/Recipe';
 
-interface Props {
-  cookbookId: string;
-  recipes: [RecipeProps];
-  order: RecipesListOrder;
-  refetchRecipes(order: RecipesListOrder): void;
-  setOrder(order: RecipesListOrder): void;
+export const COOKBOOK_FRAGMENT = gql`
+  fragment CookbookFragment on Cookbook {
+    __typename
+    id
+    recipes(order: $recipesListOrder) {
+      ...RecipeFragment
+    }
+  }
+  ${RECIPE_FRAGMENT}
+`;
+
+export const GET_COOKBOOK = gql`
+  query GetCookbook($recipesListOrder: RecipesListOrder) {
+    me {
+      id
+      cookbook {
+        ...CookbookFragment
+      }
+    }
+  }
+  ${COOKBOOK_FRAGMENT}
+`;
+
+export enum RecipesListOrder {
+  DEFAULT = 'DEFAULT',
+  TITLE_ASCENDING = 'TITLE_ASCENDING',
 }
 
-function HomeLoggedInPage(props: Props) {
+interface MeResponse {
+  me: {
+    id: string;
+    cookbook: {
+      id: string;
+      recipes: [RecipeProps];
+    };
+  };
+}
+
+function HomeLoggedInPage() {
+  const [order, setOrder] = useState(RecipesListOrder.DEFAULT);
+
+  const { data, loading, error, refetch } = useQuery<MeResponse>(GET_COOKBOOK, {
+    variables: { recipesListOrder: order },
+  });
+
+  if (loading) return null;
+  if (error) return <h1>An error has occurred. ${error.message}</h1>;
+  if (!data) return null;
+
   return (
     <div>
       <Cookbook
-        id={props.cookbookId}
-        recipes={props.recipes}
-        order={props.order}
-        refetchRecipes={props.refetchRecipes}
-        setOrder={props.setOrder}
+        id={data.me.cookbook.id}
+        recipes={data.me.cookbook.recipes}
+        order={order}
+        refetchRecipes={(order) => refetch({ recipesListOrder: order })}
+        setOrder={setOrder}
       />
     </div>
   );

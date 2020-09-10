@@ -4,7 +4,7 @@ import CreateRecipeButton from './CreateRecipeButton';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
 import './cookbook.css';
-import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
+import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
 interface CookbookProps {
   id: string;

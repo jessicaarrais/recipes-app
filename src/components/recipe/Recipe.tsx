@@ -8,9 +8,9 @@ import Ingredient, {
   IngredientProps,
 } from '../ingredient/Ingredient';
 import Instruction, { InstructionProps } from '../instruction/Instruction';
-import { RecipesListOrder } from '../../pages/loggedin/LoggedInRoute';
+import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 import RecipeTitle from './RecipeTitle';
-import RecipeVisibility from './RecipeVisibility';
+import RecipeVisibilityButton from './RecipeVisibilityButton';
 import './recipe.css';
 
 export const RECIPE_FRAGMENT = gql`
@@ -48,7 +48,7 @@ function Recipe(props: RecipeProps) {
     <li className="recipe-li" id={props.id.toString()}>
       <div className="recipe-header">
         <RecipeTitle id={props.id} cookbookId={props.cookbookId} title={props.title} />
-        <RecipeVisibility
+        <RecipeVisibilityButton
           recipeId={props.id}
           isPublic={props.isPublic}
           cookbookId={props.cookbookId}

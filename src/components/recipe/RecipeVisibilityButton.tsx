@@ -28,7 +28,7 @@ interface Props {
   isPublic: boolean;
   cookbookId: string;
 }
-function RecipeVisibility(props: Props) {
+function RecipeVisibilityButton(props: Props) {
   const [updateRecipe, { error }] = useMutation<UpdateRecipeIsPublicResponse>(
     UPDATE_RECIPE
   );
@@ -56,4 +56,4 @@ function RecipeVisibility(props: Props) {
   );
 }
 
-export default RecipeVisibility;
+export default RecipeVisibilityButton;
