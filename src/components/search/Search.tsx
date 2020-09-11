@@ -12,12 +12,13 @@ const SEARCH_RECIPES = gql`
       id
       title
       cookbookId
+      isFavorite
     }
   }
 `;
 
 interface SearchResponse {
-  searchRecipes: [{ id: string; title: string; cookbookId: string }];
+  searchRecipes: [{ id: string; title: string; cookbookId: string; isFavorite: boolean }];
 }
 
 export function Search() {

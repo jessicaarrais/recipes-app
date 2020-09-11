@@ -4,24 +4,24 @@ import Button from './styled-button/Button';
 import Icon from './Icon';
 
 const ADD_TO_FAVORITES = gql`
-  mutation AddRecipeToFavorites($recipeId: String!) {
+  mutation AddRecipeToFavorites($recipeId: ID!) {
     addRecipeToFavorites(recipeId: $recipeId) {
       success
-      me {
+      recipe {
         id
-        favoriteRecipes
+        isFavorite
       }
     }
   }
 `;
 
 const REMOVE_FROM_FAVORITES = gql`
-  mutation RemoveRecipeFromFavorites($recipeId: String!) {
+  mutation RemoveRecipeFromFavorites($recipeId: ID!) {
     removeRecipeFromFavorites(recipeId: $recipeId) {
       success
-      me {
+      recipe {
         id
-        favoriteRecipes
+        isFavorite
       }
     }
   }
@@ -40,8 +40,10 @@ function FavoriteRecipeButton(props: Props) {
     event.preventDefault();
     if (!props.isFavorite) {
       addRecipeToFavorites({ variables: { recipeId: props.recipeId } });
+      console.log('added');
     } else {
       removeRecipeFromFavorites({ variables: { recipeId: props.recipeId } });
+      console.log('removed');
     }
   };
 

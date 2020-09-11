@@ -17,9 +17,13 @@ export const RECIPE_FRAGMENT = gql`
   fragment RecipeFragment on Recipe {
     __typename
     id
+    owner {
+      id
+    }
     cookbookId
     title
     isPublic
+    isFavorite
     ingredients {
       ...IngredientFragment
     }
