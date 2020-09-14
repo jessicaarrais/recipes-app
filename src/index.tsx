@@ -27,11 +27,8 @@ const IS_LOGGED_IN = gql`
   }
 `;
 
-// const uploadLink = createUploadLink({
-//   uri: 'https://rocky-oasis-65465.herokuapp.com/graphql',
-// });
 const uploadLink = createUploadLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: 'https://rocky-oasis-65465.herokuapp.com/graphql',
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -97,9 +94,7 @@ function LandingPage() {
   };
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   });
 
   if (loading) return null;

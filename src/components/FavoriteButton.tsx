@@ -40,10 +40,8 @@ function FavoriteRecipeButton(props: Props) {
     event.preventDefault();
     if (!props.isFavorite) {
       addRecipeToFavorites({ variables: { recipeId: props.recipeId } });
-      console.log('added');
     } else {
       removeRecipeFromFavorites({ variables: { recipeId: props.recipeId } });
-      console.log('removed');
     }
   };
 

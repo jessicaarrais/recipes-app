@@ -38,7 +38,7 @@ function LoggedInRoute() {
   return (
     <div className="body-loggedin">
       {error && <h1>An error has occurred. ${error.message}</h1>}
-      {loading || !data ? null : (
+      {data && !loading && (
         <NavigationBar
           rightItems={
             <>
