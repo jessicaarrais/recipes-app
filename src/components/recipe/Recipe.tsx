@@ -17,9 +17,13 @@ export const RECIPE_FRAGMENT = gql`
   fragment RecipeFragment on Recipe {
     __typename
     id
+    owner {
+      id
+    }
     cookbookId
     title
     isPublic
+    isFavorite
     ingredients {
       ...IngredientFragment
     }
@@ -45,7 +49,7 @@ export interface RecipeProps {
 
 function Recipe(props: RecipeProps) {
   return (
-    <li className="recipe-li" id={props.id.toString()}>
+    <li className="recipe-li" id={props.id}>
       <div className="recipe-header">
         <RecipeTitle id={props.id} cookbookId={props.cookbookId} title={props.title} />
         <RecipeVisibilityButton

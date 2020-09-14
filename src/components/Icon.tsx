@@ -13,6 +13,8 @@ interface Props {
     | 'sort'
     | 'search'
     | 'favorite_border'
+    | 'star'
+    | 'star_border'
     | 'keyboard_arrow_up'
     | 'lock'
     | 'lock_open';

@@ -6,8 +6,8 @@ import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
 const CREATE_RECIPE = gql`
-  mutation CreateRecipe($title: String, $cookbookId: ID!) {
-    createRecipe(title: $title, cookbookId: $cookbookId) {
+  mutation CreateRecipe {
+    createRecipe {
       success
     }
   }
@@ -32,10 +32,6 @@ function CreateRecipeButton(props: Props) {
       actionType="primary"
       handleOnClick={() => {
         createRecipe({
-          variables: {
-            title: 'Title',
-            cookbookId: props.cookbookId,
-          },
           refetchQueries: [
             {
               query: GET_COOKBOOK,

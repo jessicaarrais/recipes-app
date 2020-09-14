@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import Button from '../styled-button/Button';
 import Icon from '../Icon';
-import urlParser from '../../utils/urlParser';
 import './search.css';
+import PublicRecipeCard from '../recipe/public-list-view/PublicRecipeCard';
 
 const SEARCH_RECIPES = gql`
   query SearchRecipes($value: String) {
@@ -12,12 +12,13 @@ const SEARCH_RECIPES = gql`
       id
       title
       cookbookId
+      isFavorite
     }
   }
 `;
 
 interface SearchResponse {
-  searchRecipes: [{ id: string; title: string; cookbookId: string }];
+  searchRecipes: [{ id: string; title: string; cookbookId: string; isFavorite: boolean }];
 }
 
 export function Search() {
@@ -36,7 +37,7 @@ export function Search() {
       <Button
         type="button"
         actionType="secondary"
-        disabled={searchValue === '' ? true : false}
+        disabled={searchValue.length < 3 ? true : false}
         handleOnClick={() => {
           history.push(`/search/${searchValue}`);
           setSearchValue('');
@@ -61,17 +62,7 @@ export function SearchResponse() {
   return data && data.searchRecipes.length > 0 ? (
     <ul>
       {data.searchRecipes.map((recipe) => {
-        const titleURL = urlParser(recipe.title);
-        return (
-          <Link
-            to={`/cookbook/${recipe.cookbookId}/recipe/${titleURL}/${recipe.id}`}
-            key={recipe.id}
-          >
-            <li>
-              <h3>{recipe.title}</h3>
-            </li>
-          </Link>
-        );
+        return <PublicRecipeCard key={recipe.id} {...recipe} />;
       })}
     </ul>
   ) : (

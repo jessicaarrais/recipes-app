@@ -1,12 +1,21 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
+import Avatar from '../../components/avatar/Avatar';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import FavoriteRecipeButton from '../../components/FavoriteButton';
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
     recipe(recipeId: $recipeId, cookbookId: $cookbookId) {
       id
+      owner {
+        username
+        avatar {
+          uri
+        }
+      }
+      isFavorite
       title
       ingredients {
         id
@@ -24,6 +33,13 @@ const RECIPE = gql`
 interface RecipeResponse {
   recipe: {
     id: string;
+    owner: {
+      username: string;
+      avatar?: {
+        uri: string;
+      };
+    };
+    isFavorite: boolean;
     title: string;
     ingredients: [{ id: string; text: string }];
     instructions: [{ id: string; step: string; text: string }];
@@ -43,6 +59,10 @@ function RecipePage() {
 
   return (
     <div>
+      <div style={{ width: '150px' }}>
+        <Avatar uri={data.recipe.owner.avatar?.uri} />
+      </div>
+      <h2>{data.recipe.owner.username}</h2>
       <h2>{data.recipe.title}</h2>
       <h3>Ingredients</h3>
       <ul>
@@ -58,6 +78,10 @@ function RecipePage() {
           <p>{instruction.text}</p>
         </div>
       ))}
+      <FavoriteRecipeButton
+        recipeId={data.recipe.id}
+        isFavorite={data.recipe.isFavorite}
+      />
     </div>
   );
 }
