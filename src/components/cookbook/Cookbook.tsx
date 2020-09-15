@@ -19,7 +19,7 @@ export default function Cookbook(props: CookbookProps) {
     <div>
       <div className="notebook-header">
         <div className="create-sheet-container">
-          <CreateRecipeButton cookbookId={props.id} />
+          <CreateRecipeButton />
         </div>
         <div className="notebook-list-organizers-container">
           <div className="filter-list-container">

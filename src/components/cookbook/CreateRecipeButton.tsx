@@ -6,8 +6,8 @@ import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
 const CREATE_RECIPE = gql`
-  mutation CreateRecipe {
-    createRecipe {
+  mutation CreateRecipe($title: String) {
+    createRecipe(title: $title) {
       success
     }
   }
@@ -17,11 +17,7 @@ interface CreateRecipeReponse {
   createRecipe: { success: boolean };
 }
 
-interface Props {
-  cookbookId: string;
-}
-
-function CreateRecipeButton(props: Props) {
+function CreateRecipeButton() {
   const [createRecipe, { error }] = useMutation<CreateRecipeReponse>(CREATE_RECIPE);
 
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
@@ -32,6 +28,7 @@ function CreateRecipeButton(props: Props) {
       actionType="primary"
       handleOnClick={() => {
         createRecipe({
+          variables: { title: 'Title' },
           refetchQueries: [
             {
               query: GET_COOKBOOK,
