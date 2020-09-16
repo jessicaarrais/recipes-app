@@ -6,8 +6,8 @@ import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
 const DELETE_RECIPE = gql`
-  mutation DeleteRecipe($recipeId: ID!, $cookbookId: ID!) {
-    deleteRecipe(recipeId: $recipeId, cookbookId: $cookbookId) {
+  mutation DeleteRecipe($recipeId: ID!) {
+    deleteRecipe(recipeId: $recipeId) {
       success
     }
   }
@@ -33,7 +33,6 @@ function DeleteRecipeButton(props: Props) {
         deleteRecipe({
           variables: {
             recipeId: props.recipeId,
-            cookbookId: props.cookbookId,
           },
           refetchQueries: [
             {
