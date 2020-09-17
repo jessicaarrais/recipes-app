@@ -16,7 +16,7 @@ const LIKE_RECIPE = gql`
   }
 `;
 
-const UNLIKE = gql`
+const UNLIKE_RECIPE = gql`
   mutation UnlikeRecipe($recipeId: ID!) {
     unlikeRecipe(recipeId: $recipeId) {
       success
@@ -36,7 +36,7 @@ interface Props {
 
 function LikeButton(props: Props) {
   const [likeRecipe] = useMutation(LIKE_RECIPE);
-  const [unlikeRecipe] = useMutation(UNLIKE);
+  const [unlikeRecipe] = useMutation(UNLIKE_RECIPE);
 
   const handleMutation = (event: MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
