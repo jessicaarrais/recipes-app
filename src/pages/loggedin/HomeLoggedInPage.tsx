@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import Cookbook from '../../components/cookbook/Cookbook';
-import { RECIPE_FRAGMENT, RecipeProps } from '../../components/recipe/Recipe';
+import {
+  RECIPE_FRAGMENT,
+  RecipeProps,
+} from '../../components/recipe/private-list-view/PrivateRecipeCard';
 
 export const COOKBOOK_FRAGMENT = gql`
   fragment CookbookFragment on Cookbook {

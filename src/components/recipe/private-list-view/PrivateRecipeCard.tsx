@@ -6,12 +6,12 @@ import DeleteRecipeButton from './DeleteRecipeButton';
 import Ingredient, {
   INGREDIENT_FRAGMENT,
   IngredientProps,
-} from '../ingredient/Ingredient';
-import Instruction, { InstructionProps } from '../instruction/Instruction';
-import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
+} from '../../ingredient/Ingredient';
+import Instruction, { InstructionProps } from '../../instruction/Instruction';
+import { RecipesListOrder } from '../../../pages/loggedin/HomeLoggedInPage';
 import RecipeTitle from './RecipeTitle';
 import RecipeVisibilityButton from './RecipeVisibilityButton';
-import './recipe.css';
+import './private-recipe-card.css';
 
 export const RECIPE_FRAGMENT = gql`
   fragment RecipeFragment on Recipe {
@@ -23,7 +23,9 @@ export const RECIPE_FRAGMENT = gql`
     cookbookId
     title
     isPublic
+    likes
     isFavorite
+    isLiked
     ingredients {
       ...IngredientFragment
     }
@@ -47,7 +49,7 @@ export interface RecipeProps {
   order: RecipesListOrder;
 }
 
-function Recipe(props: RecipeProps) {
+function PrivateRecipeCard(props: RecipeProps) {
   return (
     <li className="recipe-li" id={props.id}>
       <div className="recipe-header">
@@ -97,4 +99,4 @@ function Recipe(props: RecipeProps) {
   );
 }
 
-export default Recipe;
+export default PrivateRecipeCard;

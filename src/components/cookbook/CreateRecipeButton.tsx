@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
-import Icon from '../Icon';
+import Icon from '../icon/Icon';
 import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
@@ -42,7 +42,7 @@ function CreateRecipeButton() {
         });
       }}
     >
-      <Icon icon="create" />
+      <Icon icon="create" size="md-24" />
       New Recipe
     </Button>
   );

@@ -43,7 +43,7 @@ interface UserResponse {
 }
 
 function UserProfilePage() {
-  const { username } = useParams();
+  const { username } = useParams<{ username: string }>();
 
   const { data, loading, error } = useQuery<UserResponse>(GET_USER, {
     variables: { username },

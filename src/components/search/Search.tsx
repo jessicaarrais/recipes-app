@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import Button from '../styled-button/Button';
-import Icon from '../Icon';
+import Icon from '../icon/Icon';
 import './search.css';
 import PublicRecipeCard from '../recipe/public-list-view/PublicRecipeCard';
 
@@ -12,13 +12,28 @@ const SEARCH_RECIPES = gql`
       id
       title
       cookbookId
+      owner {
+        username
+      }
+      likes
       isFavorite
+      isLiked
     }
   }
 `;
 
 interface SearchResponse {
-  searchRecipes: [{ id: string; title: string; cookbookId: string; isFavorite: boolean }];
+  searchRecipes: [
+    {
+      id: string;
+      title: string;
+      cookbookId: string;
+      owner: { username: string };
+      likes: number;
+      isFavorite: boolean;
+      isLiked: boolean;
+    }
+  ];
 }
 
 export function Search() {
@@ -37,20 +52,20 @@ export function Search() {
       <Button
         type="button"
         actionType="secondary"
-        disabled={searchValue.length < 3 ? true : false}
+        disabled={searchValue.length < 2 ? true : false}
         handleOnClick={() => {
           history.push(`/search/${searchValue}`);
           setSearchValue('');
         }}
       >
-        <Icon icon="search" />
+        <Icon icon="search" size="md-24" />
       </Button>
     </div>
   );
 }
 
 export function SearchResponse() {
-  const { value } = useParams();
+  const { value } = useParams<{ value: string }>();
 
   const { data, loading, error } = useQuery<SearchResponse>(SEARCH_RECIPES, {
     variables: { value },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
-import Icon from '../Icon';
+import Button from '../../styled-button/Button';
+import Icon from '../../icon/Icon';
 
 const CREATE_INSTRUCTION = gql`
   mutation CreateInstruction($step: String, $text: String, $recipeId: ID!) {
@@ -42,7 +42,7 @@ function CreateInstructionButton(props: Props) {
         })
       }
     >
-      <Icon icon="add" />
+      <Icon icon="add" size="md-24" />
       add instruction
     </Button>
   );

@@ -1,0 +1,37 @@
+.card {
+  width: 100%;
+  display: block;
+  padding: 24px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  list-style: none;
+  background-color: #ffffff;
+  border-left: solid 32px #cb9b8c;
+  box-shadow: 1px 1px 1px 1px #bdbdbd;
+}
+
+.title {
+  font-size: 28px;
+  margin: 0 auto 16px 0;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+}
+
+.author-username {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-bottom {
+  display: flex;
+  width: 100%;
+}

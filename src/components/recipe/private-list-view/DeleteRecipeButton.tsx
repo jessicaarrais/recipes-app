@@ -1,9 +1,9 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
-import Icon from '../Icon';
-import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
-import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
+import Button from '../../styled-button/Button';
+import Icon from '../../icon/Icon';
+import { GET_COOKBOOK } from '../../../pages/loggedin/HomeLoggedInPage';
+import { RecipesListOrder } from '../../../pages/loggedin/HomeLoggedInPage';
 
 const DELETE_RECIPE = gql`
   mutation DeleteRecipe($recipeId: ID!) {
@@ -47,7 +47,7 @@ function DeleteRecipeButton(props: Props) {
         })
       }
     >
-      <Icon icon="delete" />
+      <Icon icon="delete" size="md-24" />
       delete recipe
     </Button>
   );

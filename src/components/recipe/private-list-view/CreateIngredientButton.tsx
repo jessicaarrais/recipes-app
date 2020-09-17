@@ -1,8 +1,8 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
-import Icon from '../Icon';
-import { INGREDIENT_FRAGMENT, IngredientProps } from '../ingredient/Ingredient';
+import Button from '../../styled-button/Button';
+import Icon from '../../icon/Icon';
+import { INGREDIENT_FRAGMENT, IngredientProps } from '../../ingredient/Ingredient';
 
 const CREATE_INGREDIENT = gql`
   mutation CreateIngredient($text: String, $isChecked: Boolean, $recipeId: ID!) {
@@ -50,7 +50,7 @@ function CreateIngredientButton(props: Props) {
         })
       }
     >
-      <Icon icon="add" />
+      <Icon icon="add" size="md-24" />
       add ingredient
     </Button>
   );

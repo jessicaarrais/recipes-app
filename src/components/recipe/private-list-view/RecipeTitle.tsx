@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import EditableTextArea from '../editable-text-area/EditableTextArea';
-import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
+import EditableTextArea from '../../editable-text-area/EditableTextArea';
+import { GET_COOKBOOK, RecipesListOrder } from '../../../pages/loggedin/HomeLoggedInPage';
 import './recipe-title.css';
 
 const UPDATE_RECIPE = gql`
