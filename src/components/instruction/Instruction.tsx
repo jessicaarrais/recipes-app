@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import DeleteInstructionButton from './DeleteInstructionButton';
 import InstructionStep from './InstructionStep';
-import InstructionText from './InstructionText';
+import InstructionDescription from './InstructionDescription';
 import './instruction.css';
 
 export interface InstructionProps {
   id: string;
   recipeId: string;
   step: string;
-  text: string;
+  description: string;
 }
 
 function Instruction(props: InstructionProps) {
@@ -29,10 +29,10 @@ function Instruction(props: InstructionProps) {
           recipeId={props.recipeId}
           step={props.step}
         />
-        <InstructionText
+        <InstructionDescription
           instructionId={props.id}
           recipeId={props.recipeId}
-          text={props.text}
+          description={props.description}
         />
       </div>
       {isShowingDeleteInstructionButton && (

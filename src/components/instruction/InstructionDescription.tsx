@@ -6,45 +6,45 @@ const UPDATE_INSTRUCTION = gql`
   mutation UpdateInstruction(
     $instructionId: ID!
     $step: String
-    $text: String
+    $description: String
     $recipeId: ID!
   ) {
     updateInstruction(
       instructionId: $instructionId
       step: $step
-      text: $text
+      description: $description
       recipeId: $recipeId
     ) {
       instruction {
         id
-        text
+        description
       }
     }
   }
 `;
 
-interface UpdateInstructionTextResponse {
+interface UpdateInstructionDescriptionResponse {
   updateInstruction: {
-    instruction?: { id: string; text: string };
+    instruction?: { id: string; description: string };
   };
 }
 
 interface Props {
   instructionId: string;
   recipeId: string;
-  text: string;
+  description: string;
 }
 
-function InstructionText(props: Props) {
-  const [updateInstruction] = useMutation<UpdateInstructionTextResponse>(
+function InstructionDescription(props: Props) {
+  const [updateInstruction] = useMutation<UpdateInstructionDescriptionResponse>(
     UPDATE_INSTRUCTION
   );
 
-  const onSubmit = (text: string) => {
+  const onSubmit = (description: string) => {
     updateInstruction({
       variables: {
         instructionId: props.instructionId,
-        text,
+        description,
         recipeId: props.recipeId,
       },
     });
@@ -52,9 +52,9 @@ function InstructionText(props: Props) {
 
   return (
     <EditableTextArea semanticalType="p" onSubmit={onSubmit}>
-      {props.text}
+      {props.description}
     </EditableTextArea>
   );
 }
 
-export default InstructionText;
+export default InstructionDescription;

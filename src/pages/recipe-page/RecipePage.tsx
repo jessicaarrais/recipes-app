@@ -8,6 +8,7 @@ import Icon from '../../components/icon/Icon';
 import LikeButton from '../../components/like-button/LikeButton';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import './recipe-page.css';
+import Button from '../../components/styled-button/Button';
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
@@ -19,10 +20,11 @@ const RECIPE = gql`
           uri
         }
       }
+      title
+      description
       likes
       isFavorite
       isLiked
-      title
       ingredients {
         id
         text
@@ -30,7 +32,7 @@ const RECIPE = gql`
       instructions {
         id
         step
-        text
+        description
       }
     }
   }
@@ -45,12 +47,13 @@ interface RecipeResponse {
         uri: string;
       };
     };
+    title: string;
+    description: string;
     likes: number;
     isFavorite: boolean;
     isLiked: boolean;
-    title: string;
     ingredients: [{ id: string; text: string }];
-    instructions: [{ id: string; step: string; text: string }];
+    instructions: [{ id: string; step: string; description: string }];
   };
 }
 
@@ -74,6 +77,12 @@ function RecipePage() {
         <h2>{data.recipe.owner.username}</h2>
       </Link>
       <h2>{data.recipe.title}</h2>
+      <p>
+        {data.recipe.description} Lorem ipsum dolor, sit amet consectetur adipisicing
+        elit. Consequuntur odio molestias praesentium, vel harum distinctio nostrum!
+        Velit, corporis nam! Officiis nam quos impedit quo autem mollitia assumenda
+        debitis inventore neque.
+      </p>
       <h3>Ingredients</h3>
       <ul>
         {data.recipe.ingredients.map((ingredient) => (
@@ -84,8 +93,13 @@ function RecipePage() {
       <h3>Instructions</h3>
       {data.recipe.instructions.map((instruction) => (
         <div key={instruction.id}>
-          <p>{instruction.step}</p>
-          <p>{instruction.text}</p>
+          <div className="instruction-step">
+            <p>{instruction.step}</p>
+            <Button actionType="secondary">
+              <Icon icon="info" size="md-16" title="tips" />
+            </Button>
+          </div>
+          <p>{instruction.description}</p>
         </div>
       ))}
       <span className="likes">

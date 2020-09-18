@@ -4,8 +4,8 @@ import Button from '../../styled-button/Button';
 import Icon from '../../icon/Icon';
 
 const CREATE_INSTRUCTION = gql`
-  mutation CreateInstruction($step: String, $text: String, $recipeId: ID!) {
-    createInstruction(step: $step, text: $text, recipeId: $recipeId) {
+  mutation CreateInstruction($step: String, $description: String, $recipeId: ID!) {
+    createInstruction(step: $step, description: $description, recipeId: $recipeId) {
       recipe {
         id
         instructions {
@@ -38,7 +38,11 @@ function CreateInstructionButton(props: Props) {
       actionType="primary"
       handleOnClick={() =>
         createInstruction({
-          variables: { recipeId: props.recipeId, step: 'Step: ', text: 'Instruction' },
+          variables: {
+            recipeId: props.recipeId,
+            step: 'Step: ',
+            description: 'Description',
+          },
         })
       }
     >

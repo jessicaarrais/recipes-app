@@ -13,6 +13,7 @@ interface Props {
     | 'filter_list'
     | 'sort'
     | 'search'
+    | 'info'
     | 'favorite_border'
     | 'favorite'
     | 'star'
