@@ -37,13 +37,14 @@ export default function Cookbook(props: CookbookProps) {
           />
         </div>
       </div>
-      <ul className="notebook-ul">
+      <ul>
         {props.recipes.map((recipe) => (
           <PrivateRecipeCard
             key={recipe.id}
             id={recipe.id}
             cookbookId={recipe.cookbookId}
             title={recipe.title}
+            description={recipe.description}
             isPublic={recipe.isPublic}
             ingredients={recipe.ingredients}
             instructions={recipe.instructions}

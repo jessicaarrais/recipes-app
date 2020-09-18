@@ -11,6 +11,7 @@ const SEARCH_RECIPES = gql`
     searchRecipes(value: $value) {
       id
       title
+      description
       cookbookId
       owner {
         username
@@ -27,6 +28,7 @@ interface SearchResponse {
     {
       id: string;
       title: string;
+      description: string;
       cookbookId: string;
       owner: { username: string };
       likes: number;

@@ -22,6 +22,7 @@ export const RECIPE_FRAGMENT = gql`
     }
     cookbookId
     title
+    description
     isPublic
     likes
     isFavorite
@@ -33,7 +34,7 @@ export const RECIPE_FRAGMENT = gql`
       id
       recipeId
       step
-      text
+      description
     }
   }
   ${INGREDIENT_FRAGMENT}
@@ -43,6 +44,7 @@ export interface RecipeProps {
   id: string;
   cookbookId: string;
   title: string;
+  description: string;
   isPublic: boolean;
   ingredients: [IngredientProps];
   instructions?: [InstructionProps];
@@ -60,6 +62,12 @@ function PrivateRecipeCard(props: RecipeProps) {
           cookbookId={props.cookbookId}
         />
       </div>
+      <p>
+        {props.description}: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Numquam adipisci eveniet tenetur rem mollitia! Molestiae voluptas natus, nostrum
+        doloribus nam, alias facere at assumenda asperiores, animi excepturi nemo aliquid
+        distinctio?
+      </p>
       <ul>
         {props.ingredients.map((ingredient) => (
           <Ingredient
@@ -79,7 +87,7 @@ function PrivateRecipeCard(props: RecipeProps) {
               id={instruction.id}
               recipeId={instruction.recipeId}
               step={instruction.step}
-              text={instruction.text}
+              description={instruction.description}
             />
           ))}
         </ul>
