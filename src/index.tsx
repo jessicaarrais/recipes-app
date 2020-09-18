@@ -16,7 +16,7 @@ import { typeDefs } from './resolvers';
 import LoggedInRoute from './pages/loggedin/LoggedInRoute';
 import LoggedOutRoute from './pages/loggedout/LoggedOutRoute';
 import Button from './components/styled-button/Button';
-import Icon from './components/Icon';
+import Icon from './components/icon/Icon';
 import './index.css';
 
 const IS_LOGGED_IN = gql`
@@ -110,7 +110,7 @@ function LandingPage() {
             window.scrollTo(0, 0);
           }}
         >
-          <Icon icon="keyboard_arrow_up" title="Scroll to top" />
+          <Icon icon="keyboard_arrow_up" size="md-24" title="Scroll to top" />
         </Button>
       </div>
     </>

@@ -1,8 +1,10 @@
 import React from 'react';
-import Recipe, { RecipeProps } from '../recipe/Recipe';
+import PrivateRecipeCard, {
+  RecipeProps,
+} from '../recipe/private-list-view/PrivateRecipeCard';
 import CreateRecipeButton from './CreateRecipeButton';
 import Button from '../styled-button/Button';
-import Icon from '../Icon';
+import Icon from '../icon/Icon';
 import './cookbook.css';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
@@ -24,7 +26,7 @@ export default function Cookbook(props: CookbookProps) {
         <div className="notebook-list-organizers-container">
           <div className="filter-list-container">
             <Button type="button" actionType="default">
-              <Icon icon="filter_list" />
+              <Icon icon="filter_list" size="md-24" />
             </Button>
           </div>
           <SortList
@@ -37,7 +39,7 @@ export default function Cookbook(props: CookbookProps) {
       </div>
       <ul className="notebook-ul">
         {props.recipes.map((recipe) => (
-          <Recipe
+          <PrivateRecipeCard
             key={recipe.id}
             id={recipe.id}
             cookbookId={recipe.cookbookId}
@@ -74,7 +76,7 @@ function SortList(props: SortListProps) {
   return (
     <div className="sort-list-container" onClick={handleOnSortList}>
       <Button type="button" actionType="default">
-        <Icon icon="sort" />
+        <Icon icon="sort" size="md-24" />
       </Button>
     </div>
   );

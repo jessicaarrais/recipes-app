@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
-import Icon from '../Icon';
+import Button from '../../styled-button/Button';
+import Icon from '../../icon/Icon';
 
 const UPDATE_RECIPE = gql`
   mutation UpdateRecipe($recipeId: ID!, $isPublic: Boolean, $cookbookId: ID!) {
@@ -50,7 +50,7 @@ function RecipeVisibilityButton(props: Props) {
           });
         }}
       >
-        <Icon icon={props.isPublic ? 'lock_open' : 'lock'} />
+        <Icon icon={props.isPublic ? 'lock_open' : 'lock'} size="md-16" />
       </Button>
     </div>
   );

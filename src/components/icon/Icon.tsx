@@ -1,4 +1,5 @@
 import React from 'react';
+import './icon.css';
 
 interface Props {
   icon:
@@ -13,17 +14,19 @@ interface Props {
     | 'sort'
     | 'search'
     | 'favorite_border'
+    | 'favorite'
     | 'star'
     | 'star_border'
     | 'keyboard_arrow_up'
     | 'lock'
     | 'lock_open';
+  size: 'md-16' | 'md-24';
   title?: string;
 }
 
 function Icon(props: Props) {
   return (
-    <span className="material-icons" title={props.title}>
+    <span className={`material-icons ${props.size}`} title={props.title}>
       {props.icon}
     </span>
   );

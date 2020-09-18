@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from './styled-button/Button';
-import Icon from './Icon';
+import Button from '../styled-button/Button';
+import Icon from '../icon/Icon';
 
 const ADD_TO_FAVORITES = gql`
   mutation AddRecipeToFavorites($recipeId: ID!) {
@@ -47,7 +47,12 @@ function FavoriteRecipeButton(props: Props) {
 
   return (
     <Button type="button" actionType="secondary" handleOnClick={handleMutation}>
-      {props.isFavorite ? <Icon icon="star" /> : <Icon icon="star_border" />}
+      {props.isFavorite ? (
+        <Icon icon="star" size="md-24" />
+      ) : (
+        <Icon icon="star_border" size="md-24" />
+      )}
+      Favorite
     </Button>
   );
 }

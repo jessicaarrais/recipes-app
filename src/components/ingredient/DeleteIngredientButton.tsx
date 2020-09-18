@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Button from '../styled-button/Button';
-import Icon from '../Icon';
+import Icon from '../icon/Icon';
 
 const DELETE_INGREDIENT = gql`
   mutation DeleteIngredient($ingredientId: ID!, $recipeId: ID!) {
@@ -40,7 +40,7 @@ function DeleteIngredientButton(props: Props) {
       actionType="danger"
       handleOnClick={() => deleteIngredient({ variables: props })}
     >
-      <Icon icon="clear" />
+      <Icon icon="clear" size="md-16" />
     </Button>
   );
 }
