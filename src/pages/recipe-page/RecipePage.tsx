@@ -7,6 +7,7 @@ import FavoriteRecipeButton from '../../components/favorite-button/FavoriteButto
 import Icon from '../../components/icon/Icon';
 import LikeButton from '../../components/like-button/LikeButton';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import './recipe-page.css';
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
@@ -67,7 +68,7 @@ function RecipePage() {
   return (
     <div>
       <Link to={`/users/${data.recipe.owner.username}`}>
-        <div style={{ width: '150px', borderRadius: '50%', overflow: 'hidden' }}>
+        <div className="avatar">
           <Avatar uri={data.recipe.owner.avatar?.uri} />
         </div>
         <h2>{data.recipe.owner.username}</h2>
@@ -89,7 +90,7 @@ function RecipePage() {
       ))}
       <span className="likes">
         <Icon icon="favorite" size="md-16" />
-        <p>{data.recipe.likes.toString()}</p>
+        <p>{data.recipe.likes}</p>
       </span>
       <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
       <FavoriteRecipeButton

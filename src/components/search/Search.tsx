@@ -52,7 +52,7 @@ export function Search() {
       <Button
         type="button"
         actionType="secondary"
-        disabled={searchValue.length < 2 ? true : false}
+        disabled={searchValue.length < 1}
         handleOnClick={() => {
           history.push(`/search/${searchValue}`);
           setSearchValue('');
