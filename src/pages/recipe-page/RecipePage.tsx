@@ -6,7 +6,7 @@ import Avatar from '../../components/avatar/Avatar';
 import FavoriteRecipeButton from '../../components/favorite-button/FavoriteButton';
 import Icon from '../../components/icon/Icon';
 import LikeButton from '../../components/like-button/LikeButton';
-import PageNotFound from '../PageNotFound/PageNotFound';
+import PageNotFound from '../pageNotFound/PageNotFound';
 import './recipe-page.css';
 import Button from '../../components/styled-button/Button';
 
@@ -33,6 +33,7 @@ const RECIPE = gql`
         id
         step
         description
+        tip
       }
     }
   }
@@ -53,7 +54,7 @@ interface RecipeResponse {
     isFavorite: boolean;
     isLiked: boolean;
     ingredients: [{ id: string; text: string }];
-    instructions: [{ id: string; step: string; description: string }];
+    instructions: [{ id: string; step: string; description: string; tip: string }];
   };
 }
 
@@ -96,7 +97,7 @@ function RecipePage() {
           <div className="instruction-step">
             <p>{instruction.step}</p>
             <Button actionType="secondary">
-              <Icon icon="info" size="md-16" title="tips" />
+              <Icon icon="info" size="md-16" title={`Tip: ${instruction.tip}`} />
             </Button>
           </div>
           <p>{instruction.description}</p>

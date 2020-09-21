@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeLoggedOutPage from './HomeLoggedOutPage';
 import NavigationBar from '../../components/navigation-bar/NavigationBar';
-import PageNotFound from '../PageNotFound/PageNotFound';
+import PageNotFound from '../pageNotFound/PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
 import { Route, Switch, Redirect } from 'react-router';
 import { SearchResponse } from '../../components/search/Search';

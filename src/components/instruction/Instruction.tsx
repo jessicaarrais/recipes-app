@@ -9,6 +9,7 @@ export interface InstructionProps {
   recipeId: string;
   step: string;
   description: string;
+  tip: string;
 }
 
 function Instruction(props: InstructionProps) {
@@ -23,6 +24,7 @@ function Instruction(props: InstructionProps) {
       onMouseOver={() => setIsShowingDeleteInstructionButton(true)}
       onMouseLeave={() => setIsShowingDeleteInstructionButton(false)}
     >
+      <p>{props.tip}</p>
       <div className="instructions-container">
         <InstructionStep
           instructionId={props.id}
