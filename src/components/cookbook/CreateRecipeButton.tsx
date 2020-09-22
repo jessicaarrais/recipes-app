@@ -6,7 +6,7 @@ import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 
 const CREATE_RECIPE = gql`
-  mutation CreateRecipe($title: String, $description: String) {
+  mutation CreateRecipe($title: String!, $description: String!) {
     createRecipe(title: $title, description: $description) {
       success
     }

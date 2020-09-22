@@ -5,7 +5,7 @@ import UploadAvatar from './UploadAvatar';
 import EditableTextArea from './editable-text-area/EditableTextArea';
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($username: String) {
+  mutation UpdateUser($username: String!) {
     updateUser(username: $username) {
       success
       message
