@@ -35,6 +35,7 @@ export const RECIPE_FRAGMENT = gql`
       recipeId
       step
       description
+      tip
     }
   }
   ${INGREDIENT_FRAGMENT}
@@ -47,7 +48,7 @@ export interface RecipeProps {
   description: string;
   isPublic: boolean;
   ingredients: [IngredientProps];
-  instructions?: [InstructionProps];
+  instructions: [InstructionProps];
   order: RecipesListOrder;
 }
 
@@ -88,6 +89,7 @@ function PrivateRecipeCard(props: RecipeProps) {
               recipeId={instruction.recipeId}
               step={instruction.step}
               description={instruction.description}
+              tip={instruction.tip}
             />
           ))}
         </ul>
