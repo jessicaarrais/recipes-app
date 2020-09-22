@@ -5,7 +5,7 @@ import Icon from '../../icon/Icon';
 import { INGREDIENT_FRAGMENT, IngredientProps } from '../../ingredient/Ingredient';
 
 const CREATE_INGREDIENT = gql`
-  mutation CreateIngredient($text: String, $isChecked: Boolean, $recipeId: ID!) {
+  mutation CreateIngredient($text: String!, $isChecked: Boolean!, $recipeId: ID!) {
     createIngredient(text: $text, isChecked: $isChecked, recipeId: $recipeId) {
       recipe {
         id

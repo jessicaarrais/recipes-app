@@ -3,18 +3,8 @@ import { gql, useMutation } from '@apollo/client';
 import EditableTextArea from '../editable-text-area/EditableTextArea';
 
 const UPDATE_INSTRUCTION = gql`
-  mutation UpdateInstruction(
-    $instructionId: ID!
-    $step: String
-    $text: String
-    $recipeId: ID!
-  ) {
-    updateInstruction(
-      instructionId: $instructionId
-      step: $step
-      text: $text
-      recipeId: $recipeId
-    ) {
+  mutation UpdateInstruction($instructionId: ID!, $step: String, $recipeId: ID!) {
+    updateInstruction(instructionId: $instructionId, step: $step, recipeId: $recipeId) {
       instruction {
         id
         step

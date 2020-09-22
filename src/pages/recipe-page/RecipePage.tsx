@@ -28,6 +28,7 @@ const RECIPE = gql`
       ingredients {
         id
         text
+        instructionId
       }
       instructions {
         id
@@ -53,7 +54,7 @@ interface RecipeResponse {
     likes: number;
     isFavorite: boolean;
     isLiked: boolean;
-    ingredients: [{ id: string; text: string }];
+    ingredients: [{ id: string; text: string; instructionId: string }];
     instructions: [{ id: string; step: string; description: string; tip: string }];
   };
 }

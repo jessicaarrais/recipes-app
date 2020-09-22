@@ -10,6 +10,7 @@ export const INGREDIENT_FRAGMENT = gql`
     __typename
     id
     recipeId
+    instructionId
     text
     isChecked
   }

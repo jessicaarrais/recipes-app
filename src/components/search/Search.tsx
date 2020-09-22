@@ -7,7 +7,7 @@ import './search.css';
 import PublicRecipeCard from '../recipe/public-list-view/PublicRecipeCard';
 
 const SEARCH_RECIPES = gql`
-  query SearchRecipes($value: String) {
+  query SearchRecipes($value: String!) {
     searchRecipes(value: $value) {
       id
       title

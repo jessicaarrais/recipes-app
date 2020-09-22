@@ -5,9 +5,9 @@ import Icon from '../../icon/Icon';
 
 const CREATE_INSTRUCTION = gql`
   mutation CreateInstruction(
-    $step: String
-    $description: String
-    $tip: String
+    $step: String!
+    $description: String!
+    $tip: String!
     $recipeId: ID!
   ) {
     createInstruction(
