@@ -1,13 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
 import Avatar from '../../components/avatar/Avatar';
-import urlParser from '../../utils/urlParser';
+import Cookbook from '../../components/cookbook/Cookbook';
+import { RecipesListOrder } from '../loggedin/HomeLoggedInPage';
+import PublicRecipeCard, {
+  PublicRecipeProps,
+} from '../../components/recipe/public-list-view/PublicRecipeCard';
+import { RECIPE_FRAGMENT } from '../../components/recipe/private-list-view/PrivateRecipeCard';
 import './user-profile-page.css';
 
 const GET_USER = gql`
-  query User($username: String) {
+  query User($username: String, $recipesListOrder: RecipesListOrder) {
     user(username: $username) {
       id
       username
@@ -16,13 +20,13 @@ const GET_USER = gql`
       }
       cookbook {
         id
-        recipes {
-          id
-          title
+        recipes(order: $recipesListOrder) {
+          ...RecipeFragment
         }
       }
     }
   }
+  ${RECIPE_FRAGMENT}
 `;
 
 interface UserResponse {
@@ -32,21 +36,17 @@ interface UserResponse {
     avatar?: { uri: string };
     cookbook: {
       id: string;
-      recipes: [
-        {
-          id: string;
-          title: string;
-        }
-      ];
+      recipes: [PublicRecipeProps];
     };
   };
 }
 
 function UserProfilePage() {
   const { username } = useParams<{ username: string }>();
+  const [order, setOrder] = useState(RecipesListOrder.DEFAULT);
 
-  const { data, loading, error } = useQuery<UserResponse>(GET_USER, {
-    variables: { username },
+  const { data, loading, error, refetch } = useQuery<UserResponse>(GET_USER, {
+    variables: { username, recipesListOrder: order },
   });
 
   if (loading) return <h1>Loading...</h1>;
@@ -59,22 +59,25 @@ function UserProfilePage() {
       <div className="user-profile-avatar">
         <Avatar uri={user.avatar?.uri} />
       </div>
-      <ul className="recipes">
-        {user.cookbook.recipes.map((recipe) => {
-          const titleURL = urlParser(recipe.title);
-          return (
-            <Link
-              to={`/cookbook/${user.cookbook.id}/recipe/${titleURL}/${recipe.id}`}
-              key={recipe.id}
-              className="recipe"
-            >
-              <li>
-                <h3>{recipe.title}</h3>
-              </li>
-            </Link>
-          );
-        })}
-      </ul>
+      <Cookbook
+        order={order}
+        refetchRecipes={(order) => refetch({ recipesListOrder: order })}
+        setOrder={setOrder}
+      >
+        {user.cookbook.recipes.map((recipe) => (
+          <PublicRecipeCard
+            key={recipe.id}
+            id={recipe.id}
+            title={recipe.title}
+            description={recipe.description}
+            cookbookId={recipe.cookbookId}
+            owner={recipe.owner}
+            likes={recipe.likes}
+            isFavorite={recipe.isFavorite}
+            isLiked={recipe.isLiked}
+          />
+        ))}
+      </Cookbook>
     </div>
   ) : (
     <h3>User not found</h3>

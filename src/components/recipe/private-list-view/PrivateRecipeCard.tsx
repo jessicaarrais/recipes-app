@@ -16,6 +16,7 @@ export const RECIPE_FRAGMENT = gql`
     id
     owner {
       id
+      username
     }
     cookbookId
     title
@@ -38,7 +39,7 @@ export const RECIPE_FRAGMENT = gql`
   ${INGREDIENT_FRAGMENT}
 `;
 
-export interface RecipeProps {
+export interface PrivateRecipeProps {
   id: string;
   cookbookId: string;
   owner: { username: string };
@@ -51,7 +52,7 @@ export interface RecipeProps {
   order: RecipesListOrder;
 }
 
-function PrivateRecipeCard(props: RecipeProps) {
+function PrivateRecipeCard(props: PrivateRecipeProps) {
   return (
     <li className="card">
       <Link to={`/cookbook/${props.cookbookId}/recipe/${props.title}/${props.id}`}>

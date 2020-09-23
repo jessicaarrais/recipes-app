@@ -20,6 +20,7 @@ function EditRecipeButton(props: Props) {
       }}
     >
       <Icon icon="create" size="md-24" />
+      Edit
     </Button>
   );
 }

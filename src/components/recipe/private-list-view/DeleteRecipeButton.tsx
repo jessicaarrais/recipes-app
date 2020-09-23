@@ -49,7 +49,7 @@ function DeleteRecipeButton(props: Props) {
       }}
     >
       <Icon icon="delete" size="md-24" />
-      delete recipe
+      delete
     </Button>
   );
 }
