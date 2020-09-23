@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../../styled-button/Button';
-import Icon from '../../icon/Icon';
+import Button from '../styled-button/Button';
+import Icon from '../icon/Icon';
 
 const CREATE_INSTRUCTION = gql`
   mutation CreateInstruction(

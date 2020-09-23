@@ -21,6 +21,7 @@ export interface IngredientProps {
   recipeId: string;
   isChecked: boolean;
   text: string;
+  instructionId?: string;
 }
 
 function Ingredient(props: IngredientProps) {

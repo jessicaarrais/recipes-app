@@ -43,8 +43,10 @@ export default function Cookbook(props: CookbookProps) {
             key={recipe.id}
             id={recipe.id}
             cookbookId={recipe.cookbookId}
+            owner={recipe.owner}
             title={recipe.title}
             description={recipe.description}
+            likes={recipe.likes}
             isPublic={recipe.isPublic}
             ingredients={recipe.ingredients}
             instructions={recipe.instructions}

@@ -1,17 +1,14 @@
 import React from 'react';
 import { gql } from '@apollo/client';
-import CreateIngredientButton from './CreateIngredientButton';
-import CreateInstructionButton from './CreateInstructionButton';
+import { Link } from 'react-router-dom';
 import DeleteRecipeButton from './DeleteRecipeButton';
-import Ingredient, {
-  INGREDIENT_FRAGMENT,
-  IngredientProps,
-} from '../../ingredient/Ingredient';
-import Instruction, { InstructionProps } from '../../instruction/Instruction';
+import Icon from '../../icon/Icon';
+import { IngredientProps, INGREDIENT_FRAGMENT } from '../../ingredient/Ingredient';
+import { InstructionProps } from '../../instruction/Instruction';
 import { RecipesListOrder } from '../../../pages/loggedin/HomeLoggedInPage';
-import RecipeTitle from './RecipeTitle';
 import RecipeVisibilityButton from './RecipeVisibilityButton';
 import './private-recipe-card.css';
+import EditRecipeButton from './EditRecipeButton';
 
 export const RECIPE_FRAGMENT = gql`
   fragment RecipeFragment on Recipe {
@@ -44,8 +41,10 @@ export const RECIPE_FRAGMENT = gql`
 export interface RecipeProps {
   id: string;
   cookbookId: string;
+  owner: { username: string };
   title: string;
   description: string;
+  likes: number;
   isPublic: boolean;
   ingredients: [IngredientProps];
   instructions: [InstructionProps];
@@ -54,57 +53,38 @@ export interface RecipeProps {
 
 function PrivateRecipeCard(props: RecipeProps) {
   return (
-    <li className="recipe-li" id={props.id}>
-      <div className="recipe-header">
-        <RecipeTitle id={props.id} cookbookId={props.cookbookId} title={props.title} />
-        <RecipeVisibilityButton
-          recipeId={props.id}
-          isPublic={props.isPublic}
-          cookbookId={props.cookbookId}
-        />
-      </div>
-      <p>
-        {props.description}: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Numquam adipisci eveniet tenetur rem mollitia! Molestiae voluptas natus, nostrum
-        doloribus nam, alias facere at assumenda asperiores, animi excepturi nemo aliquid
-        distinctio?
-      </p>
-      <ul>
-        {props.ingredients.map((ingredient) => (
-          <Ingredient
-            key={ingredient.id}
-            id={ingredient.id}
-            recipeId={ingredient.recipeId}
-            isChecked={ingredient.isChecked}
-            text={ingredient.text}
-          />
-        ))}
-      </ul>
-      {props.instructions && (
-        <ul>
-          {props.instructions.map((instruction) => (
-            <Instruction
-              key={instruction.id}
-              id={instruction.id}
-              recipeId={instruction.recipeId}
-              step={instruction.step}
-              description={instruction.description}
-              tip={instruction.tip}
-            />
-          ))}
-        </ul>
-      )}
-      <div className="recipe-btns-container">
-        <div className="create-ingredient-container">
-          <CreateIngredientButton recipeId={props.id} />
+    <li className="card">
+      <Link to={`/cookbook/${props.cookbookId}/recipe/${props.title}/${props.id}`}>
+        <div className="header">
+          <h2 className="title">{props.title}</h2>
+          <RecipeVisibilityButton recipeId={props.id} isPublic={props.isPublic} />
         </div>
-        <div className="create-instruction-container">
-          <CreateInstructionButton recipeId={props.id} />
+        <p className="description">
+          {props.description}
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem qui et sed unde,
+          impedit error praesentium mollitia tenetur earum, fugiat ullam quod dicta
+          repellendus vero quia delectus vitae dolore. Facilis? Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Eligendi animi quam inventore quis doloribus
+          asperiores earum corporis dicta! Repellendus eaque provident eos id optio
+          aspernatur ipsum dolore explicabo eligendi reiciendis?
+        </p>
+        <div className="info">
+          <span className="likes">
+            <Icon icon="favorite" size="md-16" />
+            <p>{props.likes}</p>
+          </span>
+          <span className="author-username">{props.owner.username}</span>
         </div>
-        <div className="delete-recipe-container">
-          <DeleteRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
+        <hr />
+        <div className="card-bottom">
+          <div className="button-container">
+            <EditRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
+          </div>
+          <div className="button-container">
+            <DeleteRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
+          </div>
         </div>
-      </div>
+      </Link>
     </li>
   );
 }

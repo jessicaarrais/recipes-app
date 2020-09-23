@@ -1,12 +1,12 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import EditableTextArea from '../../editable-text-area/EditableTextArea';
-import { GET_COOKBOOK, RecipesListOrder } from '../../../pages/loggedin/HomeLoggedInPage';
+import EditableTextArea from '../editable-text-area/EditableTextArea';
+import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 import './recipe-title.css';
 
 const UPDATE_RECIPE = gql`
-  mutation UpdateRecipe($recipeId: ID!, $title: String, $cookbookId: ID!) {
-    updateRecipe(recipeId: $recipeId, title: $title, cookbookId: $cookbookId) {
+  mutation UpdateRecipe($recipeId: ID!, $title: String) {
+    updateRecipe(recipeId: $recipeId, title: $title) {
       recipe {
         id
         title
@@ -26,7 +26,6 @@ interface UpdateRecipeTitleResponse {
 
 interface Props {
   id: string;
-  cookbookId: string;
   title: string;
 }
 
@@ -35,7 +34,7 @@ function RecipeTitle(props: Props) {
 
   const onSubmit = (title: string) =>
     updateRecipe({
-      variables: { recipeId: props.id, title, cookbookId: props.cookbookId },
+      variables: { recipeId: props.id, title },
       refetchQueries: [
         {
           query: GET_COOKBOOK,

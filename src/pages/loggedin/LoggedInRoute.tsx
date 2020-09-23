@@ -11,6 +11,7 @@ import { SearchResponse } from '../../components/search/Search';
 import UserProfileButton from '../../components/UserProfileButton';
 import UserProfilePage from '../user-profile-page/UserProfilePage';
 import './loggedin-route.css';
+import RecipePageEditionMode from '../recipe-page/RecipePageEditionMode';
 
 export const ME = gql`
   query Me {
@@ -54,6 +55,11 @@ function LoggedInRoute() {
           <Route exact path="/home" component={HomeLoggedInPage} />
           <Route exact path="/account-settings" component={AccountSettingsPage} />
           <Route exact path="/users/:username" component={UserProfilePage} />
+          <Route
+            exact
+            path="/edit/cookbook/:cookbookId/recipe/:recipeId"
+            component={RecipePageEditionMode}
+          />
           <Route exact path="/search/:value" component={SearchResponse} />
           <Route
             exact
