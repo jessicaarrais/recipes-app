@@ -4,8 +4,8 @@ import Button from '../../styled-button/Button';
 import Icon from '../../icon/Icon';
 
 const UPDATE_RECIPE = gql`
-  mutation UpdateRecipe($recipeId: ID!, $isPublic: Boolean, $cookbookId: ID!) {
-    updateRecipe(recipeId: $recipeId, isPublic: $isPublic, cookbookId: $cookbookId) {
+  mutation UpdateRecipe($recipeId: ID!, $isPublic: Boolean) {
+    updateRecipe(recipeId: $recipeId, isPublic: $isPublic) {
       recipe {
         id
         isPublic
@@ -26,7 +26,6 @@ interface UpdateRecipeIsPublicResponse {
 interface Props {
   recipeId: string;
   isPublic: boolean;
-  cookbookId: string;
 }
 function RecipeVisibilityButton(props: Props) {
   const [updateRecipe, { error }] = useMutation<UpdateRecipeIsPublicResponse>(
@@ -40,12 +39,12 @@ function RecipeVisibilityButton(props: Props) {
       <Button
         type="button"
         actionType="secondary"
-        handleOnClick={() => {
+        handleOnClick={(event) => {
+          event.preventDefault();
           updateRecipe({
             variables: {
               recipeId: props.recipeId,
               isPublic: !props.isPublic,
-              cookbookId: props.cookbookId,
             },
           });
         }}

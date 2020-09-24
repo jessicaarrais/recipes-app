@@ -5,7 +5,7 @@
   justify-content: space-between;
 }
 
-.create-sheet-container {
+.create-recipe-container {
   display: flex;
   flex: 1;
   margin-right: 8px;

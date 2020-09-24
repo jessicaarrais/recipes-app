@@ -6,7 +6,7 @@ import Icon from '../../icon/Icon';
 import LikeButton from '../../like-button/LikeButton';
 import './public-recipe-card.css';
 
-interface Props {
+export interface PublicRecipeProps {
   id: string;
   title: string;
   description: string;
@@ -17,7 +17,7 @@ interface Props {
   isLiked: boolean;
 }
 
-function PublicRecipeCard(props: Props) {
+function PublicRecipeCard(props: PublicRecipeProps) {
   const titleURL = urlParser(props.title);
 
   return (

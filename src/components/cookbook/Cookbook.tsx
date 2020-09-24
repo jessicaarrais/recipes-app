@@ -1,16 +1,12 @@
 import React from 'react';
-import PrivateRecipeCard, {
-  RecipeProps,
-} from '../recipe/private-list-view/PrivateRecipeCard';
-import CreateRecipeButton from './CreateRecipeButton';
 import Button from '../styled-button/Button';
 import Icon from '../icon/Icon';
-import './cookbook.css';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
+import './cookbook.css';
 
 interface CookbookProps {
-  id: string;
-  recipes: [RecipeProps];
+  createRecipeButton?: React.ReactNode;
+  children: React.ReactNode;
   order: RecipesListOrder;
   refetchRecipes(order: RecipesListOrder): void;
   setOrder(order: RecipesListOrder): void;
@@ -20,9 +16,7 @@ export default function Cookbook(props: CookbookProps) {
   return (
     <div>
       <div className="notebook-header">
-        <div className="create-sheet-container">
-          <CreateRecipeButton />
-        </div>
+        <div className="create-recipe-container">{props.createRecipeButton}</div>
         <div className="notebook-list-organizers-container">
           <div className="filter-list-container">
             <Button type="button" actionType="default">
@@ -30,34 +24,18 @@ export default function Cookbook(props: CookbookProps) {
             </Button>
           </div>
           <SortList
-            cookbookId={props.id}
             order={props.order}
             refetchRecipes={props.refetchRecipes}
             setOrder={props.setOrder}
           />
         </div>
       </div>
-      <ul>
-        {props.recipes.map((recipe) => (
-          <PrivateRecipeCard
-            key={recipe.id}
-            id={recipe.id}
-            cookbookId={recipe.cookbookId}
-            title={recipe.title}
-            description={recipe.description}
-            isPublic={recipe.isPublic}
-            ingredients={recipe.ingredients}
-            instructions={recipe.instructions}
-            order={props.order}
-          />
-        ))}
-      </ul>
+      <ul>{props.children}</ul>
     </div>
   );
 }
 
 interface SortListProps {
-  cookbookId: string;
   order: RecipesListOrder;
   refetchRecipes(order: RecipesListOrder): void;
   setOrder(oreder: RecipesListOrder): void;

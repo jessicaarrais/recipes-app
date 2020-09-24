@@ -29,7 +29,8 @@ function DeleteRecipeButton(props: Props) {
     <Button
       type="button"
       actionType="danger"
-      handleOnClick={() =>
+      handleOnClick={(event) => {
+        event.preventDefault();
         deleteRecipe({
           variables: {
             recipeId: props.recipeId,
@@ -44,11 +45,11 @@ function DeleteRecipeButton(props: Props) {
               variables: { recipesListOrder: RecipesListOrder.TITLE_ASCENDING },
             },
           ],
-        })
-      }
+        });
+      }}
     >
       <Icon icon="delete" size="md-24" />
-      delete recipe
+      delete
     </Button>
   );
 }

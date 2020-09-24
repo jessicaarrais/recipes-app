@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import Cookbook from '../../components/cookbook/Cookbook';
-import {
+import PrivateRecipeCard, {
   RECIPE_FRAGMENT,
-  RecipeProps,
+  PrivateRecipeProps,
 } from '../../components/recipe/private-list-view/PrivateRecipeCard';
+import CreateRecipeButton from '../../components/cookbook/CreateRecipeButton';
 
 export const COOKBOOK_FRAGMENT = gql`
   fragment CookbookFragment on Cookbook {
@@ -39,7 +40,7 @@ interface MeResponse {
     id: string;
     cookbook: {
       id: string;
-      recipes: [RecipeProps];
+      recipes: [PrivateRecipeProps];
     };
   };
 }
@@ -58,12 +59,27 @@ function HomeLoggedInPage() {
   return (
     <div>
       <Cookbook
-        id={data.me.cookbook.id}
-        recipes={data.me.cookbook.recipes}
+        createRecipeButton={<CreateRecipeButton />}
         order={order}
         refetchRecipes={(order) => refetch({ recipesListOrder: order })}
         setOrder={setOrder}
-      />
+      >
+        {data.me.cookbook.recipes.map((recipe) => (
+          <PrivateRecipeCard
+            key={recipe.id}
+            id={recipe.id}
+            cookbookId={recipe.cookbookId}
+            owner={recipe.owner}
+            title={recipe.title}
+            description={recipe.description}
+            likes={recipe.likes}
+            isPublic={recipe.isPublic}
+            ingredients={recipe.ingredients}
+            instructions={recipe.instructions}
+            order={order}
+          />
+        ))}
+      </Cookbook>
     </div>
   );
 }
