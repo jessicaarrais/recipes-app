@@ -1,49 +1,34 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import React, { useState } from 'react';
+import { gql, useApolloClient, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import Avatar from '../../components/avatar/Avatar';
+import Button from '../../components/styled-button/Button';
+import EditRecipeButton from '../../components/recipe/private-list-view/EditRecipeButton';
 import FavoriteRecipeButton from '../../components/favorite-button/FavoriteButton';
 import Icon from '../../components/icon/Icon';
 import LikeButton from '../../components/like-button/LikeButton';
 import PageNotFound from '../pageNotFound/PageNotFound';
+import { RECIPE_FRAGMENT } from '../../components/recipe/private-list-view/PrivateRecipeCard';
+import RecipePageIngredients from '../../components/recipe/RecipePageIngredients';
+import RecipePageInstructions from '../../components/recipe/RecipePageInstructions';
 import './recipe-page.css';
-import Button from '../../components/styled-button/Button';
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
     recipe(recipeId: $recipeId, cookbookId: $cookbookId) {
-      id
-      owner {
-        username
-        avatar {
-          uri
-        }
-      }
-      title
-      description
-      likes
-      isFavorite
-      isLiked
-      ingredients {
-        id
-        text
-        instructionId
-      }
-      instructions {
-        id
-        step
-        description
-        tip
-      }
+      ...RecipeFragment
     }
   }
+  ${RECIPE_FRAGMENT}
 `;
 
 interface RecipeResponse {
   recipe: {
     id: string;
+    cookbookId: string;
     owner: {
+      id: string;
       username: string;
       avatar?: {
         uri: string;
@@ -59,8 +44,23 @@ interface RecipeResponse {
   };
 }
 
+enum TabSelector {
+  INGREDIENTS = 'ingredients',
+  INSTRUCTIONS = 'instructions',
+}
+
 function RecipePage() {
+  const userLoggedIn: { me: { id: string } } | null = useApolloClient().readQuery({
+    query: gql`
+      query Me {
+        me {
+          id
+        }
+      }
+    `,
+  });
   const { cookbookId, recipeId } = useParams<{ cookbookId: string; recipeId: string }>();
+  const [activeTab, setActiveTab] = useState<TabSelector>(TabSelector.INGREDIENTS);
 
   const { data, loading, error } = useQuery<RecipeResponse>(RECIPE, {
     variables: { recipeId, cookbookId },
@@ -71,49 +71,85 @@ function RecipePage() {
   if (!data?.recipe) return <PageNotFound />;
 
   return (
-    <div>
-      <Link to={`/users/${data.recipe.owner.username}`}>
-        <div className="avatar">
-          <Avatar uri={data.recipe.owner.avatar?.uri} />
+    <>
+      <header className="recipe-page-header">
+        <div className="header-text">
+          <Link to={`/users/${data.recipe.owner.username}`} className="avatar">
+            <Avatar uri={data.recipe.owner.avatar?.uri} />
+          </Link>
+          <h4 className="recipe-page-title">
+            <span>{data.recipe.title} </span>
+            by {data.recipe.owner.username}
+          </h4>
+          <p>
+            {data.recipe.description} Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. Iusto facere impedit cupiditate voluptatum iste quos eos voluptas sunt
+            culpa perspiciatis dolorem, veniam at nisi natus, rerum perferendis aperiam
+            sint quo.
+          </p>
         </div>
-        <h2>{data.recipe.owner.username}</h2>
-      </Link>
-      <h2>{data.recipe.title}</h2>
-      <p>
-        {data.recipe.description} Lorem ipsum dolor, sit amet consectetur adipisicing
-        elit. Consequuntur odio molestias praesentium, vel harum distinctio nostrum!
-        Velit, corporis nam! Officiis nam quos impedit quo autem mollitia assumenda
-        debitis inventore neque.
-      </p>
-      <h3>Ingredients</h3>
-      <ul>
-        {data.recipe.ingredients.map((ingredient) => (
-          <li key={ingredient.id}>{ingredient.text}</li>
-        ))}
-      </ul>
-      <hr />
-      <h3>Instructions</h3>
-      {data.recipe.instructions.map((instruction) => (
-        <div key={instruction.id}>
-          <div className="instruction-step">
-            <p>{instruction.step}</p>
-            <Button actionType="secondary">
-              <Icon icon="info" size="md-16" title={`Tip: ${instruction.tip}`} />
-            </Button>
-          </div>
-          <p>{instruction.description}</p>
-        </div>
-      ))}
+        <div className="header-media">image/video</div>
+      </header>
       <span className="likes">
         <Icon icon="favorite" size="md-16" />
         <p>{data.recipe.likes}</p>
       </span>
-      <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
-      <FavoriteRecipeButton
-        recipeId={data.recipe.id}
-        isFavorite={data.recipe.isFavorite}
-      />
-    </div>
+      <div className="recipe-actions">
+        <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
+        <FavoriteRecipeButton
+          recipeId={data.recipe.id}
+          isFavorite={data.recipe.isFavorite}
+        />
+        {userLoggedIn?.me.id === data.recipe.owner.id && (
+          <EditRecipeButton
+            recipeId={data.recipe.id}
+            cookbookId={data.recipe.cookbookId}
+          />
+        )}
+      </div>
+      <section className="tabs">
+        <div className="tab-selectors-container">
+          <h4
+            className={`tab-selector ${
+              activeTab === TabSelector.INGREDIENTS ? 'active-tab' : 'inactive-tab'
+            }`}
+            onClick={() => {
+              setActiveTab(TabSelector.INGREDIENTS);
+            }}
+          >
+            Ingredients
+          </h4>
+          <h4
+            className={`tab-selector ${
+              activeTab === TabSelector.INSTRUCTIONS ? 'active-tab' : 'inactive-tab'
+            }`}
+            onClick={() => {
+              setActiveTab(TabSelector.INSTRUCTIONS);
+            }}
+          >
+            Instructions
+          </h4>
+        </div>
+        {activeTab === TabSelector.INGREDIENTS && (
+          <>
+            <RecipePageIngredients ingredients={data.recipe.ingredients} />
+            <Button
+              type="button"
+              actionType="secondary"
+              handleOnClick={() => setActiveTab(TabSelector.INSTRUCTIONS)}
+            >
+              I am ready!
+            </Button>
+          </>
+        )}
+        {activeTab === TabSelector.INSTRUCTIONS && (
+          <RecipePageInstructions
+            ingredients={data.recipe.ingredients}
+            instructions={data.recipe.instructions}
+          />
+        )}
+      </section>
+    </>
   );
 }
 
