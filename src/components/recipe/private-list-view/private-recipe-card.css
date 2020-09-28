@@ -4,7 +4,6 @@
   padding: 24px;
   margin-bottom: 16px;
   border-radius: 8px;
-  list-style: none;
   background-color: #ffffff;
   border-left: solid 32px #cb9b8c;
   box-shadow: 1px 1px 1px 1px #bdbdbd;
@@ -21,6 +20,7 @@
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .description {

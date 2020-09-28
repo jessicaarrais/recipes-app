@@ -20,11 +20,14 @@ const RECIPE = gql`
       isPublic
       ingredients {
         id
+        recipeId
         text
+        isChecked
         instructionId
       }
       instructions {
         id
+        recipeId
         step
         description
         tip

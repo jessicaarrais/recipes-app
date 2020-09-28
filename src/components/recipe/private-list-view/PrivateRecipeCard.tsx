@@ -17,6 +17,9 @@ export const RECIPE_FRAGMENT = gql`
     owner {
       id
       username
+      avatar {
+        uri
+      }
     }
     cookbookId
     title
