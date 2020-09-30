@@ -1,20 +1,7 @@
-h1 {
-  text-align: center;
-  margin: 0;
-  font-size: 3.75rem;
-}
-
-.body-loggedout {
-  min-height: 100vh;
-  background-color: #ffccbc;
-}
-
 .loggedout-section {
-  position: relative;
-  top: 80px;
   width: 100%;
   max-width: 968px;
-  margin: 0 auto;
+  margin: 16px auto 0;
 }
 
 .buttons {

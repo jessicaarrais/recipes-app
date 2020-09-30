@@ -10,7 +10,7 @@ import './loggedout-route.css';
 
 function LoggedOutRoute() {
   return (
-    <div className="body-loggedout">
+    <div>
       <NavigationBar />
       <section className="loggedout-section">
         <Switch>
