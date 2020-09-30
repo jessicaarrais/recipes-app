@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../icon/Icon';
 import { GET_COOKBOOK } from '../../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
@@ -24,9 +24,12 @@ function CreateRecipeButton() {
 
   return (
     <Button
-      type="button"
-      actionType="primary"
-      handleOnClick={() => {
+      color="primary"
+      variant="contained"
+      size="medium"
+      fullWidth
+      startIcon={<Icon icon="create" size="md-24" />}
+      onClick={() => {
         createRecipe({
           variables: { title: 'Title', description: 'Recipe description' },
           refetchQueries: [
@@ -42,7 +45,6 @@ function CreateRecipeButton() {
         });
       }}
     >
-      <Icon icon="create" size="md-24" />
       New Recipe
     </Button>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../styled-button/Button';
 import Icon from '../icon/Icon';
 
 interface Props {
@@ -14,9 +13,7 @@ function RecipePageInstructions(props: Props) {
         <li className="instruction" key={instruction.id}>
           <div className="instruction-step">
             <p>{instruction.step}</p>
-            <Button actionType="secondary">
-              <Icon icon="info" size="md-16" title={`Tip: ${instruction.tip}`} />
-            </Button>
+            <Icon icon="info" size="md-16" title={`Tip: ${instruction.tip}`} />
           </div>
           <p>{instruction.description}</p>
           <ul className="instruction-ingredient">

@@ -3,7 +3,8 @@ import { gql, useApolloClient, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import Avatar from '../../components/avatar/Avatar';
-import Button from '../../components/styled-button/Button';
+import { Button, AppBar, Tabs, Tab } from '@material-ui/core';
+import { TabContext, TabPanel } from '@material-ui/lab';
 import EditRecipeButton from '../../components/recipe/private-list-view/EditRecipeButton';
 import FavoriteRecipeButton from '../../components/favorite-button/FavoriteButton';
 import Icon from '../../components/icon/Icon';
@@ -108,46 +109,38 @@ function RecipePage() {
         )}
       </div>
       <section className="tabs">
-        <div className="tab-selectors-container">
-          <h4
-            className={`tab-selector ${
-              activeTab === TabSelector.INGREDIENTS ? 'active-tab' : 'inactive-tab'
-            }`}
-            onClick={() => {
-              setActiveTab(TabSelector.INGREDIENTS);
-            }}
-          >
-            Ingredients
-          </h4>
-          <h4
-            className={`tab-selector ${
-              activeTab === TabSelector.INSTRUCTIONS ? 'active-tab' : 'inactive-tab'
-            }`}
-            onClick={() => {
-              setActiveTab(TabSelector.INSTRUCTIONS);
-            }}
-          >
-            Instructions
-          </h4>
-        </div>
-        {activeTab === TabSelector.INGREDIENTS && (
-          <>
+        <TabContext value={activeTab}>
+          <AppBar position="static" color="transparent">
+            <Tabs
+              value={activeTab}
+              onChange={(_e, value) => setActiveTab(value)}
+              variant="fullWidth"
+              indicatorColor="primary"
+              textColor="primary"
+              aria-label="icon tabs example"
+            >
+              <Tab label="Ingredients" value={TabSelector.INGREDIENTS} />
+              <Tab label="Instructions" value={TabSelector.INSTRUCTIONS} />
+            </Tabs>
+          </AppBar>
+          <TabPanel value={TabSelector.INGREDIENTS}>
             <RecipePageIngredients ingredients={data.recipe.ingredients} />
             <Button
-              type="button"
-              actionType="secondary"
-              handleOnClick={() => setActiveTab(TabSelector.INSTRUCTIONS)}
+              color="primary"
+              variant="contained"
+              size="medium"
+              onClick={() => setActiveTab(TabSelector.INSTRUCTIONS)}
             >
               I am ready!
             </Button>
-          </>
-        )}
-        {activeTab === TabSelector.INSTRUCTIONS && (
-          <RecipePageInstructions
-            ingredients={data.recipe.ingredients}
-            instructions={data.recipe.instructions}
-          />
-        )}
+          </TabPanel>
+          <TabPanel value={TabSelector.INSTRUCTIONS}>
+            <RecipePageInstructions
+              ingredients={data.recipe.ingredients}
+              instructions={data.recipe.instructions}
+            />
+          </TabPanel>
+        </TabContext>
       </section>
     </>
   );

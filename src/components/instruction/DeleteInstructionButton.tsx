@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../icon/Icon';
 
 const DELETE_INSTRUCTION = gql`
@@ -39,9 +39,10 @@ function DeleteInstructionButton(props: Props) {
 
   return (
     <Button
-      type="button"
-      actionType="danger"
-      handleOnClick={() => deleteInstruction({ variables: props })}
+      color="secondary"
+      variant="contained"
+      size="medium"
+      onClick={() => deleteInstruction({ variables: props })}
     >
       <Icon icon="clear" size="md-16" />
     </Button>

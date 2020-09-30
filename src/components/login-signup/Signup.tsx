@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import './login-signup.css';
 
 const CREATE_USER = gql`
@@ -126,7 +126,7 @@ function Signup() {
           <li>contain at least 1 uppercase and lowercase letters of each.</li>
         </ul>
         <div className="login-signup-btn">
-          <Button type="submit" actionType="default">
+          <Button type="submit" color="default" variant="contained" size="medium">
             Signup
           </Button>
         </div>

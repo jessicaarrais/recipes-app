@@ -1,6 +1,5 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Link } from 'react-router-dom';
 import UserSettings from '../components/UserSettings';
 import LogoutButton from '../components/logout/LogoutButton';
 
@@ -33,7 +32,6 @@ function AccountSettingsPage() {
 
   return (
     <>
-      <Link to="/">Back to Home</Link>
       <LogoutButton />
       <hr />
       <UserSettings username={data.me.username} uri={data.me.avatar?.uri} />

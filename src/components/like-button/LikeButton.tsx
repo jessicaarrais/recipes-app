@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../icon/Icon';
 
 const LIKE_RECIPE = gql`
@@ -48,7 +48,7 @@ function LikeButton(props: Props) {
   };
 
   return (
-    <Button type="button" actionType="secondary" handleOnClick={handleMutation}>
+    <Button color="default" size="medium" onClick={handleMutation}>
       {props.isLiked ? (
         <Icon icon="favorite" size="md-24" />
       ) : (

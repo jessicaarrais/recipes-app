@@ -4,6 +4,8 @@
 }
 
 .loggedin-section {
+  position: relative;
+  top: 80px;
   width: 100%;
   max-width: 968px;
   margin: 0 auto;

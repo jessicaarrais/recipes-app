@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Avatar from './avatar/Avatar';
+import { Button } from '@material-ui/core';
 
 const UPLOAD_AVATAR = gql`
   mutation UploadAvatar($file: Upload!) {
@@ -59,8 +60,17 @@ function UploadAvatar(props: Props) {
 
   return (
     <div>
-      <label htmlFor="avatar">Upload photo</label>
-      <input id="avatar" type="file" onChange={handleUploadAvatar} />
+      <label htmlFor="avatar">
+        <Button variant="contained" color="primary" component="span">
+          Upload photo
+        </Button>
+      </label>
+      <input
+        id="avatar"
+        type="file"
+        onChange={handleUploadAvatar}
+        style={{ display: 'none' }}
+      />
       {errorMessage === '' && <p>{errorMessage}</p>}
       <div style={{ width: '100px' }}>
         <Avatar uri={props.uri} />

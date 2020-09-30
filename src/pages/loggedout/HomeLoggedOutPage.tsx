@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../../components/styled-button/Button';
+import { Button } from '@material-ui/core';
 import Login from '../../components/login-signup/Login';
 import Signup from '../../components/login-signup/Signup';
 
@@ -11,30 +11,28 @@ function HomeLoggedOutPage() {
     <>
       <h1>Cookbook</h1>
       <div className="buttons">
-        <div>
-          <Button
-            type="button"
-            actionType="default"
-            handleOnClick={() => {
-              setLogin(true);
-              setSignin(false);
-            }}
-          >
-            Login
-          </Button>
-        </div>
-        <div>
-          <Button
-            type="button"
-            actionType="default"
-            handleOnClick={() => {
-              setSignin(true);
-              setLogin(false);
-            }}
-          >
-            Signin
-          </Button>
-        </div>
+        <Button
+          color="primary"
+          variant="contained"
+          size="medium"
+          onClick={() => {
+            setLogin(true);
+            setSignin(false);
+          }}
+        >
+          Login
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          size="medium"
+          onClick={() => {
+            setSignin(true);
+            setLogin(false);
+          }}
+        >
+          Signin
+        </Button>
       </div>
       <div>
         {login && <Login />}

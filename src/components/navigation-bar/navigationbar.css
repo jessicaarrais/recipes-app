@@ -7,12 +7,14 @@
   left: 0;
   right: 0;
   z-index: 1;
-  padding: 16px 24px;
+  height: 64px;
+  padding: 4px 16px;
   background-color: #ffccbc;
   box-shadow: 0 0 4px 0 #bdbdbd;
 }
 
-.navbar > div {
+.home-button,
+.right-items {
   display: flex;
 }
 
@@ -48,8 +50,4 @@
   overflow: hidden;
   font-size: 12px;
   border-radius: 16px;
-}
-
-.navbar-padding {
-  height: 80px;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../../styled-button/Button';
+import { IconButton } from '@material-ui/core';
 import Icon from '../../icon/Icon';
 
 const UPDATE_RECIPE = gql`
@@ -35,23 +35,22 @@ function RecipeVisibilityButton(props: Props) {
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
   return (
-    <div title={props.isPublic ? 'Public' : 'Private'}>
-      <Button
-        type="button"
-        actionType="secondary"
-        handleOnClick={(event) => {
-          event.preventDefault();
-          updateRecipe({
-            variables: {
-              recipeId: props.recipeId,
-              isPublic: !props.isPublic,
-            },
-          });
-        }}
-      >
-        <Icon icon={props.isPublic ? 'lock_open' : 'lock'} size="md-16" />
-      </Button>
-    </div>
+    <IconButton
+      aria-label={props.isPublic ? 'Public' : 'Private'}
+      color="default"
+      size="small"
+      onClick={(event) => {
+        event.preventDefault();
+        updateRecipe({
+          variables: {
+            recipeId: props.recipeId,
+            isPublic: !props.isPublic,
+          },
+        });
+      }}
+    >
+      <Icon icon={props.isPublic ? 'lock_open' : 'lock'} size="md-16" />
+    </IconButton>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../icon/Icon';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 import './cookbook.css';
@@ -19,7 +19,7 @@ export default function Cookbook(props: CookbookProps) {
         <div className="create-recipe-container">{props.createRecipeButton}</div>
         <div className="notebook-list-organizers-container">
           <div className="filter-list-container">
-            <Button type="button" actionType="default">
+            <Button color="default" variant="contained" size="medium">
               <Icon icon="filter_list" size="md-24" />
             </Button>
           </div>
@@ -54,7 +54,7 @@ function SortList(props: SortListProps) {
 
   return (
     <div className="sort-list-container" onClick={handleOnSortList}>
-      <Button type="button" actionType="default">
+      <Button color="default" variant="contained" size="medium">
         <Icon icon="sort" size="md-24" />
       </Button>
     </div>
