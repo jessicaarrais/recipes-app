@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import './login-signup.css';
 
 const LOGIN = gql`
@@ -68,7 +68,7 @@ function Login() {
           }}
         />
         <div className="login-signup-btn">
-          <Button type="submit" actionType="default">
+          <Button type="submit" color="default" variant="contained" size="medium">
             Login
           </Button>
         </div>

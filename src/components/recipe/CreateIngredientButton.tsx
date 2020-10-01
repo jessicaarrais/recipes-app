@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../icon/Icon';
 import { INGREDIENT_FRAGMENT, IngredientProps } from '../ingredient/Ingredient';
 
@@ -38,9 +38,10 @@ function CreateIngredientButton(props: Props) {
 
   return (
     <Button
-      type="button"
-      actionType="primary"
-      handleOnClick={() =>
+      color="primary"
+      variant="contained"
+      size="medium"
+      onClick={() =>
         createIngredient({
           variables: {
             recipeId: props.recipeId,

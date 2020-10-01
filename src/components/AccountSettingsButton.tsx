@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from './styled-button/Button';
+import { IconButton } from '@material-ui/core';
 import Icon from './icon/Icon';
 
 function AccountSettingsButton() {
   return (
     <Link to="/account-settings" title="Settings">
-      <Button actionType="default">
+      <IconButton color="default" size="medium">
         <Icon icon="menu" size="md-24" />
-      </Button>
+      </IconButton>
     </Link>
   );
 }

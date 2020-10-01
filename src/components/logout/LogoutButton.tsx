@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useApolloClient, useMutation } from '@apollo/client';
-import Button from '../../components/styled-button/Button';
+import { Button } from '@material-ui/core';
 
 const LOGOUT = gql`
   mutation Logout {
@@ -25,7 +25,7 @@ function LogoutButton() {
   if (error) return <h1>An error has ocurred</h1>;
 
   return (
-    <Button type="button" actionType="default" handleOnClick={() => logout()}>
+    <Button color="default" variant="contained" size="medium" onClick={() => logout()}>
       Logout
     </Button>
   );

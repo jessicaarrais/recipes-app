@@ -37,7 +37,7 @@ function LoggedInRoute() {
   const { data, loading, error } = useQuery<MeResponse>(ME);
 
   return (
-    <div className="body-loggedin">
+    <div>
       {error && <h1>An error has occurred. ${error.message}</h1>}
       {data && !loading && (
         <NavigationBar

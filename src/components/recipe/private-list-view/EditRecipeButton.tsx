@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '../../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../../icon/Icon';
 
 interface Props {
@@ -12,9 +12,11 @@ function EditRecipeButton(props: Props) {
   const history = useHistory();
   return (
     <Button
-      type="button"
-      actionType="primary"
-      handleOnClick={(event) => {
+      color="primary"
+      variant="contained"
+      size="medium"
+      fullWidth
+      onClick={(event) => {
         event.preventDefault();
         history.push(`/edit/cookbook/${props.cookbookId}/recipe/${props.recipeId}`);
       }}

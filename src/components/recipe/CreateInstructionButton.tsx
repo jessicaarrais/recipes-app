@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../icon/Icon';
 
 const CREATE_INSTRUCTION = gql`
@@ -44,9 +44,10 @@ function CreateInstructionButton(props: Props) {
 
   return (
     <Button
-      type="button"
-      actionType="primary"
-      handleOnClick={() =>
+      color="primary"
+      variant="contained"
+      size="medium"
+      onClick={() =>
         createInstruction({
           variables: {
             recipeId: props.recipeId,

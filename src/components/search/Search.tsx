@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
-import Button from '../styled-button/Button';
+import { IconButton } from '@material-ui/core';
 import Icon from '../icon/Icon';
 import './search.css';
 import PublicRecipeCard from '../recipe/public-list-view/PublicRecipeCard';
@@ -51,17 +51,17 @@ export function Search() {
         onChange={(e) => setSearchValue(e.target.value)}
       />
 
-      <Button
-        type="button"
-        actionType="secondary"
+      <IconButton
+        color="default"
+        size="medium"
         disabled={searchValue.length < 1}
-        handleOnClick={() => {
+        onClick={() => {
           history.push(`/search/${searchValue}`);
           setSearchValue('');
         }}
       >
         <Icon icon="search" size="md-24" />
-      </Button>
+      </IconButton>
     </div>
   );
 }

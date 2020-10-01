@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import Button from '../../styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from '../../icon/Icon';
 import { GET_COOKBOOK } from '../../../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../../../pages/loggedin/HomeLoggedInPage';
@@ -27,9 +27,11 @@ function DeleteRecipeButton(props: Props) {
 
   return (
     <Button
-      type="button"
-      actionType="danger"
-      handleOnClick={(event) => {
+      color="secondary"
+      variant="contained"
+      size="medium"
+      fullWidth
+      onClick={(event) => {
         event.preventDefault();
         deleteRecipe({
           variables: {

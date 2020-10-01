@@ -12,11 +12,11 @@ import {
   useQuery,
 } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
-import { typeDefs } from './resolvers';
+import { ThemeProvider, Button } from '@material-ui/core';
+import Icon from './components/icon/Icon';
 import LoggedInRoute from './pages/loggedin/LoggedInRoute';
 import LoggedOutRoute from './pages/loggedout/LoggedOutRoute';
-import Button from './components/styled-button/Button';
-import Icon from './components/icon/Icon';
+import theme from './Theme';
 import './index.css';
 
 const IS_LOGGED_IN = gql`
@@ -76,7 +76,7 @@ const client = new ApolloClient({
   // @ts-ignore
   link: authMiddleware.concat(uploadLink),
   cache,
-  typeDefs,
+  typeDefs: [],
   resolvers: {},
 });
 
@@ -102,15 +102,16 @@ function LandingPage() {
   return (
     <>
       {data?.me?.id ? <LoggedInRoute /> : <LoggedOutRoute />}
-      <div className={`back-to-top-icon ${isShowingArrowUp}`} title="back to top">
+      <div className={`back-to-top-icon ${isShowingArrowUp}`} title="Back to top">
         <Button
-          type="button"
-          actionType="default"
-          handleOnClick={() => {
+          color="default"
+          variant="contained"
+          size="medium"
+          onClick={() => {
             window.scrollTo(0, 0);
           }}
         >
-          <Icon icon="keyboard_arrow_up" size="md-24" title="Scroll to top" />
+          <Icon icon="keyboard_arrow_up" size="md-24" />
         </Button>
       </div>
     </>
@@ -121,11 +122,13 @@ const history = createBrowserHistory({ basename: '/recipes-app' });
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Router history={history}>
-        <LandingPage />
-      </Router>
-    </ApolloProvider>
+    <ThemeProvider theme={theme}>
+      <ApolloProvider client={client}>
+        <Router history={history}>
+          <LandingPage />
+        </Router>
+      </ApolloProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

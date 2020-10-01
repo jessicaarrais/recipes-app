@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
-import Button from './styled-button/Button';
+import { Button } from '@material-ui/core';
 import Icon from './icon/Icon';
 
 const DELETE_USER = gql`
@@ -33,7 +33,12 @@ function DeleteUserButton() {
 
   return (
     <div>
-      <Button type="button" actionType="danger" handleOnClick={() => deleteUser()}>
+      <Button
+        color="secondary"
+        variant="contained"
+        size="medium"
+        onClick={() => deleteUser()}
+      >
         <Icon icon="delete_forever" size="md-24" />
         delete account
       </Button>

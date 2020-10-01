@@ -2,13 +2,13 @@ import React from 'react';
 import { gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import DeleteRecipeButton from './DeleteRecipeButton';
+import EditRecipeButton from './EditRecipeButton';
 import Icon from '../../icon/Icon';
 import { IngredientProps, INGREDIENT_FRAGMENT } from '../../ingredient/Ingredient';
 import { InstructionProps } from '../../instruction/Instruction';
 import { RecipesListOrder } from '../../../pages/loggedin/HomeLoggedInPage';
 import RecipeVisibilityButton from './RecipeVisibilityButton';
 import './private-recipe-card.css';
-import EditRecipeButton from './EditRecipeButton';
 
 export const RECIPE_FRAGMENT = gql`
   fragment RecipeFragment on Recipe {
