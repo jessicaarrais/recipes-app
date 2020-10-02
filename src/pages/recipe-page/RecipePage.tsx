@@ -9,10 +9,10 @@ import EditRecipeButton from '../../components/recipe/private-list-view/EditReci
 import FavoriteRecipeButton from '../../components/favorite-button/FavoriteButton';
 import Icon from '../../components/icon/Icon';
 import LikeButton from '../../components/like-button/LikeButton';
-import PageNotFound from '../pageNotFound/PageNotFound';
+import PageNotFound from '../page-not-found/PageNotFound';
 import { RECIPE_FRAGMENT } from '../../components/recipe/private-list-view/PrivateRecipeCard';
-import RecipePageIngredients from '../../components/recipe/RecipePageIngredients';
-import RecipePageInstructions from '../../components/recipe/RecipePageInstructions';
+import RecipePageIngredients from '../../components/recipe/recipe-page-ingredients/RecipePageIngredients';
+import RecipePageInstructions from '../../components/recipe/recipe-page-instructions/RecipePageInstructions';
 import './recipe-page.css';
 
 const RECIPE = gql`
@@ -74,28 +74,26 @@ function RecipePage() {
   return (
     <>
       <header className="recipe-page-header">
-        <div className="header-text">
-          <Link to={`/users/${data.recipe.owner.username}`} className="avatar">
+        <div className="recipe-page-header-text">
+          <Link
+            className="recipe-page-avatar"
+            to={`/users/${data.recipe.owner.username}`}
+          >
             <Avatar uri={data.recipe.owner.avatar?.uri} />
           </Link>
           <h4 className="recipe-page-title">
             <span>{data.recipe.title} </span>
             by {data.recipe.owner.username}
           </h4>
-          <p>
-            {data.recipe.description} Lorem ipsum dolor, sit amet consectetur adipisicing
-            elit. Iusto facere impedit cupiditate voluptatum iste quos eos voluptas sunt
-            culpa perspiciatis dolorem, veniam at nisi natus, rerum perferendis aperiam
-            sint quo.
-          </p>
+          <p>{data.recipe.description}</p>
         </div>
-        <div className="header-media">image/video</div>
+        <div className="recipe-page-header-media">image/video</div>
       </header>
-      <span className="likes">
+      <span className="recipe-page-likes">
         <Icon icon="favorite" size="md-16" />
         <p>{data.recipe.likes}</p>
       </span>
-      <div className="recipe-actions">
+      <div className="recipe-page-actions">
         <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
         <FavoriteRecipeButton
           recipeId={data.recipe.id}
@@ -108,7 +106,7 @@ function RecipePage() {
           />
         )}
       </div>
-      <section className="tabs">
+      <section className="recipe-page-tabs">
         <TabContext value={activeTab}>
           <AppBar position="static" color="transparent">
             <Tabs

@@ -1,0 +1,19 @@
+.recipe-page-instructions {
+  padding: 16px 0;
+}
+
+.recipe-page-instructions-step {
+  display: inline-flex;
+  align-items: center;
+}
+
+.recipe-page-instructions-ingredients {
+  display: flex;
+}
+
+.recipe-page-instructions-convertable-ingredient {
+  margin: 2px;
+  padding: 8px;
+  border: 1px solid lightskyblue;
+  border-radius: 8px;
+}

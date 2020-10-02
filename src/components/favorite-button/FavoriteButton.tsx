@@ -46,12 +46,19 @@ function FavoriteRecipeButton(props: Props) {
   };
 
   return (
-    <Button color="default" size="medium" onClick={handleMutation}>
-      {props.isFavorite ? (
-        <Icon icon="star" size="md-24" />
-      ) : (
-        <Icon icon="star_border" size="md-24" />
-      )}
+    <Button
+      color="default"
+      size="medium"
+      fullWidth
+      startIcon={
+        props.isFavorite ? (
+          <Icon icon="star" size="md-20" />
+        ) : (
+          <Icon icon="star_border" size="md-20" />
+        )
+      }
+      onClick={handleMutation}
+    >
       Favorite
     </Button>
   );

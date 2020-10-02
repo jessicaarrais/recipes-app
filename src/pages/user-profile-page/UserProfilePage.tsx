@@ -56,7 +56,7 @@ function UserProfilePage() {
   return user ? (
     <div>
       <h2>{user.username}</h2>
-      <div className="user-profile-avatar">
+      <div className="user-profile-page-avatar">
         <Avatar uri={user.avatar?.uri} />
       </div>
       <Cookbook

@@ -57,13 +57,13 @@ export interface PrivateRecipeProps {
 
 function PrivateRecipeCard(props: PrivateRecipeProps) {
   return (
-    <li className="card">
+    <li className="private-recipe-card">
       <Link to={`/cookbook/${props.cookbookId}/recipe/${props.title}/${props.id}`}>
-        <div className="header">
-          <h2 className="title">{props.title}</h2>
+        <div className="private-recipe-card-header">
+          <h2 className="private-recipe-card-title">{props.title}</h2>
           <RecipeVisibilityButton recipeId={props.id} isPublic={props.isPublic} />
         </div>
-        <p className="description">
+        <p className="private-recipe-card-description">
           {props.description}
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem qui et sed unde,
           impedit error praesentium mollitia tenetur earum, fugiat ullam quod dicta
@@ -72,19 +72,21 @@ function PrivateRecipeCard(props: PrivateRecipeProps) {
           asperiores earum corporis dicta! Repellendus eaque provident eos id optio
           aspernatur ipsum dolore explicabo eligendi reiciendis?
         </p>
-        <div className="info">
-          <span className="likes">
+        <div className="private-recipe-card-info">
+          <span className="private-recipe-card-likes">
             <Icon icon="favorite" size="md-16" />
             <p>{props.likes}</p>
           </span>
-          <span className="author-username">{props.owner.username}</span>
+          <span className="private-recipe-card-author-username">
+            {props.owner.username}
+          </span>
         </div>
         <hr />
-        <div className="card-bottom">
-          <div className="button-container">
+        <div className="private-recipe-card-bottom">
+          <div className="private-recipe-card-actions">
             <EditRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
           </div>
-          <div className="button-container">
+          <div className="private-recipe-card-actions">
             <DeleteRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
           </div>
         </div>

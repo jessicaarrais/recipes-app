@@ -1,4 +1,4 @@
-.card {
+.public-recipe-card {
   width: 100%;
   display: block;
   padding: 24px;
@@ -9,12 +9,15 @@
   box-shadow: 1px 1px 1px 1px #bdbdbd;
 }
 
-.title {
-  margin: 0 auto 16px 0;
+.public-recipe-card-title {
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
 
-.description {
+.public-recipe-card-description {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -22,22 +25,31 @@
   -webkit-box-orient: vertical;
 }
 
-.info {
+.public-recipe-card-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.likes {
+.public-recipe-card-likes {
   display: flex;
   align-items: center;
 }
 
-.author-username {
+.public-recipe-card-likes > p {
+  margin: 0 4px;
+}
+
+.public-recipe-card-author-username {
   font-size: 16px;
   font-weight: bold;
 }
 
-.card-bottom {
+.public-recipe-card-bottom {
   display: flex;
+}
+
+.public-recipe-card-actions {
+  flex: 1;
+  text-align: center;
 }

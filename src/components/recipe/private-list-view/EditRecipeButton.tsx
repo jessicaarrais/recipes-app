@@ -12,16 +12,15 @@ function EditRecipeButton(props: Props) {
   const history = useHistory();
   return (
     <Button
-      color="primary"
-      variant="contained"
+      color="default"
       size="medium"
       fullWidth
+      startIcon={<Icon icon="create" size="md-24" />}
       onClick={(event) => {
         event.preventDefault();
         history.push(`/edit/cookbook/${props.cookbookId}/recipe/${props.recipeId}`);
       }}
     >
-      <Icon icon="create" size="md-24" />
       Edit
     </Button>
   );

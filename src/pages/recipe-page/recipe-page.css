@@ -3,17 +3,26 @@
   margin-top: 32px;
 }
 
-.header-text {
-  flex: 2;
+.recipe-page-header-text {
+  flex: 1;
   margin-right: 32px;
 }
 
-.header-media {
+.recipe-page-header-media {
   flex: 1;
   background-color: lightgray;
 }
 
-.avatar {
+.recipe-page-likes {
+  display: flex;
+  align-items: center;
+}
+
+.recipe-page-likes > p {
+  margin: 0 4px;
+}
+
+.recipe-page-avatar {
   display: block;
   width: 100px;
   height: 100px;
@@ -25,56 +34,13 @@
   font-size: 32px;
 }
 
-.tabs {
+.recipe-page-tabs {
   width: 100%;
   padding: 16px 24px 24px;
   margin: 24px auto;
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 1px 1px 1px 1px #bdbdbd;
-}
-
-.tab-selectors-container {
-  display: flex;
-}
-
-.tab-selector {
-  display: inline;
-  flex: 1;
-  text-align: center;
-  cursor: pointer;
-  margin: 0 auto 8px;
-  padding: 8px 0;
-  border-bottom: 4px solid transparent;
-}
-
-.tab-selector:hover {
-  border-bottom: 4px solid lightgray;
-}
-
-.active-tab {
-  border-bottom: 4px solid gray;
-}
-
-.instruction,
-.ingredient {
-  padding: 16px 0;
-}
-
-.instruction-step {
-  display: inline-flex;
-  align-items: center;
-}
-
-.instruction-ingredient {
-  display: flex;
-}
-
-.convertable-ingredient {
-  margin: 2px;
-  padding: 8px;
-  border: 1px solid lightskyblue;
-  border-radius: 8px;
 }
 
 hr {

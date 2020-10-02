@@ -27,10 +27,10 @@ function DeleteRecipeButton(props: Props) {
 
   return (
     <Button
-      color="secondary"
-      variant="contained"
+      color="default"
       size="medium"
       fullWidth
+      startIcon={<Icon icon="delete" size="md-24" />}
       onClick={(event) => {
         event.preventDefault();
         deleteRecipe({
@@ -50,7 +50,6 @@ function DeleteRecipeButton(props: Props) {
         });
       }}
     >
-      <Icon icon="delete" size="md-24" />
       delete
     </Button>
   );
