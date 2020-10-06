@@ -48,12 +48,19 @@ function LikeButton(props: Props) {
   };
 
   return (
-    <Button color="default" size="medium" onClick={handleMutation}>
-      {props.isLiked ? (
-        <Icon icon="favorite" size="md-24" />
-      ) : (
-        <Icon icon="favorite_border" size="md-24" />
-      )}
+    <Button
+      color="default"
+      size="medium"
+      fullWidth
+      startIcon={
+        props.isLiked ? (
+          <Icon icon="favorite" size="md-20" />
+        ) : (
+          <Icon icon="favorite_border" size="md-20" />
+        )
+      }
+      onClick={handleMutation}
+    >
       Like
     </Button>
   );

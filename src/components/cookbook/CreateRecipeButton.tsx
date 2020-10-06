@@ -28,7 +28,7 @@ function CreateRecipeButton() {
       variant="contained"
       size="medium"
       fullWidth
-      startIcon={<Icon icon="create" size="md-24" />}
+      startIcon={<Icon icon="add" size="md-24" />}
       onClick={() => {
         createRecipe({
           variables: { title: 'Title', description: 'Recipe description' },

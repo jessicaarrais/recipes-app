@@ -38,7 +38,6 @@ function RecipeVisibilityButton(props: Props) {
     <IconButton
       aria-label={props.isPublic ? 'Public' : 'Private'}
       color="default"
-      size="small"
       onClick={(event) => {
         event.preventDefault();
         updateRecipe({
@@ -49,7 +48,7 @@ function RecipeVisibilityButton(props: Props) {
         });
       }}
     >
-      <Icon icon={props.isPublic ? 'lock_open' : 'lock'} size="md-16" />
+      <Icon icon={props.isPublic ? 'lock_open' : 'lock'} size="md-20" />
     </IconButton>
   );
 }

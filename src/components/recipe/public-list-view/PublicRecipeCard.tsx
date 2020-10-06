@@ -21,10 +21,10 @@ function PublicRecipeCard(props: PublicRecipeProps) {
   const titleURL = urlParser(props.title);
 
   return (
-    <li className="card">
+    <li className="public-recipe-card">
       <Link to={`/cookbook/${props.cookbookId}/recipe/${titleURL}/${props.id}`}>
-        <h2 className="title">{props.title}</h2>
-        <p className="description">
+        <h2 className="public-recipe-card-title">{props.title}</h2>
+        <p className="public-recipe-card-description">
           {props.description}
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem qui et sed unde,
           impedit error praesentium mollitia tenetur earum, fugiat ullam quod dicta
@@ -33,17 +33,23 @@ function PublicRecipeCard(props: PublicRecipeProps) {
           asperiores earum corporis dicta! Repellendus eaque provident eos id optio
           aspernatur ipsum dolore explicabo eligendi reiciendis?
         </p>
-        <div className="info">
-          <span className="likes">
+        <div className="public-recipe-card-info">
+          <span className="public-recipe-card-likes">
             <Icon icon="favorite" size="md-16" />
             <p>{props.likes}</p>
           </span>
-          <span className="author-username">{props.owner.username}</span>
+          <span className="public-recipe-card-author-username">
+            {props.owner.username}
+          </span>
         </div>
         <hr />
-        <div className="card-bottom">
-          <LikeButton recipeId={props.id} isLiked={props.isLiked} />
-          <FavoriteRecipeButton recipeId={props.id} isFavorite={props.isFavorite} />
+        <div className="public-recipe-card-bottom">
+          <div className="public-recipe-card-actions">
+            <LikeButton recipeId={props.id} isLiked={props.isLiked} />
+          </div>
+          <div className="public-recipe-card-actions">
+            <FavoriteRecipeButton recipeId={props.id} isFavorite={props.isFavorite} />
+          </div>
         </div>
       </Link>
     </li>

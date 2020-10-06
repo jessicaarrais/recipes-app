@@ -21,7 +21,7 @@ interface Props {
     | 'keyboard_arrow_up'
     | 'lock'
     | 'lock_open';
-  size: 'md-16' | 'md-24';
+  size: 'md-16' | 'md-20' | 'md-24';
   title?: string;
 }
 

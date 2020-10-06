@@ -6,7 +6,7 @@ import CreateInstructionButton from '../../components/recipe/CreateInstructionBu
 import DeleteRecipeButton from '../../components/recipe/private-list-view/DeleteRecipeButton';
 import Ingredient, { IngredientProps } from '../../components/ingredient/Ingredient';
 import Instruction, { InstructionProps } from '../../components/instruction/Instruction';
-import PageNotFound from '../pageNotFound/PageNotFound';
+import PageNotFound from '../page-not-found/PageNotFound';
 import RecipeTitle from '../../components/recipe/RecipeTitle';
 import RecipeVisibilityButton from '../../components/recipe/private-list-view/RecipeVisibilityButton';
 

@@ -1,6 +1,5 @@
-.card {
+.private-recipe-card {
   width: 100%;
-  display: block;
   padding: 24px;
   margin-bottom: 16px;
   border-radius: 8px;
@@ -9,21 +8,22 @@
   box-shadow: 1px 1px 1px 1px #bdbdbd;
 }
 
-.header {
+.private-recipe-card-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
-.title {
-  margin: 0 auto 16px 0;
+.private-recipe-card-title {
+  margin: 0;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
 
-.description {
+.private-recipe-card-description {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -31,28 +31,32 @@
   -webkit-box-orient: vertical;
 }
 
-.info {
+.private-recipe-card-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.likes {
+.private-recipe-card-likes {
   display: flex;
   align-items: center;
 }
 
-.author-username {
+.private-recipe-card-likes > p {
+  margin: 0 4px;
+}
+
+.private-recipe-card-author-username {
   font-size: 16px;
   font-weight: bold;
 }
 
-.card-bottom {
+.private-recipe-card-bottom {
   display: flex;
   margin: 0 -4px;
 }
 
-.button-container {
+.private-recipe-card-actions {
   display: flex;
   flex: 1;
   margin: 0 4px;

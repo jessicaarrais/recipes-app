@@ -1,4 +1,5 @@
 import React from 'react';
+import './recipe-page-ingredients.css';
 
 interface Props {
   ingredients: [{ id: string; text: string; instructionId: string }];
@@ -6,9 +7,9 @@ interface Props {
 
 function RecipePageIngredients(props: Props) {
   return (
-    <ul className="tab-content">
+    <ul>
       {props.ingredients.map((ingredient) => (
-        <li className="ingredient" key={ingredient.id}>
+        <li className="recipe-page-ingredients" key={ingredient.id}>
           <input type="checkbox" />
           {ingredient.text}
         </li>

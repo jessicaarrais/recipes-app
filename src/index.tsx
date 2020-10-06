@@ -12,11 +12,11 @@ import {
   useQuery,
 } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
-import { ThemeProvider, Button } from '@material-ui/core';
+import { ThemeProvider, Fab } from '@material-ui/core';
 import Icon from './components/icon/Icon';
 import LoggedInRoute from './pages/loggedin/LoggedInRoute';
 import LoggedOutRoute from './pages/loggedout/LoggedOutRoute';
-import theme from './Theme';
+import theme from './theme';
 import './index.css';
 
 const IS_LOGGED_IN = gql`
@@ -102,17 +102,18 @@ function LandingPage() {
   return (
     <>
       {data?.me?.id ? <LoggedInRoute /> : <LoggedOutRoute />}
-      <div className={`back-to-top-icon ${isShowingArrowUp}`} title="Back to top">
-        <Button
+      <div className={`back-to-top-icon ${isShowingArrowUp}`}>
+        <Fab
           color="default"
-          variant="contained"
           size="medium"
+          aria-label="Back to top"
+          disableRipple
           onClick={() => {
             window.scrollTo(0, 0);
           }}
         >
           <Icon icon="keyboard_arrow_up" size="md-24" />
-        </Button>
+        </Fab>
       </div>
     </>
   );

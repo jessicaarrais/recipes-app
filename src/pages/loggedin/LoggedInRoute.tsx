@@ -5,7 +5,7 @@ import AccountSettingsButton from '../../components/AccountSettingsButton';
 import AccountSettingsPage from '../AccountSettingsPage';
 import HomeLoggedInPage from './HomeLoggedInPage';
 import NavigationBar from '../../components/navigation-bar/NavigationBar';
-import PageNotFound from '../pageNotFound/PageNotFound';
+import PageNotFound from '../page-not-found/PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
 import { SearchResponse } from '../../components/search/Search';
 import UserProfileButton from '../../components/UserProfileButton';
