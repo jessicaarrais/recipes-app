@@ -3,8 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { IconButton } from '@material-ui/core';
 import Icon from '../icon/Icon';
+import RecipeCard from '../recipe/recipe-card/RecipeCard';
 import './search.css';
-import PublicRecipeCard from '../recipe/public-list-view/PublicRecipeCard';
 
 const SEARCH_RECIPES = gql`
   query SearchRecipes($value: String!) {
@@ -14,11 +14,13 @@ const SEARCH_RECIPES = gql`
       description
       cookbookId
       owner {
+        id
         username
       }
       likes
       isFavorite
       isLiked
+      isPublic
     }
   }
 `;
@@ -27,13 +29,17 @@ interface SearchResponse {
   searchRecipes: [
     {
       id: string;
+      cookbookId: string;
+      owner: {
+        id: string;
+        username: string;
+      };
       title: string;
       description: string;
-      cookbookId: string;
-      owner: { username: string };
       likes: number;
       isFavorite: boolean;
       isLiked: boolean;
+      isPublic: boolean;
     }
   ];
 }
@@ -79,7 +85,7 @@ export function SearchResponse() {
   return data && data.searchRecipes.length > 0 ? (
     <ul>
       {data.searchRecipes.map((recipe) => {
-        return <PublicRecipeCard key={recipe.id} {...recipe} />;
+        return <RecipeCard key={recipe.id} {...recipe} />;
       })}
     </ul>
   ) : (

@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Button } from '@material-ui/core';
-import Icon from '../icon/Icon';
+import Icon from './icon/Icon';
 
 const LIKE_RECIPE = gql`
   mutation LikeRecipe($recipeId: ID!) {

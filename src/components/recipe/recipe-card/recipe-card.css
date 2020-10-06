@@ -1,6 +1,5 @@
-.public-recipe-card {
+.recipe-card {
   width: 100%;
-  display: block;
   padding: 24px;
   margin-bottom: 16px;
   border-radius: 8px;
@@ -9,7 +8,14 @@
   box-shadow: 1px 1px 1px 1px #bdbdbd;
 }
 
-.public-recipe-card-title {
+.recipe-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.recipe-card-title {
   margin: 0;
   overflow: hidden;
   display: -webkit-box;
@@ -17,7 +23,7 @@
   -webkit-line-clamp: 1;
 }
 
-.public-recipe-card-description {
+.recipe-card-description {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -25,31 +31,33 @@
   -webkit-box-orient: vertical;
 }
 
-.public-recipe-card-info {
+.recipe-card-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.public-recipe-card-likes {
+.recipe-card-likes {
   display: flex;
   align-items: center;
 }
 
-.public-recipe-card-likes > p {
+.recipe-card-likes > p {
   margin: 0 4px;
 }
 
-.public-recipe-card-author-username {
+.recipe-card-author-username {
   font-size: 16px;
   font-weight: bold;
 }
 
-.public-recipe-card-bottom {
+.recipe-card-bottom {
   display: flex;
+  margin: 0 -4px;
 }
 
-.public-recipe-card-actions {
+.recipe-card-actions {
+  display: flex;
   flex: 1;
-  text-align: center;
+  margin: 0 4px;
 }

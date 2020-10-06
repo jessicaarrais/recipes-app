@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import UserSettings from '../components/UserSettings';
-import LogoutButton from '../components/logout/LogoutButton';
+import LogoutButton from '../components/LogoutButton';
 
 export const ME = gql`
   query Me {

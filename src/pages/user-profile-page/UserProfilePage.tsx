@@ -4,10 +4,10 @@ import { gql, useQuery } from '@apollo/client';
 import Avatar from '../../components/avatar/Avatar';
 import Cookbook from '../../components/cookbook/Cookbook';
 import { RecipesListOrder } from '../loggedin/HomeLoggedInPage';
-import PublicRecipeCard, {
-  PublicRecipeProps,
-} from '../../components/recipe/public-list-view/PublicRecipeCard';
-import { RECIPE_FRAGMENT } from '../../components/recipe/private-list-view/PrivateRecipeCard';
+import RecipeCard, {
+  RecipeProps,
+  RECIPE_FRAGMENT,
+} from '../../components/recipe/recipe-card/RecipeCard';
 import './user-profile-page.css';
 
 const GET_USER = gql`
@@ -36,7 +36,7 @@ interface UserResponse {
     avatar?: { uri: string };
     cookbook: {
       id: string;
-      recipes: [PublicRecipeProps];
+      recipes: [RecipeProps];
     };
   };
 }
@@ -65,7 +65,7 @@ function UserProfilePage() {
         setOrder={setOrder}
       >
         {user.cookbook.recipes.map((recipe) => (
-          <PublicRecipeCard
+          <RecipeCard
             key={recipe.id}
             id={recipe.id}
             title={recipe.title}
@@ -75,6 +75,7 @@ function UserProfilePage() {
             likes={recipe.likes}
             isFavorite={recipe.isFavorite}
             isLiked={recipe.isLiked}
+            isPublic={recipe.isPublic}
           />
         ))}
       </Cookbook>

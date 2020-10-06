@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import Cookbook from '../../components/cookbook/Cookbook';
-import PrivateRecipeCard, {
+import RecipeCard, {
   RECIPE_FRAGMENT,
-  PrivateRecipeProps,
-} from '../../components/recipe/private-list-view/PrivateRecipeCard';
+  RecipeProps,
+} from '../../components/recipe/recipe-card/RecipeCard';
 import CreateRecipeButton from '../../components/cookbook/CreateRecipeButton';
 
 export const COOKBOOK_FRAGMENT = gql`
@@ -40,7 +40,7 @@ interface MeResponse {
     id: string;
     cookbook: {
       id: string;
-      recipes: [PrivateRecipeProps];
+      recipes: [RecipeProps];
     };
   };
 }
@@ -65,7 +65,7 @@ function HomeLoggedInPage() {
         setOrder={setOrder}
       >
         {data.me.cookbook.recipes.map((recipe) => (
-          <PrivateRecipeCard
+          <RecipeCard
             key={recipe.id}
             id={recipe.id}
             cookbookId={recipe.cookbookId}
@@ -73,10 +73,9 @@ function HomeLoggedInPage() {
             title={recipe.title}
             description={recipe.description}
             likes={recipe.likes}
+            isFavorite={recipe.isFavorite}
+            isLiked={recipe.isLiked}
             isPublic={recipe.isPublic}
-            ingredients={recipe.ingredients}
-            instructions={recipe.instructions}
-            order={order}
           />
         ))}
       </Cookbook>

@@ -2,7 +2,6 @@ import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import EditableTextArea from '../editable-text-area/EditableTextArea';
 import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
-import './recipe-title.css';
 
 const UPDATE_RECIPE = gql`
   mutation UpdateRecipe($recipeId: ID!, $title: String) {
@@ -50,11 +49,9 @@ function RecipeTitle(props: Props) {
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
   return (
-    <div className="recipe-title-container">
-      <EditableTextArea semanticalType="h2" onSubmit={onSubmit}>
-        {props.title}
-      </EditableTextArea>
-    </div>
+    <EditableTextArea semanticalType="h2" onSubmit={onSubmit}>
+      {props.title}
+    </EditableTextArea>
   );
 }
 

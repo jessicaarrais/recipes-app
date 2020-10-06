@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import Icon from '../../icon/Icon';
+import Icon from '../icon/Icon';
 
 interface Props {
   recipeId: string;
