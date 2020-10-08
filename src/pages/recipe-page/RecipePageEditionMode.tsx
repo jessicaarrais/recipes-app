@@ -3,12 +3,12 @@ import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
 import CreateIngredientButton from '../../components/recipe/CreateIngredientButton';
 import CreateInstructionButton from '../../components/recipe/CreateInstructionButton';
-import DeleteRecipeButton from '../../components/recipe/private-list-view/DeleteRecipeButton';
+import DeleteRecipeButton from '../../components/recipe/DeleteRecipeButton';
 import Ingredient, { IngredientProps } from '../../components/ingredient/Ingredient';
 import Instruction, { InstructionProps } from '../../components/instruction/Instruction';
 import PageNotFound from '../page-not-found/PageNotFound';
 import RecipeTitle from '../../components/recipe/RecipeTitle';
-import RecipeVisibilityButton from '../../components/recipe/private-list-view/RecipeVisibilityButton';
+import RecipeVisibilityButton from '../../components/recipe/RecipeVisibilityButton';
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
