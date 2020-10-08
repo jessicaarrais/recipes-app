@@ -67,14 +67,14 @@ function RecipeCard(props: RecipeProps) {
   });
   const titleURL = urlParser(props.title);
 
-  const myRecipe = userLoggedIn?.me.id === props.owner.id;
+  const isOwner = userLoggedIn?.me.id === props.owner.id;
 
   return (
     <li className="recipe-card">
       <Link to={`/cookbook/${props.cookbookId}/recipe/${titleURL}/${props.id}`}>
         <div className="recipe-card-header">
           <h2 className="recipe-card-title">{props.title}</h2>
-          {myRecipe && (
+          {isOwner && (
             <RecipeVisibilityButton recipeId={props.id} isPublic={props.isPublic} />
           )}
         </div>
@@ -96,7 +96,7 @@ function RecipeCard(props: RecipeProps) {
         </div>
         <hr />
         <div className="recipe-card-bottom">
-          {myRecipe ? (
+          {isOwner ? (
             <>
               <div className="recipe-card-actions">
                 <EditRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
