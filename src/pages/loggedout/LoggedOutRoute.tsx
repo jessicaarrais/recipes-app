@@ -6,13 +6,19 @@ import RecipePage from '../recipe-page/RecipePage';
 import { Route, Switch, Redirect } from 'react-router';
 import { SearchResponse } from '../../components/search/Search';
 import UserProfilePage from '../user-profile-page/UserProfilePage';
-import './loggedout-route.css';
+import styled from 'styled-components';
+
+const Section = styled.div`
+  width: 100%;
+  max-width: 968px;
+  margin: 16px auto 0;
+`;
 
 function LoggedOutRoute() {
   return (
-    <div>
+    <>
       <NavigationBar />
-      <section className="loggedout-section">
+      <Section>
         <Switch>
           <Redirect from="/account-settings" exact to="/" />
           <Redirect from="/home" exact to="/" />
@@ -25,8 +31,8 @@ function LoggedOutRoute() {
           />
           <Route component={PageNotFound} />
         </Switch>
-      </section>
-    </div>
+      </Section>
+    </>
   );
 }
 

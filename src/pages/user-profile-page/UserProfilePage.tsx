@@ -8,7 +8,14 @@ import RecipeCard, {
   RecipeProps,
   RECIPE_FRAGMENT,
 } from '../../components/recipe/recipe-card/RecipeCard';
-import './user-profile-page.css';
+import styled from 'styled-components';
+const ProfileAvatar = styled.div`
+  overflow: hidden;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-bottom: 32px;
+`;
 
 const GET_USER = gql`
   query User($username: String, $recipesListOrder: RecipesListOrder) {
@@ -56,9 +63,9 @@ function UserProfilePage() {
   return user ? (
     <div>
       <h2>{user.username}</h2>
-      <div className="user-profile-page-avatar">
+      <ProfileAvatar>
         <Avatar uri={user.avatar?.uri} />
-      </div>
+      </ProfileAvatar>
       <Cookbook
         order={order}
         refetchRecipes={(order) => refetch({ recipesListOrder: order })}

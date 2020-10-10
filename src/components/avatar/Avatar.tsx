@@ -1,6 +1,11 @@
 import React from 'react';
 import standartAvatar from './../../assets/img/chinchilla.jpg';
-import './avatar.css';
+import styled from 'styled-components';
+
+const ProfileAvatar = styled.img`
+  width: 100%;
+  object-fit: cover;
+`;
 
 interface Props {
   uri?: string;
@@ -8,11 +13,7 @@ interface Props {
 
 function Avatar(props: Props) {
   return (
-    <img
-      className="avatar"
-      alt="user's avatar"
-      src={props.uri ? props.uri : standartAvatar}
-    />
+    <ProfileAvatar alt="user's avatar" src={props.uri ? props.uri : standartAvatar} />
   );
 }
 

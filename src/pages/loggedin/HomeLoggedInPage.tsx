@@ -57,7 +57,7 @@ function HomeLoggedInPage() {
   if (!data) return null;
 
   return (
-    <div>
+    <>
       <Cookbook
         createRecipeButton={<CreateRecipeButton />}
         order={order}
@@ -79,7 +79,7 @@ function HomeLoggedInPage() {
           />
         ))}
       </Cookbook>
-    </div>
+    </>
   );
 }
 

@@ -1,7 +1,51 @@
 import React, { useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { Button } from '@material-ui/core';
-import './login-signup.css';
+import styled from 'styled-components';
+
+const Card = styled.div`
+  width: 400px;
+  margin: 32px auto;
+  padding: 40px 56px;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 1px 1px #bdbdbd;
+  border-radius: 8px;
+`;
+
+const Input = styled.input`
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin: 8px 0 32px;
+  padding: 0 8px;
+  border: solid 1px gray;
+  border-radius: 2px;
+
+  &.invalid {
+    outline-style: solid;
+    outline-color: red;
+  }
+  &.valid {
+    outline-style: solid;
+    outline-color: green;
+  }
+`;
+
+const LoginButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 12px;
+  color: red;
+`;
+
+const PasswordHint = styled.ul`
+  font-size: 12px;
+  margin: 8px 0;
+  padding-left: 12px;
+  color: grey;
+`;
 
 const CREATE_USER = gql`
   mutation CreateUser(
@@ -67,7 +111,7 @@ function Signup() {
   );
 
   return (
-    <div className="login-signup-card">
+    <Card>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -81,24 +125,22 @@ function Signup() {
           });
         }}
       >
-        <input
-          className="login-signup-input"
+        <Input
           placeholder="E-mail"
           value={emailInputSignup}
           onChange={(e) => setEmailInputSignup(e.target.value)}
         />
-        <input
-          className="login-signup-input"
+        <Input
           placeholder="Username"
           value={usernameInputSignup}
           onChange={(e) => setUsernameInputSignup(e.target.value)}
         />
         <div>
           {passwordValidation === 'invalid' && (
-            <p className="error-message">Invalid password format</p>
+            <ErrorMessage>Invalid password format</ErrorMessage>
           )}
-          <input
-            className={`login-signup-input ${passwordValidation}`}
+          <Input
+            className={passwordValidation}
             type="password"
             placeholder="Password eg.: p@SSword2020"
             onChange={(e) => {
@@ -108,10 +150,10 @@ function Signup() {
         </div>
         <div>
           {confirmPasswordValidation === 'invalid' && (
-            <p className="error-message">Passwords do not match</p>
+            <ErrorMessage>Passwords do not match</ErrorMessage>
           )}
-          <input
-            className={`login-signup-input ${confirmPasswordValidation}`}
+          <Input
+            className={confirmPasswordValidation}
             type="password"
             placeholder="Confirm Password"
             onChange={(e) => {
@@ -119,20 +161,20 @@ function Signup() {
             }}
           />
         </div>
-        <ul className="password-hint">
+        <PasswordHint>
           Your password must:
           <li>be betweem 8 and 12 characters;</li>
           <li>contain at least 1 number;</li>
           <li>contain at least 1 uppercase and lowercase letters of each.</li>
-        </ul>
-        <div className="login-signup-btn">
+        </PasswordHint>
+        <LoginButtonWrapper>
           <Button type="submit" color="default" variant="contained" size="medium">
             Signup
           </Button>
-        </div>
+        </LoginButtonWrapper>
       </form>
-      {errorMessage !== '' && <p className="error-message">{errorMessage}</p>}
-    </div>
+      {errorMessage !== '' && <ErrorMessage>{errorMessage}</ErrorMessage>}
+    </Card>
   );
 }
 

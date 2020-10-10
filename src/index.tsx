@@ -17,7 +17,72 @@ import Icon from './components/icon/Icon';
 import LoggedInRoute from './pages/loggedin/LoggedInRoute';
 import LoggedOutRoute from './pages/loggedout/LoggedOutRoute';
 import theme from './theme';
-import './index.css';
+import styled, { createGlobalStyle } from 'styled-components';
+
+const GlobalCSS = createGlobalStyle`
+  body {
+    background-color: #efefef;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    word-wrap: break-word;
+  }
+
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 16px 0;
+    list-style: none;
+  }
+`;
+
+const BackToTopArrow = styled.div`
+  &.showed {
+    display: block;
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    right: 64px;
+    bottom: 64px;
+    opacity: 1;
+    transition: display cubic-bezier(0, 0.3, 0.6, 1) 0.5s;
+  }
+  &.hidden {
+    display: none;
+    transition: display cubic-bezier(1, 0.6, 0.3, 0) 0.5s;
+  }
+`;
 
 const IS_LOGGED_IN = gql`
   query IsLoggedIn {
@@ -102,7 +167,7 @@ function LandingPage() {
   return (
     <>
       {data?.me?.id ? <LoggedInRoute /> : <LoggedOutRoute />}
-      <div className={`back-to-top-icon ${isShowingArrowUp}`}>
+      <BackToTopArrow className={isShowingArrowUp}>
         <Fab
           color="default"
           size="medium"
@@ -114,7 +179,7 @@ function LandingPage() {
         >
           <Icon icon="keyboard_arrow_up" size="md-24" />
         </Fab>
-      </div>
+      </BackToTopArrow>
     </>
   );
 }
@@ -126,6 +191,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
         <Router history={history}>
+          <GlobalCSS />
           <LandingPage />
         </Router>
       </ApolloProvider>

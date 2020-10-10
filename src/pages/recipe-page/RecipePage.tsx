@@ -13,7 +13,52 @@ import PageNotFound from '../page-not-found/PageNotFound';
 import { RECIPE_FRAGMENT } from '../../components/recipe/recipe-card/RecipeCard';
 import RecipePageIngredients from '../../components/recipe/recipe-page-ingredients/RecipePageIngredients';
 import RecipePageInstructions from '../../components/recipe/recipe-page-instructions/RecipePageInstructions';
-import './recipe-page.css';
+import styled from 'styled-components';
+
+const Header = styled.header`
+  display: flex;
+  margin-top: 32px;
+`;
+
+const HeaderTextWrapper = styled.div`
+  flex: 1;
+  margin-right: 32px;
+`;
+
+const HeaderMediaWrapper = styled.div`
+  flex: 1;
+  background-color: lightgray;
+`;
+
+const Likes = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const TotalLikes = styled.p`
+  margin: 0 4px;
+`;
+
+const UserProfileLink = styled(Link)`
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+const Title = styled.span`
+  font-size: 32px;
+`;
+
+const TabsWrapper = styled.div`
+  width: 100%;
+  padding: 16px 24px 24px;
+  margin: 24px auto;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 1px 1px #bdbdbd;
+`;
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
@@ -73,40 +118,37 @@ function RecipePage() {
 
   return (
     <>
-      <header className="recipe-page-header">
-        <div className="recipe-page-header-text">
-          <Link
-            className="recipe-page-avatar"
-            to={`/users/${data.recipe.owner.username}`}
-          >
+      <Header>
+        <HeaderTextWrapper>
+          <UserProfileLink to={`/users/${data.recipe.owner.username}`}>
             <Avatar uri={data.recipe.owner.avatar?.uri} />
-          </Link>
-          <h4 className="recipe-page-title">
-            <span>{data.recipe.title} </span>
+          </UserProfileLink>
+          <h4>
+            <Title>{data.recipe.title} </Title>
             by {data.recipe.owner.username}
           </h4>
           <p>{data.recipe.description}</p>
-        </div>
-        <div className="recipe-page-header-media">image/video</div>
-      </header>
-      <span className="recipe-page-likes">
+        </HeaderTextWrapper>
+        <HeaderMediaWrapper>image/video</HeaderMediaWrapper>
+      </Header>
+      <Likes>
         <Icon icon="favorite" size="md-16" />
-        <p>{data.recipe.likes}</p>
-      </span>
+        <TotalLikes>{data.recipe.likes}</TotalLikes>
+      </Likes>
       <div className="recipe-page-actions">
         <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
         <FavoriteRecipeButton
           recipeId={data.recipe.id}
           isFavorite={data.recipe.isFavorite}
         />
-        {userLoggedIn?.me.id === data.recipe.owner.id && (
+        {userLoggedIn?.me?.id === data.recipe.owner.id && (
           <EditRecipeButton
             recipeId={data.recipe.id}
             cookbookId={data.recipe.cookbookId}
           />
         )}
       </div>
-      <section className="recipe-page-tabs">
+      <TabsWrapper>
         <TabContext value={activeTab}>
           <AppBar position="static" color="transparent">
             <Tabs
@@ -139,7 +181,7 @@ function RecipePage() {
             />
           </TabPanel>
         </TabContext>
-      </section>
+      </TabsWrapper>
     </>
   );
 }

@@ -7,11 +7,17 @@ import HomeLoggedInPage from './HomeLoggedInPage';
 import NavigationBar from '../../components/navigation-bar/NavigationBar';
 import PageNotFound from '../page-not-found/PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
+import RecipePageEditionMode from '../recipe-page/RecipePageEditionMode';
 import { SearchResponse } from '../../components/search/Search';
 import UserProfileButton from '../../components/UserProfileButton';
 import UserProfilePage from '../user-profile-page/UserProfilePage';
-import './loggedin-route.css';
-import RecipePageEditionMode from '../recipe-page/RecipePageEditionMode';
+import styled from 'styled-components';
+
+const Section = styled.div`
+  width: 100%;
+  max-width: 968px;
+  margin: 16px auto 0;
+`;
 
 export const ME = gql`
   query Me {
@@ -37,7 +43,7 @@ function LoggedInRoute() {
   const { data, loading, error } = useQuery<MeResponse>(ME);
 
   return (
-    <div>
+    <>
       {error && <h1>An error has occurred. ${error.message}</h1>}
       {data && !loading && (
         <NavigationBar
@@ -49,7 +55,7 @@ function LoggedInRoute() {
           }
         />
       )}
-      <section className="loggedin-section">
+      <Section>
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route exact path="/home" component={HomeLoggedInPage} />
@@ -68,8 +74,8 @@ function LoggedInRoute() {
           />
           <Route component={PageNotFound} />
         </Switch>
-      </section>
-    </div>
+      </Section>
+    </>
   );
 }
 
