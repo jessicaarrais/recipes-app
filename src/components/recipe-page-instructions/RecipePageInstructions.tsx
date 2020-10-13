@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon/Icon';
+import { Icon } from '@material-ui/core';
 import styled from 'styled-components';
 
 const S = {
@@ -36,7 +36,7 @@ function RecipePageInstructions(props: Props) {
         <S.ListItem key={instruction.id}>
           <S.StepWrapper>
             <p>{instruction.step}</p>
-            <Icon icon="info" size="md-16" title={`Tip: ${instruction.tip}`} />
+            <Icon title={`Tip: ${instruction.tip}`}>info</Icon>
           </S.StepWrapper>
           <p>{instruction.description}</p>
           <S.IngredientsList>

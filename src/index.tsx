@@ -12,8 +12,7 @@ import {
   useQuery,
 } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
-import { ThemeProvider, Fab } from '@material-ui/core';
-import Icon from './components/icon/Icon';
+import { ThemeProvider, Fab, Icon } from '@material-ui/core';
 import LoggedInRoute from './pages/loggedin/LoggedInRoute';
 import LoggedOutRoute from './pages/loggedout/LoggedOutRoute';
 import theme from './theme';
@@ -94,7 +93,7 @@ const IS_LOGGED_IN = gql`
 `;
 
 const uploadLink = createUploadLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: 'https://rocky-oasis-65465.herokuapp.com/graphql',
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -178,7 +177,7 @@ function LandingPage() {
             window.scrollTo(0, 0);
           }}
         >
-          <Icon icon="keyboard_arrow_up" size="md-24" />
+          <Icon>keyboard_arrow_up</Icon>
         </Fab>
       </BackToTopArrow>
     </>

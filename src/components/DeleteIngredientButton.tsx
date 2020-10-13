@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Button } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { Button, Icon } from '@material-ui/core';
 
 const DELETE_INGREDIENT = gql`
   mutation DeleteIngredient($ingredientId: ID!, $recipeId: ID!) {
@@ -41,7 +40,7 @@ function DeleteIngredientButton(props: Props) {
       size="medium"
       onClick={() => deleteIngredient({ variables: props })}
     >
-      <Icon icon="clear" size="md-16" />
+      <Icon>clear</Icon>
     </Button>
   );
 }

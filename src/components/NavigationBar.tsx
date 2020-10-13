@@ -1,8 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Icon } from '@material-ui/core';
 import { SearchRecipe } from './SearchRecipe';
-import Icon from './icon/Icon';
 import styled from 'styled-components';
 
 const S = {
@@ -47,7 +46,7 @@ function NavigationBar(props: Props) {
             size="medium"
             onClick={() => history.push('/')}
           >
-            <Icon icon="home" size="md-24" />
+            <Icon>home</Icon>
           </IconButton>
           <SearchRecipe />
         </S.SideItems>

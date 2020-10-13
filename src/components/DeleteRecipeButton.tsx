@@ -1,8 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Button } from '@material-ui/core';
+import { Button, Icon } from '@material-ui/core';
 import { GET_COOKBOOK, RecipesListOrder } from '../pages/loggedin/HomeLoggedInPage';
-import Icon from './icon/Icon';
 
 const DELETE_RECIPE = gql`
   mutation DeleteRecipe($recipeId: ID!) {
@@ -29,7 +28,7 @@ function DeleteRecipeButton(props: Props) {
       color="default"
       size="medium"
       fullWidth
-      startIcon={<Icon icon="delete" size="md-24" />}
+      startIcon={<Icon>delete</Icon>}
       onClick={(event) => {
         event.preventDefault();
         deleteRecipe({

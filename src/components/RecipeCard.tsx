@@ -2,7 +2,7 @@ import React from 'react';
 import { gql, useApolloClient } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import FavoriteRecipeButton from './FavoriteButton';
-import Icon from './icon/Icon';
+import { Icon } from '@material-ui/core';
 import { INGREDIENT_FRAGMENT } from './recipe-page-edition-mode/recipe-page-edition-mode-ingredient/Ingredient';
 import LikeButton from './LikeButton';
 import RecipeVisibilityButton from './RecipeVisibilityButton';
@@ -153,7 +153,7 @@ function RecipeCard(props: RecipeProps) {
         </S.Description>
         <S.Info>
           <S.Likes>
-            <Icon icon="favorite" size="md-16" />
+            <Icon fontSize="small">favorite</Icon>
             <p>{props.likes}</p>
           </S.Likes>
           <S.AuthorUsername>{props.owner.username}</S.AuthorUsername>

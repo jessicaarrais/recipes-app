@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { IconButton } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { IconButton, Icon } from '@material-ui/core';
 
 const UPDATE_RECIPE = gql`
   mutation UpdateRecipe($recipeId: ID!, $isPublic: Boolean) {
@@ -48,7 +47,7 @@ function RecipeVisibilityButton(props: Props) {
         });
       }}
     >
-      <Icon icon={props.isPublic ? 'lock_open' : 'lock'} size="md-20" />
+      <Icon>{props.isPublic ? 'lock_open' : 'lock'}</Icon>
     </IconButton>
   );
 }

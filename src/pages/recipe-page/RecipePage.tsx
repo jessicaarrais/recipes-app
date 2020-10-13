@@ -3,10 +3,9 @@ import { gql, useApolloClient, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import Avatar from '../../components/Avatar';
-import { Button, AppBar, Tabs, Tab } from '@material-ui/core';
+import { Button, AppBar, Icon, Tabs, Tab } from '@material-ui/core';
 import { TabContext, TabPanel } from '@material-ui/lab';
 import FavoriteRecipeButton from '../../components/FavoriteButton';
-import Icon from '../../components/icon/Icon';
 import LikeButton from '../../components/LikeButton';
 import PageNotFound from '../PageNotFound';
 import { RECIPE_FRAGMENT } from '../../components/RecipeCard';
@@ -134,7 +133,7 @@ function RecipePage() {
         <S.HeaderMediaWrapper>image/video</S.HeaderMediaWrapper>
       </S.Header>
       <S.Likes>
-        <Icon icon="favorite" size="md-16" />
+        <Icon>favorite</Icon>
         <S.TotalLikes>{data.recipe.likes}</S.TotalLikes>
       </S.Likes>
       <div className="recipe-page-actions">
