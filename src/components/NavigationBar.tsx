@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { IconButton } from '@material-ui/core';
-import { Search } from '../search/Search';
-import Icon from '../icon/Icon';
+import { SearchRecipe } from './SearchRecipe';
+import Icon from './icon/Icon';
 import styled from 'styled-components';
 
 const S = {
@@ -49,7 +49,7 @@ function NavigationBar(props: Props) {
           >
             <Icon icon="home" size="md-24" />
           </IconButton>
-          <Search />
+          <SearchRecipe />
         </S.SideItems>
         <S.SideItems>{props.rightItems}</S.SideItems>
       </S.NavBar>

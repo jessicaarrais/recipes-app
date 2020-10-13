@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
-import Avatar from './avatar/Avatar';
+import Avatar from './Avatar';
 
 const UPLOAD_AVATAR = gql`
   mutation UploadAvatar($file: Upload!) {

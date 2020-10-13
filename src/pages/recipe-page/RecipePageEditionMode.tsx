@@ -1,13 +1,17 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
-import CreateIngredientButton from '../../components/recipe/CreateIngredientButton';
-import CreateInstructionButton from '../../components/recipe/CreateInstructionButton';
-import Ingredient, { IngredientProps } from '../../components/ingredient/Ingredient';
-import Instruction, { InstructionProps } from '../../components/instruction/Instruction';
-import PageNotFound from '../page-not-found/PageNotFound';
-import RecipeTitle from '../../components/recipe/RecipeTitle';
-import RecipeVisibilityButton from '../../components/recipe/RecipeVisibilityButton';
+import CreateIngredientButton from '../../components/CreateIngredientButton';
+import CreateInstructionButton from '../../components/CreateInstructionButton';
+import Ingredient, {
+  IngredientProps,
+} from '../../components/recipe-page-edition-mode/recipe-page-edition-mode-ingredient/Ingredient';
+import Instruction, {
+  InstructionProps,
+} from '../../components/recipe-page-edition-mode/recipe-page-edition-mode-instruction/Instruction';
+import PageNotFound from '../PageNotFound';
+import RecipeVisibilityButton from '../../components/RecipeVisibilityButton';
+import RecipeTitle from '../../components/recipe-page-edition-mode/RecipeTitle';
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import Icon from '../icon/Icon';
-import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
+import Icon from './icon/Icon';
+import { RecipesListOrder } from '../pages/loggedin/HomeLoggedInPage';
 import styled from 'styled-components';
 
 const S = {

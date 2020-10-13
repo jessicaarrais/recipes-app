@@ -1,12 +1,12 @@
 import React from 'react';
 import HomeLoggedOutPage from './HomeLoggedOutPage';
-import NavigationBar from '../../components/navigation-bar/NavigationBar';
-import PageNotFound from '../page-not-found/PageNotFound';
+import NavigationBar from '../../components/NavigationBar';
+import PageNotFound from '../PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
 import { Route, Switch, Redirect } from 'react-router';
-import { SearchResponse } from '../../components/search/Search';
-import UserProfilePage from '../user-profile-page/UserProfilePage';
+import { SearchResponse } from '../../components/SearchRecipe';
 import styled from 'styled-components';
+import UserProfilePage from '../UserProfilePage';
 
 const S = {
   Section: styled.div`

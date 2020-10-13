@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { gql, useApolloClient, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
-import Avatar from '../../components/avatar/Avatar';
+import Avatar from '../../components/Avatar';
 import { Button, AppBar, Tabs, Tab } from '@material-ui/core';
 import { TabContext, TabPanel } from '@material-ui/lab';
-import EditRecipeButton from '../../components/recipe/EditRecipeButton';
 import FavoriteRecipeButton from '../../components/FavoriteButton';
 import Icon from '../../components/icon/Icon';
 import LikeButton from '../../components/LikeButton';
-import PageNotFound from '../page-not-found/PageNotFound';
-import { RECIPE_FRAGMENT } from '../../components/recipe/recipe-card/RecipeCard';
-import RecipePageIngredients from '../../components/recipe/recipe-page-ingredients/RecipePageIngredients';
-import RecipePageInstructions from '../../components/recipe/recipe-page-instructions/RecipePageInstructions';
+import PageNotFound from '../PageNotFound';
+import { RECIPE_FRAGMENT } from '../../components/RecipeCard';
+import RecipePageIngredients from '../../components/recipe-page-ingredients/RecipePageIngredients';
+import RecipePageInstructions from '../../components/recipe-page-instructions/RecipePageInstructions';
 import styled from 'styled-components';
+import EditRecipeButton from '../../components/EditRecipeButton';
 
 const S = {
   Header: styled.header`

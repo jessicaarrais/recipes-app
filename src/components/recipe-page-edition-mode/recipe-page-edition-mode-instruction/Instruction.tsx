@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DeleteInstructionButton from './DeleteInstructionButton';
+import DeleteInstructionButton from '../../DeleteInstructionButton';
 import InstructionStep from './InstructionStep';
 import InstructionDescription from './InstructionDescription';
 import styled from 'styled-components';

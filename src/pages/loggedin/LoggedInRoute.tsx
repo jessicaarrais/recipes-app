@@ -4,13 +4,13 @@ import { gql, useQuery } from '@apollo/client';
 import AccountSettingsButton from '../../components/AccountSettingsButton';
 import AccountSettingsPage from '../AccountSettingsPage';
 import HomeLoggedInPage from './HomeLoggedInPage';
-import NavigationBar from '../../components/navigation-bar/NavigationBar';
-import PageNotFound from '../page-not-found/PageNotFound';
+import NavigationBar from '../../components/NavigationBar';
+import PageNotFound from '../PageNotFound';
 import RecipePage from '../recipe-page/RecipePage';
 import RecipePageEditionMode from '../recipe-page/RecipePageEditionMode';
-import { SearchResponse } from '../../components/search/Search';
+import { SearchResponse } from '../../components/SearchRecipe';
 import UserProfileButton from '../../components/UserProfileButton';
-import UserProfilePage from '../user-profile-page/UserProfilePage';
+import UserProfilePage from '../UserProfilePage';
 import styled from 'styled-components';
 
 const S = {

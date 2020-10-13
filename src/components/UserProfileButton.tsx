@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Avatar from './avatar/Avatar';
+import Avatar from './Avatar';
 import styled from 'styled-components';
 
 const S = {

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
-import Avatar from '../../components/avatar/Avatar';
-import Cookbook from '../../components/cookbook/Cookbook';
-import { RecipesListOrder } from '../loggedin/HomeLoggedInPage';
-import RecipeCard, {
-  RecipeProps,
-  RECIPE_FRAGMENT,
-} from '../../components/recipe/recipe-card/RecipeCard';
+import Avatar from '../components/Avatar';
+import Cookbook from '../components/Cookbook';
+import { RecipesListOrder } from './loggedin/HomeLoggedInPage';
+import RecipeCard, { RecipeProps, RECIPE_FRAGMENT } from '../components/RecipeCard';
 import styled from 'styled-components';
+
 const S = {
   ProfileAvatar: styled.div`
     overflow: hidden;
