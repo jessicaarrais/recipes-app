@@ -8,8 +8,70 @@ import Icon from '../../icon/Icon';
 import { INGREDIENT_FRAGMENT } from '../../ingredient/Ingredient';
 import LikeButton from '../../LikeButton';
 import RecipeVisibilityButton from '../RecipeVisibilityButton';
+import styled from 'styled-components';
 import urlParser from '../../../utils/urlParser';
-import './recipe-card.css';
+
+const Card = styled.li`
+  width: 100%;
+  padding: 24px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  border-left: solid 32px #cb9b8c;
+  box-shadow: 1px 1px 1px 1px #bdbdbd;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+`;
+
+const Description = styled.p`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+`;
+
+const Info = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Likes = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 28px;
+`;
+
+const AuthorUsername = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const Bottom = styled.div`
+  display: flex;
+  margin: 0 -4px;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  flex: 1;
+  margin: 0 4px;
+`;
 
 export const RECIPE_FRAGMENT = gql`
   fragment RecipeFragment on Recipe {
@@ -67,18 +129,18 @@ function RecipeCard(props: RecipeProps) {
   });
   const titleURL = urlParser(props.title);
 
-  const isOwner = userLoggedIn?.me.id === props.owner.id;
+  const isOwner = userLoggedIn?.me?.id === props.owner.id;
 
   return (
-    <li className="recipe-card">
+    <Card>
       <Link to={`/cookbook/${props.cookbookId}/recipe/${titleURL}/${props.id}`}>
-        <div className="recipe-card-header">
-          <h2 className="recipe-card-title">{props.title}</h2>
+        <Header>
+          <Title>{props.title}</Title>
           {isOwner && (
             <RecipeVisibilityButton recipeId={props.id} isPublic={props.isPublic} />
           )}
-        </div>
-        <p className="recipe-card-description">
+        </Header>
+        <Description>
           {props.description}
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem qui et sed unde,
           impedit error praesentium mollitia tenetur earum, fugiat ullam quod dicta
@@ -86,38 +148,38 @@ function RecipeCard(props: RecipeProps) {
           consectetur adipisicing elit. Eligendi animi quam inventore quis doloribus
           asperiores earum corporis dicta! Repellendus eaque provident eos id optio
           aspernatur ipsum dolore explicabo eligendi reiciendis?
-        </p>
-        <div className="recipe-card-info">
-          <span className="recipe-card-likes">
+        </Description>
+        <Info>
+          <Likes>
             <Icon icon="favorite" size="md-16" />
             <p>{props.likes}</p>
-          </span>
-          <span className="recipe-card-author-username">{props.owner.username}</span>
-        </div>
+          </Likes>
+          <AuthorUsername>{props.owner.username}</AuthorUsername>
+        </Info>
         <hr />
-        <div className="recipe-card-bottom">
+        <Bottom>
           {isOwner ? (
             <>
-              <div className="recipe-card-actions">
+              <Actions>
                 <EditRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
-              </div>
-              <div className="recipe-card-actions">
+              </Actions>
+              <Actions>
                 <DeleteRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
-              </div>
+              </Actions>
             </>
           ) : (
             <>
-              <div className="recipe-card-actions">
+              <Actions>
                 <LikeButton recipeId={props.id} isLiked={props.isLiked} />
-              </div>
-              <div className="recipe-card-actions">
+              </Actions>
+              <Actions>
                 <FavoriteRecipeButton recipeId={props.id} isFavorite={props.isFavorite} />
-              </div>
+              </Actions>
             </>
           )}
-        </div>
+        </Bottom>
       </Link>
-    </li>
+    </Card>
   );
 }
 

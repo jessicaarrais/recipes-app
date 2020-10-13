@@ -2,7 +2,25 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import Icon from '../icon/Icon';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
-import './cookbook.css';
+import styled from 'styled-components';
+
+const S = {
+  Header: styled.div`
+    display: flex;
+    align-items: center;
+  `,
+
+  ListOrganizersWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    margin: 0 -4px;
+    padding-inline-start: 8px;
+  `,
+
+  ListOrganizersItemWrapper: styled.div`
+    margin: 0 4px;
+  `,
+};
 
 interface CookbookProps {
   createRecipeButton?: React.ReactNode;
@@ -14,24 +32,26 @@ interface CookbookProps {
 
 export default function Cookbook(props: CookbookProps) {
   return (
-    <div>
-      <div className="notebook-header">
-        <div className="create-recipe-container">{props.createRecipeButton}</div>
-        <div className="notebook-list-organizers-container">
-          <div className="filter-list-container">
+    <>
+      <S.Header>
+        {props.createRecipeButton}
+        <S.ListOrganizersWrapper>
+          <S.ListOrganizersItemWrapper>
             <Button color="default" variant="contained" size="medium">
               <Icon icon="filter_list" size="md-24" />
             </Button>
-          </div>
-          <SortList
-            order={props.order}
-            refetchRecipes={props.refetchRecipes}
-            setOrder={props.setOrder}
-          />
-        </div>
-      </div>
+          </S.ListOrganizersItemWrapper>
+          <S.ListOrganizersItemWrapper>
+            <SortList
+              order={props.order}
+              refetchRecipes={props.refetchRecipes}
+              setOrder={props.setOrder}
+            />
+          </S.ListOrganizersItemWrapper>
+        </S.ListOrganizersWrapper>
+      </S.Header>
       <ul>{props.children}</ul>
-    </div>
+    </>
   );
 }
 
@@ -53,10 +73,8 @@ function SortList(props: SortListProps) {
   };
 
   return (
-    <div className="sort-list-container" onClick={handleOnSortList}>
-      <Button color="default" variant="contained" size="medium">
-        <Icon icon="sort" size="md-24" />
-      </Button>
-    </div>
+    <Button color="default" variant="contained" size="medium" onClick={handleOnSortList}>
+      <Icon icon="sort" size="md-24" />
+    </Button>
   );
 }

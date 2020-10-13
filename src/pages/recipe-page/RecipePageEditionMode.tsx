@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
 import CreateIngredientButton from '../../components/recipe/CreateIngredientButton';
 import CreateInstructionButton from '../../components/recipe/CreateInstructionButton';
-import DeleteRecipeButton from '../../components/recipe/DeleteRecipeButton';
 import Ingredient, { IngredientProps } from '../../components/ingredient/Ingredient';
 import Instruction, { InstructionProps } from '../../components/instruction/Instruction';
 import PageNotFound from '../page-not-found/PageNotFound';
@@ -108,12 +107,6 @@ function RecipePageEditionMode() {
         </div>
         <div>
           <CreateInstructionButton recipeId={data.recipe.id} />
-        </div>
-        <div>
-          <DeleteRecipeButton
-            recipeId={data.recipe.id}
-            cookbookId={data.recipe.cookbookId}
-          />
         </div>
       </div>
     </li>

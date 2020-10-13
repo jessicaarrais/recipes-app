@@ -2,7 +2,21 @@ import React, { useState } from 'react';
 import DeleteInstructionButton from './DeleteInstructionButton';
 import InstructionStep from './InstructionStep';
 import InstructionDescription from './InstructionDescription';
-import './instruction.css';
+import styled from 'styled-components';
+
+const S = {
+  ListItem: styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 32px;
+    margin: 8px 0 8px;
+  `,
+  ContentWrapper: styled.div`
+    width: 100%;
+  `,
+};
 
 export interface InstructionProps {
   id: string;
@@ -19,13 +33,12 @@ function Instruction(props: InstructionProps) {
   ] = useState(false);
 
   return (
-    <li
-      className="instruction-list"
+    <S.ListItem
       onMouseOver={() => setIsShowingDeleteInstructionButton(true)}
       onMouseLeave={() => setIsShowingDeleteInstructionButton(false)}
     >
       <p>{props.tip}</p>
-      <div className="instructions-container">
+      <S.ContentWrapper>
         <InstructionStep
           instructionId={props.id}
           recipeId={props.recipeId}
@@ -36,13 +49,11 @@ function Instruction(props: InstructionProps) {
           recipeId={props.recipeId}
           description={props.description}
         />
-      </div>
+      </S.ContentWrapper>
       {isShowingDeleteInstructionButton && (
-        <div>
-          <DeleteInstructionButton instructionId={props.id} recipeId={props.recipeId} />
-        </div>
+        <DeleteInstructionButton instructionId={props.id} recipeId={props.recipeId} />
       )}
-    </li>
+    </S.ListItem>
   );
 }
 

@@ -1,7 +1,26 @@
 import React, { useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
-import { Button } from '@material-ui/core';
-import './login-signup.css';
+import { Button, Typography } from '@material-ui/core';
+import styled from 'styled-components';
+
+const S = {
+  Card: styled.div`
+    max-width: 400px;
+    margin: 32px auto;
+    padding: 24px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 1px 1px #bdbdbd;
+    border-radius: 8px;
+  `,
+
+  Input: styled.input`
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 12px;
+    border: solid 1px lightgray;
+    border-radius: 4px;
+  `,
+};
 
 const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
@@ -41,40 +60,40 @@ function Login() {
   if (error) return <h1>An error has ocurred</h1>;
 
   return (
-    <div className="login-signup-card">
+    <S.Card>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           login({ variables: { email: emailInputLogin, password: passwordInputLogin } });
         }}
       >
-        <input
+        <S.Input
           name="email"
-          className="login-signup-input"
           placeholder="E-mail"
           value={emailInputLogin}
           onChange={(e) => {
             setemailInputLogin(e.target.value);
           }}
         />
-        <input
+        <S.Input
           type="password"
           name="password"
-          className="login-signup-input"
           placeholder="Password"
           value={passwordInputLogin}
           onChange={(e) => {
             setPasswordInputLogin(e.target.value);
           }}
         />
-        <div className="login-signup-btn">
-          <Button type="submit" color="default" variant="contained" size="medium">
-            Login
-          </Button>
-        </div>
+        {errorMessage !== '' && (
+          <Typography color="error" variant="subtitle1" gutterBottom align="center">
+            {errorMessage}
+          </Typography>
+        )}
+        <Button type="submit" color="default" variant="contained" size="large" fullWidth>
+          Login
+        </Button>
       </form>
-      {errorMessage !== '' && <p className="error-message">{errorMessage}</p>}
-    </div>
+    </S.Card>
   );
 }
 

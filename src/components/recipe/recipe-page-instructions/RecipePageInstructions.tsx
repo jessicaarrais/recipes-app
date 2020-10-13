@@ -1,6 +1,28 @@
 import React from 'react';
 import Icon from '../../icon/Icon';
-import './recipe-page-instructions.css';
+import styled from 'styled-components';
+
+const S = {
+  ListItem: styled.li`
+    padding: 16px 0;
+  `,
+
+  StepWrapper: styled.div`
+    display: inline-flex;
+    align-items: center;
+  `,
+
+  IngredientsList: styled.ul`
+    display: flex;
+  `,
+
+  IngredientItem: styled.li`
+    margin: 2px;
+    padding: 8px;
+    border: 1px solid lightskyblue;
+    border-radius: 8px;
+  `,
+};
 
 interface Props {
   ingredients: [{ id: string; text: string; instructionId: string }];
@@ -11,26 +33,21 @@ function RecipePageInstructions(props: Props) {
   return (
     <ul>
       {props.instructions.map((instruction) => (
-        <li className="recipe-page-instructions" key={instruction.id}>
-          <div className="recipe-page-instructions-step">
+        <S.ListItem key={instruction.id}>
+          <S.StepWrapper>
             <p>{instruction.step}</p>
             <Icon icon="info" size="md-16" title={`Tip: ${instruction.tip}`} />
-          </div>
+          </S.StepWrapper>
           <p>{instruction.description}</p>
-          <ul className="recipe-page-instructions-ingredients">
+          <S.IngredientsList>
             {props.ingredients
               .filter((ingredient) => ingredient.instructionId === instruction.id)
               .map((ingredient) => (
-                <li
-                  className="recipe-page-instructions-convertable-ingredient"
-                  key={ingredient.id}
-                >
-                  {ingredient.text}
-                </li>
+                <S.IngredientItem key={ingredient.id}>{ingredient.text}</S.IngredientItem>
               ))}
-          </ul>
+          </S.IngredientsList>
           <hr />
-        </li>
+        </S.ListItem>
       ))}
     </ul>
   );
