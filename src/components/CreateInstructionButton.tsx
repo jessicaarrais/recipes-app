@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Button } from '@material-ui/core';
-import Icon from '../icon/Icon';
+import Icon from './icon/Icon';
 
 const CREATE_INSTRUCTION = gql`
   mutation CreateInstruction(

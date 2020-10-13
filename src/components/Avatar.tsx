@@ -1,5 +1,5 @@
 import React from 'react';
-import standartAvatar from './../../assets/img/chinchilla.jpg';
+import standartAvatar from './../assets/img/chinchilla.jpg';
 import styled from 'styled-components';
 
 const S = {

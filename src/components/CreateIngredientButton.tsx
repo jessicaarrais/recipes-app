@@ -1,8 +1,11 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Button } from '@material-ui/core';
-import Icon from '../icon/Icon';
-import { INGREDIENT_FRAGMENT, IngredientProps } from '../ingredient/Ingredient';
+import Icon from './icon/Icon';
+import {
+  IngredientProps,
+  INGREDIENT_FRAGMENT,
+} from './recipe-page-edition-mode/recipe-page-edition-mode-ingredient/Ingredient';
 
 const CREATE_INGREDIENT = gql`
   mutation CreateIngredient($text: String!, $isChecked: Boolean!, $recipeId: ID!) {

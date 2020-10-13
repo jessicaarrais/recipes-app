@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
-import Login from '../../components/login-signup/Login';
-import Signup from '../../components/login-signup/Signup';
+import Login from '../../components/Login';
+import Signup from '../../components/Signup';
 
 function HomeLoggedOutPage() {
   const [login, setLogin] = useState(false);

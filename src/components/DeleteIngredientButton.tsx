@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { Button } from '@material-ui/core';
-import Icon from '../icon/Icon';
+import Icon from './icon/Icon';
 
 const DELETE_INGREDIENT = gql`
   mutation DeleteIngredient($ingredientId: ID!, $recipeId: ID!) {

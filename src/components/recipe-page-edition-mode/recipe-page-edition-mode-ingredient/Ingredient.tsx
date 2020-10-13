@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { gql } from '@apollo/client';
-import DeleteIngredientButton from './DeleteIngredientButton';
+import DeleteIngredientButton from '../../DeleteIngredientButton';
 import IngredientCheckbox from './IngredientCheckbox';
 import IngredientText from './IngredientText';
 import styled from 'styled-components';

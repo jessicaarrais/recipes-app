@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { IconButton } from '@material-ui/core';
-import Icon from '../icon/Icon';
-import RecipeCard from '../recipe/recipe-card/RecipeCard';
+import Icon from './icon/Icon';
+import RecipeCard from './RecipeCard';
 import styled from 'styled-components';
 const S = {
   SearchWrapper: styled.div`
@@ -60,7 +60,7 @@ interface SearchResponse {
   ];
 }
 
-export function Search() {
+export function SearchRecipe() {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
 
