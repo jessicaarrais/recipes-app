@@ -2,25 +2,27 @@ import React from 'react';
 import Icon from '../../icon/Icon';
 import styled from 'styled-components';
 
-const Instruction = styled.li`
-  padding: 16px 0;
-`;
+const S = {
+  ListItem: styled.li`
+    padding: 16px 0;
+  `,
 
-const InstructionStep = styled.div`
-  display: inline-flex;
-  align-items: center;
-`;
+  StepWrapper: styled.div`
+    display: inline-flex;
+    align-items: center;
+  `,
 
-const Ingredients = styled.ul`
-  display: flex;
-`;
+  IngredientsList: styled.ul`
+    display: flex;
+  `,
 
-const Ingredient = styled.li`
-  margin: 2px;
-  padding: 8px;
-  border: 1px solid lightskyblue;
-  border-radius: 8px;
-`;
+  IngredientItem: styled.li`
+    margin: 2px;
+    padding: 8px;
+    border: 1px solid lightskyblue;
+    border-radius: 8px;
+  `,
+};
 
 interface Props {
   ingredients: [{ id: string; text: string; instructionId: string }];
@@ -31,21 +33,21 @@ function RecipePageInstructions(props: Props) {
   return (
     <ul>
       {props.instructions.map((instruction) => (
-        <Instruction key={instruction.id}>
-          <InstructionStep>
+        <S.ListItem key={instruction.id}>
+          <S.StepWrapper>
             <p>{instruction.step}</p>
             <Icon icon="info" size="md-16" title={`Tip: ${instruction.tip}`} />
-          </InstructionStep>
+          </S.StepWrapper>
           <p>{instruction.description}</p>
-          <Ingredients>
+          <S.IngredientsList>
             {props.ingredients
               .filter((ingredient) => ingredient.instructionId === instruction.id)
               .map((ingredient) => (
-                <Ingredient key={ingredient.id}>{ingredient.text}</Ingredient>
+                <S.IngredientItem key={ingredient.id}>{ingredient.text}</S.IngredientItem>
               ))}
-          </Ingredients>
+          </S.IngredientsList>
           <hr />
-        </Instruction>
+        </S.ListItem>
       ))}
     </ul>
   );

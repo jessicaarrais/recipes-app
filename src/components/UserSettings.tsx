@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import DeleteUserButton from './DeleteUserButton';
-import UploadAvatar from './UploadAvatar';
 import EditableTextArea from './editable-text-area/EditableTextArea';
+import UploadAvatar from './UploadAvatar';
+import { Typography } from '@material-ui/core';
 
 const UPDATE_USER = gql`
   mutation UpdateUser($username: String!) {
@@ -54,10 +55,14 @@ function UserSettings(props: Props) {
 
   return (
     <>
+      {errorMessage !== '' && (
+        <Typography color="error" variant="subtitle1" gutterBottom>
+          {errorMessage}
+        </Typography>
+      )}
       <EditableTextArea semanticalType="p" onSubmit={onSubmit}>
         {props.username}
       </EditableTextArea>
-      {errorMessage !== '' && <p>{errorMessage}</p>}
       <UploadAvatar uri={props.uri} />
       <DeleteUserButton />
     </>

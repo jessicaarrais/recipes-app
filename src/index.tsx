@@ -41,6 +41,7 @@ const GlobalCSS = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     word-wrap: break-word;
+    text-decoration: none;
   }
 
   a {

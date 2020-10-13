@@ -5,22 +5,22 @@ import { IconButton } from '@material-ui/core';
 import Icon from '../icon/Icon';
 import RecipeCard from '../recipe/recipe-card/RecipeCard';
 import styled from 'styled-components';
+const S = {
+  SearchWrapper: styled.div`
+    display: flex;
+    align-items: center;
+  `,
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const SearchBox = styled.input`
-  width: 160px;
-  height: 32px;
-  border-style: none;
-  border-radius: 16px;
-  padding: 16px;
-  margin: 0 8px;
-  outline: none;
-`;
+  SearchBox: styled.input`
+    width: 160px;
+    height: 32px;
+    border-style: none;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 0 8px;
+    outline: none;
+  `,
+};
 
 const SEARCH_RECIPES = gql`
   query SearchRecipes($value: String!) {
@@ -65,8 +65,8 @@ export function Search() {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <Wrapper>
-      <SearchBox
+    <S.SearchWrapper>
+      <S.SearchBox
         type="text"
         value={searchValue}
         placeholder="Search Recipes"
@@ -84,7 +84,7 @@ export function Search() {
       >
         <Icon icon="search" size="md-24" />
       </IconButton>
-    </Wrapper>
+    </S.SearchWrapper>
   );
 }
 

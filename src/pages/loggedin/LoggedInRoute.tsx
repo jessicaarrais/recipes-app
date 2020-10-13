@@ -13,11 +13,14 @@ import UserProfileButton from '../../components/UserProfileButton';
 import UserProfilePage from '../user-profile-page/UserProfilePage';
 import styled from 'styled-components';
 
-const Section = styled.div`
-  width: 100%;
-  max-width: 968px;
-  margin: 16px auto 0;
-`;
+const S = {
+  Section: styled.div`
+    width: 100%;
+    max-width: 968px;
+    margin: 16px auto 0;
+    padding: 8px;
+  `,
+};
 
 export const ME = gql`
   query Me {
@@ -55,7 +58,7 @@ function LoggedInRoute() {
           }
         />
       )}
-      <Section>
+      <S.Section>
         <Switch>
           <Redirect exact from="/" to="/home" />
           <Route exact path="/home" component={HomeLoggedInPage} />
@@ -74,7 +77,7 @@ function LoggedInRoute() {
           />
           <Route component={PageNotFound} />
         </Switch>
-      </Section>
+      </S.Section>
     </>
   );
 }

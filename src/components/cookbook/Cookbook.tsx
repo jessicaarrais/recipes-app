@@ -4,32 +4,23 @@ import Icon from '../icon/Icon';
 import { RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
 import styled from 'styled-components';
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
+const S = {
+  Header: styled.div`
+    display: flex;
+    align-items: center;
+  `,
 
-const CreateRecipeWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  margin-right: 8px;
-`;
+  ListOrganizersWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    margin: 0 -4px;
+    padding-inline-start: 8px;
+  `,
 
-const ListOrganizersWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 -4px;
-`;
-
-const FilterListWrapper = styled.div`
-  margin: 0 4px;
-`;
-
-const SortListWrapper = styled.div`
-  margin: 0 4px;
-`;
+  ListOrganizersItemWrapper: styled.div`
+    margin: 0 4px;
+  `,
+};
 
 interface CookbookProps {
   createRecipeButton?: React.ReactNode;
@@ -42,21 +33,23 @@ interface CookbookProps {
 export default function Cookbook(props: CookbookProps) {
   return (
     <>
-      <Header>
-        <CreateRecipeWrapper>{props.createRecipeButton}</CreateRecipeWrapper>
-        <ListOrganizersWrapper>
-          <FilterListWrapper>
+      <S.Header>
+        {props.createRecipeButton}
+        <S.ListOrganizersWrapper>
+          <S.ListOrganizersItemWrapper>
             <Button color="default" variant="contained" size="medium">
               <Icon icon="filter_list" size="md-24" />
             </Button>
-          </FilterListWrapper>
-          <SortList
-            order={props.order}
-            refetchRecipes={props.refetchRecipes}
-            setOrder={props.setOrder}
-          />
-        </ListOrganizersWrapper>
-      </Header>
+          </S.ListOrganizersItemWrapper>
+          <S.ListOrganizersItemWrapper>
+            <SortList
+              order={props.order}
+              refetchRecipes={props.refetchRecipes}
+              setOrder={props.setOrder}
+            />
+          </S.ListOrganizersItemWrapper>
+        </S.ListOrganizersWrapper>
+      </S.Header>
       <ul>{props.children}</ul>
     </>
   );
@@ -80,10 +73,8 @@ function SortList(props: SortListProps) {
   };
 
   return (
-    <SortListWrapper onClick={handleOnSortList}>
-      <Button color="default" variant="contained" size="medium">
-        <Icon icon="sort" size="md-24" />
-      </Button>
-    </SortListWrapper>
+    <Button color="default" variant="contained" size="medium" onClick={handleOnSortList}>
+      <Icon icon="sort" size="md-24" />
+    </Button>
   );
 }

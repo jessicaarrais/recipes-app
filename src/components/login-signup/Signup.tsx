@@ -1,51 +1,42 @@
 import React, { useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
-const Card = styled.div`
-  width: 400px;
-  margin: 32px auto;
-  padding: 40px 56px;
-  background-color: #ffffff;
-  box-shadow: 1px 1px 1px 1px #bdbdbd;
-  border-radius: 8px;
-`;
+const S = {
+  Card: styled.div`
+    max-width: 400px;
+    margin: 32px auto;
+    padding: 24px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 1px 1px #bdbdbd;
+    border-radius: 8px;
+  `,
 
-const Input = styled.input`
-  display: block;
-  width: 100%;
-  height: 28px;
-  margin: 8px 0 32px;
-  padding: 0 8px;
-  border: solid 1px gray;
-  border-radius: 2px;
+  Input: styled.input`
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 12px;
+    border: solid 1px lightgray;
+    border-radius: 4px;
 
-  &.invalid {
-    outline-style: solid;
-    outline-color: red;
-  }
-  &.valid {
-    outline-style: solid;
-    outline-color: green;
-  }
-`;
+    &.invalid {
+      outline-style: solid;
+      outline-color: red;
+    }
+    &.valid {
+      outline-style: solid;
+      outline-color: green;
+    }
+  `,
 
-const LoginButtonWrapper = styled.div`
-  display: flex;
-`;
-
-const ErrorMessage = styled.p`
-  font-size: 12px;
-  color: red;
-`;
-
-const PasswordHint = styled.ul`
-  font-size: 12px;
-  margin: 8px 0;
-  padding-left: 12px;
-  color: grey;
-`;
+  PasswordHint: styled.ul`
+    font-size: 12px;
+    margin: 8px 0;
+    padding-left: 12px;
+    color: grey;
+  `,
+};
 
 const CREATE_USER = gql`
   mutation CreateUser(
@@ -111,7 +102,7 @@ function Signup() {
   );
 
   return (
-    <Card>
+    <S.Card>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -125,21 +116,23 @@ function Signup() {
           });
         }}
       >
-        <Input
+        <S.Input
           placeholder="E-mail"
           value={emailInputSignup}
           onChange={(e) => setEmailInputSignup(e.target.value)}
         />
-        <Input
+        <S.Input
           placeholder="Username"
           value={usernameInputSignup}
           onChange={(e) => setUsernameInputSignup(e.target.value)}
         />
         <div>
           {passwordValidation === 'invalid' && (
-            <ErrorMessage>Invalid password format</ErrorMessage>
+            <Typography color="error" variant="subtitle2" gutterBottom>
+              Passwords do not match
+            </Typography>
           )}
-          <Input
+          <S.Input
             className={passwordValidation}
             type="password"
             placeholder="Password eg.: p@SSword2020"
@@ -150,9 +143,11 @@ function Signup() {
         </div>
         <div>
           {confirmPasswordValidation === 'invalid' && (
-            <ErrorMessage>Passwords do not match</ErrorMessage>
+            <Typography color="error" variant="subtitle2" gutterBottom>
+              Passwords do not match
+            </Typography>
           )}
-          <Input
+          <S.Input
             className={confirmPasswordValidation}
             type="password"
             placeholder="Confirm Password"
@@ -161,20 +156,22 @@ function Signup() {
             }}
           />
         </div>
-        <PasswordHint>
+        <S.PasswordHint>
           Your password must:
           <li>be betweem 8 and 12 characters;</li>
           <li>contain at least 1 number;</li>
           <li>contain at least 1 uppercase and lowercase letters of each.</li>
-        </PasswordHint>
-        <LoginButtonWrapper>
-          <Button type="submit" color="default" variant="contained" size="medium">
-            Signup
-          </Button>
-        </LoginButtonWrapper>
+        </S.PasswordHint>
+        {errorMessage !== '' && (
+          <Typography color="error" variant="subtitle1" gutterBottom align="center">
+            {errorMessage}
+          </Typography>
+        )}
+        <Button type="submit" color="default" variant="contained" size="large" fullWidth>
+          Signup
+        </Button>
       </form>
-      {errorMessage !== '' && <ErrorMessage>{errorMessage}</ErrorMessage>}
-    </Card>
+    </S.Card>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { Button, Typography } from '@material-ui/core';
 import Avatar from './avatar/Avatar';
-import { Button } from '@material-ui/core';
 
 const UPLOAD_AVATAR = gql`
   mutation UploadAvatar($file: Upload!) {
@@ -71,7 +71,11 @@ function UploadAvatar(props: Props) {
         onChange={handleUploadAvatar}
         style={{ display: 'none' }}
       />
-      {errorMessage === '' && <p>{errorMessage}</p>}
+      {errorMessage === '' && (
+        <Typography color="error" variant="subtitle1" gutterBottom>
+          {errorMessage}
+        </Typography>
+      )}
       <div style={{ width: '100px' }}>
         <Avatar uri={props.uri} />
       </div>

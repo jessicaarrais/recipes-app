@@ -5,32 +5,30 @@ import { Search } from '../search/Search';
 import Icon from '../icon/Icon';
 import styled from 'styled-components';
 
-const NavBarRoot = styled.div`
-  height: 64px;
-`;
+const S = {
+  NavBarRoot: styled.div`
+    height: 64px;
+  `,
 
-const NavBar = styled.nav`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: fixed;
-  top: 0px;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: inherit;
-  padding: 4px 16px;
-  background-color: #ffccbc;
-  box-shadow: 0 0 4px 0 #bdbdbd;
-`;
+  NavBar: styled.nav`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: inherit;
+    padding: 4px 16px;
+    background-color: #ffccbc;
+    box-shadow: 0 0 4px 0 #bdbdbd;
+  `,
 
-const HomeButton = styled.div`
-  display: flex;
-`;
-
-const RightItems = styled.div`
-  display: flex;
-`;
+  SideItems: styled.div`
+    display: flex;
+  `,
+};
 
 interface Props {
   rightItems?: React.ReactNode;
@@ -40,9 +38,9 @@ function NavigationBar(props: Props) {
   const history = useHistory();
 
   return (
-    <NavBarRoot>
-      <NavBar>
-        <HomeButton>
+    <S.NavBarRoot>
+      <S.NavBar>
+        <S.SideItems>
           <IconButton
             aria-label="Home"
             color="default"
@@ -52,10 +50,10 @@ function NavigationBar(props: Props) {
             <Icon icon="home" size="md-24" />
           </IconButton>
           <Search />
-        </HomeButton>
-        <RightItems>{props.rightItems}</RightItems>
-      </NavBar>
-    </NavBarRoot>
+        </S.SideItems>
+        <S.SideItems>{props.rightItems}</S.SideItems>
+      </S.NavBar>
+    </S.NavBarRoot>
   );
 }
 

@@ -15,50 +15,52 @@ import RecipePageIngredients from '../../components/recipe/recipe-page-ingredien
 import RecipePageInstructions from '../../components/recipe/recipe-page-instructions/RecipePageInstructions';
 import styled from 'styled-components';
 
-const Header = styled.header`
-  display: flex;
-  margin-top: 32px;
-`;
+const S = {
+  Header: styled.header`
+    display: flex;
+    margin-top: 32px;
+  `,
 
-const HeaderTextWrapper = styled.div`
-  flex: 1;
-  margin-right: 32px;
-`;
+  HeaderTextWrapper: styled.div`
+    flex: 1;
+    margin-right: 32px;
+  `,
 
-const HeaderMediaWrapper = styled.div`
-  flex: 1;
-  background-color: lightgray;
-`;
+  HeaderMediaWrapper: styled.div`
+    flex: 1;
+    background-color: lightgray;
+  `,
 
-const Likes = styled.div`
-  display: flex;
-  align-items: center;
-`;
+  Likes: styled.div`
+    display: flex;
+    align-items: center;
+  `,
 
-const TotalLikes = styled.p`
-  margin: 0 4px;
-`;
+  TotalLikes: styled.p`
+    margin: 0 4px;
+  `,
 
-const UserProfileLink = styled(Link)`
-  display: block;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
-`;
+  UserProfileLink: styled(Link)`
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+  `,
 
-const Title = styled.span`
-  font-size: 32px;
-`;
+  Title: styled.span`
+    font-size: 32px;
+  `,
 
-const TabsWrapper = styled.div`
-  width: 100%;
-  padding: 16px 24px 24px;
-  margin: 24px auto;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 1px 1px 1px 1px #bdbdbd;
-`;
+  TabsWrapper: styled.div`
+    width: 100%;
+    padding: 16px 24px 24px;
+    margin: 24px auto;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 1px 1px #bdbdbd;
+  `,
+};
 
 const RECIPE = gql`
   query Recipe($recipeId: ID!, $cookbookId: ID!) {
@@ -118,23 +120,23 @@ function RecipePage() {
 
   return (
     <>
-      <Header>
-        <HeaderTextWrapper>
-          <UserProfileLink to={`/users/${data.recipe.owner.username}`}>
+      <S.Header>
+        <S.HeaderTextWrapper>
+          <S.UserProfileLink to={`/users/${data.recipe.owner.username}`}>
             <Avatar uri={data.recipe.owner.avatar?.uri} />
-          </UserProfileLink>
+          </S.UserProfileLink>
           <h4>
-            <Title>{data.recipe.title} </Title>
+            <S.Title>{data.recipe.title} </S.Title>
             by {data.recipe.owner.username}
           </h4>
           <p>{data.recipe.description}</p>
-        </HeaderTextWrapper>
-        <HeaderMediaWrapper>image/video</HeaderMediaWrapper>
-      </Header>
-      <Likes>
+        </S.HeaderTextWrapper>
+        <S.HeaderMediaWrapper>image/video</S.HeaderMediaWrapper>
+      </S.Header>
+      <S.Likes>
         <Icon icon="favorite" size="md-16" />
-        <TotalLikes>{data.recipe.likes}</TotalLikes>
-      </Likes>
+        <S.TotalLikes>{data.recipe.likes}</S.TotalLikes>
+      </S.Likes>
       <div className="recipe-page-actions">
         <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
         <FavoriteRecipeButton
@@ -148,7 +150,7 @@ function RecipePage() {
           />
         )}
       </div>
-      <TabsWrapper>
+      <S.TabsWrapper>
         <TabContext value={activeTab}>
           <AppBar position="static" color="transparent">
             <Tabs
@@ -181,7 +183,7 @@ function RecipePage() {
             />
           </TabPanel>
         </TabContext>
-      </TabsWrapper>
+      </S.TabsWrapper>
     </>
   );
 }

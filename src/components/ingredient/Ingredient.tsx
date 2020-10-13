@@ -5,13 +5,15 @@ import IngredientCheckbox from './IngredientCheckbox';
 import IngredientText from './IngredientText';
 import styled from 'styled-components';
 
-const IngredientList = styled.li`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 32px;
-  margin: 8px 0 8px;
-`;
+const S = {
+  ListItem: styled.li`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 32px;
+    margin: 8px 0 8px;
+  `,
+};
 
 export const INGREDIENT_FRAGMENT = gql`
   fragment IngredientFragment on Ingredient {
@@ -38,7 +40,7 @@ function Ingredient(props: IngredientProps) {
   );
 
   return (
-    <IngredientList
+    <S.ListItem
       onMouseOver={() => setIsShowingDeleteIngredientButton(true)}
       onMouseLeave={() => setIsShowingDeleteIngredientButton(false)}
     >
@@ -53,11 +55,9 @@ function Ingredient(props: IngredientProps) {
         recipeId={props.recipeId}
       />
       {isShowingDeleteIngredientButton && (
-        <div>
-          <DeleteIngredientButton ingredientId={props.id} recipeId={props.recipeId} />
-        </div>
+        <DeleteIngredientButton ingredientId={props.id} recipeId={props.recipeId} />
       )}
-    </IngredientList>
+    </S.ListItem>
   );
 }
 
