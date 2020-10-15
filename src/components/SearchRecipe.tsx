@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
-import { IconButton } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { IconButton, Icon } from '@material-ui/core';
 import RecipeCard from './RecipeCard';
 import styled from 'styled-components';
 const S = {
@@ -82,7 +81,7 @@ export function SearchRecipe() {
           setSearchValue('');
         }}
       >
-        <Icon icon="search" size="md-24" />
+        <Icon>search</Icon>
       </IconButton>
     </S.SearchWrapper>
   );

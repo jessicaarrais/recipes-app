@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { Button, Icon } from '@material-ui/core';
 import { RecipesListOrder } from '../pages/loggedin/HomeLoggedInPage';
 import styled from 'styled-components';
 
@@ -38,7 +37,7 @@ export default function Cookbook(props: CookbookProps) {
         <S.ListOrganizersWrapper>
           <S.ListOrganizersItemWrapper>
             <Button color="default" variant="contained" size="medium">
-              <Icon icon="filter_list" size="md-24" />
+              <Icon>filter_list</Icon>
             </Button>
           </S.ListOrganizersItemWrapper>
           <S.ListOrganizersItemWrapper>
@@ -74,7 +73,7 @@ function SortList(props: SortListProps) {
 
   return (
     <Button color="default" variant="contained" size="medium" onClick={handleOnSortList}>
-      <Icon icon="sort" size="md-24" />
+      <Icon>sort</Icon>
     </Button>
   );
 }

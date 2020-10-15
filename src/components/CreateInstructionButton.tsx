@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Button } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { Button, Icon } from '@material-ui/core';
 
 const CREATE_INSTRUCTION = gql`
   mutation CreateInstruction(
@@ -47,6 +46,8 @@ function CreateInstructionButton(props: Props) {
       color="primary"
       variant="contained"
       size="medium"
+      fullWidth
+      startIcon={<Icon>add</Icon>}
       onClick={() =>
         createInstruction({
           variables: {
@@ -58,7 +59,6 @@ function CreateInstructionButton(props: Props) {
         })
       }
     >
-      <Icon icon="add" size="md-24" />
       add instruction
     </Button>
   );

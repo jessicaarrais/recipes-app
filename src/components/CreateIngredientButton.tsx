@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Button } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { Button, Icon } from '@material-ui/core';
 import {
   IngredientProps,
   INGREDIENT_FRAGMENT,
@@ -44,6 +43,8 @@ function CreateIngredientButton(props: Props) {
       color="primary"
       variant="contained"
       size="medium"
+      fullWidth
+      startIcon={<Icon>add</Icon>}
       onClick={() =>
         createIngredient({
           variables: {
@@ -54,7 +55,6 @@ function CreateIngredientButton(props: Props) {
         })
       }
     >
-      <Icon icon="add" size="md-24" />
       add ingredient
     </Button>
   );

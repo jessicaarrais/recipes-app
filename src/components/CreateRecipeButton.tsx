@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Button } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { Button, Icon } from '@material-ui/core';
 import { GET_COOKBOOK } from '../pages/loggedin/HomeLoggedInPage';
 import { RecipesListOrder } from '../pages/loggedin/HomeLoggedInPage';
 
@@ -28,7 +27,7 @@ function CreateRecipeButton() {
       variant="contained"
       size="medium"
       fullWidth
-      startIcon={<Icon icon="add" size="md-24" />}
+      startIcon={<Icon>add</Icon>}
       onClick={() => {
         createRecipe({
           variables: { title: 'Title', description: 'Recipe description' },

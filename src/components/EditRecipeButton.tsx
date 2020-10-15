@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-import Icon from './icon/Icon';
+import { Button, Icon } from '@material-ui/core';
 
 interface Props {
   recipeId: string;
@@ -15,7 +14,7 @@ function EditRecipeButton(props: Props) {
       color="default"
       size="medium"
       fullWidth
-      startIcon={<Icon icon="create" size="md-24" />}
+      startIcon={<Icon>create</Icon>}
       onClick={(event) => {
         event.preventDefault();
         history.push(`/edit/cookbook/${props.cookbookId}/recipe/${props.recipeId}`);
