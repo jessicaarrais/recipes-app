@@ -1,16 +1,15 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
-import AccountSettingsButton from '../../components/AccountSettingsButton';
-import AccountSettingsPage from '../AccountSettingsPage';
-import HomeLoggedInPage from './HomeLoggedInPage';
-import NavigationBar from '../../components/NavigationBar';
-import PageNotFound from '../PageNotFound';
-import RecipePage from '../recipe-page/RecipePage';
-import RecipePageEditionMode from '../recipe-page/RecipePageEditionMode';
-import { SearchResponse } from '../../components/SearchRecipe';
-import UserProfileButton from '../../components/UserProfileButton';
-import UserProfilePage from '../UserProfilePage';
+import AccountSettingsButton from '../components/AccountSettingsButton';
+import AccountSettingsPage from '../pages/AccountSettingsPage';
+import HomeLoggedInPage from '../pages/HomeLoggedInPage';
+import NavigationBar from '../components/NavigationBar';
+import PageNotFound from '../pages/PageNotFound';
+import RecipePage from '../pages/RecipePage';
+import { SearchResponse } from '../components/SearchRecipe';
+import UserProfileButton from '../components/UserProfileButton';
+import UserProfilePage from '../pages/UserProfilePage';
 import styled from 'styled-components';
 
 const S = {
@@ -64,12 +63,12 @@ function LoggedInRoute() {
           <Route exact path="/home" component={HomeLoggedInPage} />
           <Route exact path="/account-settings" component={AccountSettingsPage} />
           <Route exact path="/users/:username" component={UserProfilePage} />
+          <Route exact path="/search/:value" component={SearchResponse} />
           <Route
             exact
-            path="/edit/cookbook/:cookbookId/recipe/:recipeId"
-            component={RecipePageEditionMode}
+            path="/:isEditing/cookbook/:cookbookId/recipe/:recipeTitle/:recipeId"
+            component={RecipePage}
           />
-          <Route exact path="/search/:value" component={SearchResponse} />
           <Route
             exact
             path="/cookbook/:cookbookId/recipe/:recipeTitle/:recipeId"

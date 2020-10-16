@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './editable-text-area.css';
 
 interface Props {
   semanticalType: 'h2' | 'p';

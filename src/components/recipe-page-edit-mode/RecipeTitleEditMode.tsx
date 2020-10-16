@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import EditableTextArea from './editable-text-area/EditableTextArea';
-import { GET_COOKBOOK, RecipesListOrder } from '../../pages/loggedin/HomeLoggedInPage';
+import EditableTextArea from './EditableTextArea';
+import { GET_COOKBOOK, RecipesListOrder } from '../../pages/HomeLoggedInPage';
 
 const UPDATE_RECIPE = gql`
   mutation UpdateRecipe($recipeId: ID!, $title: String) {
@@ -28,7 +28,7 @@ interface Props {
   title: string;
 }
 
-function RecipeTitle(props: Props) {
+function RecipeTitleEditMode(props: Props) {
   const [updateRecipe, { error }] = useMutation<UpdateRecipeTitleResponse>(UPDATE_RECIPE);
 
   const onSubmit = (title: string) =>
@@ -55,4 +55,4 @@ function RecipeTitle(props: Props) {
   );
 }
 
-export default RecipeTitle;
+export default RecipeTitleEditMode;

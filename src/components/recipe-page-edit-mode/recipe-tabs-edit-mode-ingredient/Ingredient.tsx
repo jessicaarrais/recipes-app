@@ -7,11 +7,7 @@ import styled from 'styled-components';
 
 const S = {
   ListItem: styled.li`
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: 32px;
-    margin: 8px 0 8px;
+    padding: 16px 0;
   `,
 };
 

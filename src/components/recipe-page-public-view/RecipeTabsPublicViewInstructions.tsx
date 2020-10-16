@@ -29,7 +29,7 @@ interface Props {
   instructions: [{ id: string; step: string; description: string; tip: string }];
 }
 
-function RecipePageInstructions(props: Props) {
+function RecipeTabsPublicViewInstructions(props: Props) {
   return (
     <ul>
       {props.instructions.map((instruction) => (
@@ -53,4 +53,4 @@ function RecipePageInstructions(props: Props) {
   );
 }
 
-export default RecipePageInstructions;
+export default RecipeTabsPublicViewInstructions;

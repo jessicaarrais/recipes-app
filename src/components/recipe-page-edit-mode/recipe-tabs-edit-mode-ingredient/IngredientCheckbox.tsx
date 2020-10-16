@@ -1,10 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import styled from 'styled-components';
 
-const Checkbox = styled.input`
-  box-shadow: 0 0 0 2px antiquewhite;
-`;
 const UPDATE_INGREDIENT = gql`
   mutation UpdateIngredient(
     $ingredientId: ID!
@@ -63,7 +59,7 @@ function IngredientCheckbox(props: Props) {
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
   return (
-    <Checkbox
+    <input
       type="checkbox"
       checked={props.isChecked}
       onChange={(e) => {
