@@ -1,10 +1,12 @@
 import React from 'react';
 import { Icon } from '@material-ui/core';
+import { IngredientProps } from '../recipe-page-edit-mode/recipe-tabs-edit-mode-ingredient/Ingredient';
+import { InstructionProps } from '../recipe-page-edit-mode/recipe-tabs-edit-mode-instruction/Instruction';
 import styled from 'styled-components';
 
 const S = {
-  ListItem: styled.li`
-    padding: 16px 0;
+  InstructionsList: styled.ul`
+    padding: 0;
   `,
 
   StepWrapper: styled.div`
@@ -14,6 +16,7 @@ const S = {
 
   IngredientsList: styled.ul`
     display: flex;
+    padding: 8px 0;
   `,
 
   IngredientItem: styled.li`
@@ -22,18 +25,23 @@ const S = {
     border: 1px solid lightskyblue;
     border-radius: 8px;
   `,
+
+  hr: styled.hr`
+    color: floralwhite;
+    margin: 20px 0;
+  `,
 };
 
 interface Props {
-  ingredients: [{ id: string; text: string; instructionId: string }];
-  instructions: [{ id: string; step: string; description: string; tip: string }];
+  ingredients: [IngredientProps];
+  instructions: [InstructionProps];
 }
 
 function RecipeTabsPublicViewInstructions(props: Props) {
   return (
-    <ul>
+    <S.InstructionsList>
       {props.instructions.map((instruction) => (
-        <S.ListItem key={instruction.id}>
+        <li key={instruction.id}>
           <S.StepWrapper>
             <p>{instruction.step}</p>
             <Icon title={`Tip: ${instruction.tip}`}>info</Icon>
@@ -46,10 +54,10 @@ function RecipeTabsPublicViewInstructions(props: Props) {
                 <S.IngredientItem key={ingredient.id}>{ingredient.text}</S.IngredientItem>
               ))}
           </S.IngredientsList>
-          <hr />
-        </S.ListItem>
+          <S.hr />
+        </li>
       ))}
-    </ul>
+    </S.InstructionsList>
   );
 }
 

@@ -48,6 +48,10 @@ const GlobalCSS = createGlobalStyle`
     color: #000000;
   }
 
+  p {
+    margin: 8px 0;
+  }
+
   h2 {
     font-size: 24px;
   }
@@ -92,8 +96,11 @@ const IS_LOGGED_IN = gql`
   }
 `;
 
+// const uploadLink = createUploadLink({
+//   uri: 'https://rocky-oasis-65465.herokuapp.com/graphql',
+// });
 const uploadLink = createUploadLink({
-  uri: 'https://rocky-oasis-65465.herokuapp.com/graphql',
+  uri: 'http://localhost:5000/graphql',
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {

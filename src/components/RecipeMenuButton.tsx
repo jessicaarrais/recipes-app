@@ -1,9 +1,27 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Icon, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Icon, IconButton, Menu, MenuItem, Theme, withStyles } from '@material-ui/core';
+import { grey } from '@material-ui/core/colors';
 import EditRecipeButton from './EditRecipeButton';
 import RecipeVisibilityButton from './RecipeVisibilityButton';
 import DeleteRecipeButton from './DeleteRecipeButton';
+import styled from 'styled-components';
+
+const S = {
+  RecipeMenuWrapper: styled.div`
+    margin-inline-start: 8px;
+  `,
+};
+
+const MenuButton = withStyles((theme: Theme) => ({
+  root: {
+    color: theme.palette.getContrastText(grey[300]),
+    backgroundColor: grey[300],
+    '&:hover': {
+      backgroundColor: grey[400],
+    },
+  },
+}))(IconButton);
 
 interface Props {
   isEditing: boolean;
@@ -26,13 +44,11 @@ function RecipeMenuButton(props: Props) {
   };
 
   return (
-    <div>
+    <S.RecipeMenuWrapper>
       {props.isEditing ? (
-        <Button
-          color="default"
-          variant="outlined"
-          size="medium"
-          startIcon={<Icon>close</Icon>}
+        <MenuButton
+          aria-controls="simple-menu"
+          aria-haspopup="true"
           onClick={(event) => {
             event.preventDefault();
             history.push(
@@ -40,23 +56,33 @@ function RecipeMenuButton(props: Props) {
             );
           }}
         >
-          Cancel
-        </Button>
+          <Icon>close</Icon>
+        </MenuButton>
       ) : (
         <>
-          <IconButton
+          <MenuButton
             aria-controls="simple-menu"
             aria-haspopup="true"
+            aria-label="Menu"
             onClick={handleOpen}
           >
             <Icon>more_horiz</Icon>
-          </IconButton>
+          </MenuButton>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
           >
             <MenuItem onClick={handleClose}>
               <EditRecipeButton
@@ -70,7 +96,6 @@ function RecipeMenuButton(props: Props) {
                 recipeId={props.recipeId}
                 isPublic={props.isPublic}
               />
-              Visibility
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <DeleteRecipeButton
@@ -81,7 +106,7 @@ function RecipeMenuButton(props: Props) {
           </Menu>
         </>
       )}
-    </div>
+    </S.RecipeMenuWrapper>
   );
 }
 

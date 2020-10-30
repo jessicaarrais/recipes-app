@@ -1,13 +1,17 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { Button, Icon } from '@material-ui/core';
+import { IconButton, Icon } from '@material-ui/core';
 
 const DELETE_INSTRUCTION = gql`
   mutation DeleteInstruction($instructionId: ID!, $recipeId: ID!) {
     deleteInstruction(instructionId: $instructionId, recipeId: $recipeId) {
+      success
       recipe {
         id
         instructions {
+          id
+        }
+        ingredients {
           id
         }
       }
@@ -37,14 +41,13 @@ function DeleteInstructionButton(props: Props) {
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
 
   return (
-    <Button
-      color="secondary"
-      variant="contained"
-      size="medium"
+    <IconButton
+      aria-label="delete instruction"
+      color="default"
       onClick={() => deleteInstruction({ variables: props })}
     >
-      <Icon>clear</Icon>
-    </Button>
+      <Icon>delete</Icon>
+    </IconButton>
   );
 }
 
