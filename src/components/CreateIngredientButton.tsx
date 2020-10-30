@@ -7,8 +7,18 @@ import {
 } from './recipe-page-edit-mode/recipe-tabs-edit-mode-ingredient/Ingredient';
 
 const CREATE_INGREDIENT = gql`
-  mutation CreateIngredient($text: String!, $isChecked: Boolean!, $recipeId: ID!) {
-    createIngredient(text: $text, isChecked: $isChecked, recipeId: $recipeId) {
+  mutation CreateIngredient(
+    $text: String!
+    $isChecked: Boolean!
+    $recipeId: ID!
+    $instructionId: ID
+  ) {
+    createIngredient(
+      text: $text
+      isChecked: $isChecked
+      recipeId: $recipeId
+      instructionId: $instructionId
+    ) {
       recipe {
         id
         title
@@ -33,6 +43,7 @@ interface CreateIngredientResponse {
 
 interface Props {
   recipeId: string;
+  instructionId: string;
 }
 
 function CreateIngredientButton(props: Props) {
@@ -43,12 +54,12 @@ function CreateIngredientButton(props: Props) {
       color="primary"
       variant="contained"
       size="medium"
-      fullWidth
       startIcon={<Icon>add</Icon>}
       onClick={() =>
         createIngredient({
           variables: {
             recipeId: props.recipeId,
+            instructionId: props.instructionId,
             text: 'New Ingredient',
             isChecked: false,
           },
