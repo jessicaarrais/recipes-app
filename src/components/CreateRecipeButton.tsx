@@ -42,9 +42,7 @@ function CreateRecipeButton(props: Props) {
     onCompleted(data) {
       const urlTitle = urlParser(data.createRecipe.recipe.title);
       history.push(
-        `/${'editing'}/cookbook/${
-          data.createRecipe.recipe.cookbookId
-        }/recipe/${urlTitle}/${data.createRecipe.recipe.id}`
+        `/editing/cookbook/${data.createRecipe.recipe.cookbookId}/recipe/${urlTitle}/${data.createRecipe.recipe.id}`
       );
     },
   });
