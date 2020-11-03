@@ -19,9 +19,7 @@ function EditRecipeButton(props: Props) {
       onClick={(event) => {
         event.preventDefault();
         history.push(
-          `/${'editing'}/cookbook/${props.cookbookId}/recipe/${props.recipeTitle}/${
-            props.recipeId
-          }`
+          `/editing/cookbook/${props.cookbookId}/recipe/${props.recipeTitle}/${props.recipeId}`
         );
       }}
     >
