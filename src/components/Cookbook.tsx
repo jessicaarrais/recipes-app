@@ -22,7 +22,7 @@ const S = {
 };
 
 interface CookbookProps {
-  newRecipeModal?: React.ReactNode;
+  newRecipeModalButton?: React.ReactNode;
   children: React.ReactNode;
   order: RecipesListOrder;
   refetchRecipes(order: RecipesListOrder): void;
@@ -33,7 +33,7 @@ export default function Cookbook(props: CookbookProps) {
   return (
     <>
       <S.Header>
-        {props.newRecipeModal}
+        {props.newRecipeModalButton}
         <S.ListOrganizersWrapper>
           <S.ListOrganizersItemWrapper>
             <Button color="default" variant="contained" size="medium">

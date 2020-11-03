@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Icon, IconButton, Modal, TextField } from '@material-ui/core';
-import CreateRecipeButton from '../components/CreateRecipeButton';
+import CreateRecipeButton from './CreateRecipeButton';
 import styled from 'styled-components';
 
 const S = {
@@ -31,7 +31,7 @@ const S = {
   `,
 };
 
-export default function NewRecipeModal() {
+export default function NewRecipeModalButton() {
   const [inputValue, setInputValue] = useState<string>('');
   const [open, setOpen] = useState(false);
 
