@@ -1,7 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 import { Button, Icon } from '@material-ui/core';
-import { GET_COOKBOOK, RecipesListOrder } from '../pages/loggedin/HomeLoggedInPage';
+import { GET_COOKBOOK, RecipesListOrder } from '../pages/HomeLoggedInPage';
 
 const DELETE_RECIPE = gql`
   mutation DeleteRecipe($recipeId: ID!) {
@@ -21,6 +22,8 @@ interface Props {
 }
 
 function DeleteRecipeButton(props: Props) {
+  const history = useHistory();
+
   const [deleteRecipe] = useMutation<DeleteRecipeResponse>(DELETE_RECIPE);
 
   return (
@@ -46,6 +49,7 @@ function DeleteRecipeButton(props: Props) {
             },
           ],
         });
+        history.push('/home');
       }}
     >
       delete

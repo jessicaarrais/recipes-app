@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { gql, useApolloClient, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
-import Avatar from '../../components/Avatar';
-import { Button, AppBar, Icon, Tabs, Tab } from '@material-ui/core';
-import { TabContext, TabPanel } from '@material-ui/lab';
-import FavoriteRecipeButton from '../../components/FavoriteButton';
-import LikeButton from '../../components/LikeButton';
-import PageNotFound from '../PageNotFound';
-import { RECIPE_FRAGMENT } from '../../components/RecipeCard';
-import RecipePageIngredients from '../../components/recipe-page-ingredients/RecipePageIngredients';
-import RecipePageInstructions from '../../components/recipe-page-instructions/RecipePageInstructions';
+import Avatar from '../components/Avatar';
+import { AppBar, Icon, Tab, Tabs } from '@material-ui/core';
+import { TabContext } from '@material-ui/lab';
+import FavoriteRecipeButton from '../components/FavoriteButton';
+import LikeButton from '../components/LikeButton';
+import PageNotFound from './PageNotFound';
+import { RECIPE_FRAGMENT } from '../components/RecipeCard';
+import RecipeTabsPublicView from '../components/recipe-page-public-view/RecipeTabsPublicView';
+import RecipeTabsEditMode from '../components/recipe-page-edit-mode/RecipeTabsEditMode';
+import RecipeTitleEditMode from '../components/recipe-page-edit-mode/RecipeTitleEditMode';
 import styled from 'styled-components';
-import EditRecipeButton from '../../components/EditRecipeButton';
+import RecipeMenuButton from '../components/RecipeMenuButton';
 
 const S = {
   Header: styled.header`
@@ -49,6 +50,7 @@ const S = {
 
   Title: styled.span`
     font-size: 32px;
+    margin-inline-end: 8px;
   `,
 
   TabsWrapper: styled.div`
@@ -86,12 +88,11 @@ interface RecipeResponse {
     likes: number;
     isFavorite: boolean;
     isLiked: boolean;
-    ingredients: [{ id: string; text: string; instructionId: string }];
-    instructions: [{ id: string; step: string; description: string; tip: string }];
+    isPublic: boolean;
   };
 }
 
-enum TabSelector {
+export enum TabSelector {
   INGREDIENTS = 'ingredients',
   INSTRUCTIONS = 'instructions',
 }
@@ -106,9 +107,12 @@ function RecipePage() {
       }
     `,
   });
-  const { cookbookId, recipeId } = useParams<{ cookbookId: string; recipeId: string }>();
   const [activeTab, setActiveTab] = useState<TabSelector>(TabSelector.INGREDIENTS);
-
+  const { isEditing, cookbookId, recipeId } = useParams<{
+    isEditing: string;
+    cookbookId: string;
+    recipeId: string;
+  }>();
   const { data, loading, error } = useQuery<RecipeResponse>(RECIPE, {
     variables: { recipeId, cookbookId },
   });
@@ -116,6 +120,9 @@ function RecipePage() {
   if (loading) return null;
   if (error) return <h1>An error has occurred. ${error.message}</h1>;
   if (!data?.recipe) return <PageNotFound />;
+
+  const isOwner = userLoggedIn?.me?.id === data.recipe.owner.id;
+  const editionModeOn = isEditing === 'editing';
 
   return (
     <>
@@ -125,13 +132,26 @@ function RecipePage() {
             <Avatar uri={data.recipe.owner.avatar?.uri} />
           </S.UserProfileLink>
           <h4>
-            <S.Title>{data.recipe.title} </S.Title>
+            <S.Title>
+              {isOwner && editionModeOn ? (
+                <RecipeTitleEditMode id={data.recipe.id} title={data.recipe.title} />
+              ) : (
+                data.recipe.title
+              )}
+            </S.Title>
             by {data.recipe.owner.username}
           </h4>
           <p>{data.recipe.description}</p>
         </S.HeaderTextWrapper>
         <S.HeaderMediaWrapper>image/video</S.HeaderMediaWrapper>
       </S.Header>
+      <RecipeMenuButton
+        isEditing={editionModeOn}
+        recipeId={data.recipe.id}
+        cookbookId={data.recipe.cookbookId}
+        recipeTitle={data.recipe.title}
+        isPublic={data.recipe.isPublic}
+      />
       <S.Likes>
         <Icon>favorite</Icon>
         <S.TotalLikes>{data.recipe.likes}</S.TotalLikes>
@@ -142,12 +162,6 @@ function RecipePage() {
           recipeId={data.recipe.id}
           isFavorite={data.recipe.isFavorite}
         />
-        {userLoggedIn?.me?.id === data.recipe.owner.id && (
-          <EditRecipeButton
-            recipeId={data.recipe.id}
-            cookbookId={data.recipe.cookbookId}
-          />
-        )}
       </div>
       <S.TabsWrapper>
         <TabContext value={activeTab}>
@@ -158,29 +172,16 @@ function RecipePage() {
               variant="fullWidth"
               indicatorColor="primary"
               textColor="primary"
-              aria-label="icon tabs example"
             >
               <Tab label="Ingredients" value={TabSelector.INGREDIENTS} />
               <Tab label="Instructions" value={TabSelector.INSTRUCTIONS} />
             </Tabs>
           </AppBar>
-          <TabPanel value={TabSelector.INGREDIENTS}>
-            <RecipePageIngredients ingredients={data.recipe.ingredients} />
-            <Button
-              color="primary"
-              variant="contained"
-              size="medium"
-              onClick={() => setActiveTab(TabSelector.INSTRUCTIONS)}
-            >
-              I am ready!
-            </Button>
-          </TabPanel>
-          <TabPanel value={TabSelector.INSTRUCTIONS}>
-            <RecipePageInstructions
-              ingredients={data.recipe.ingredients}
-              instructions={data.recipe.instructions}
-            />
-          </TabPanel>
+          {isOwner && editionModeOn ? (
+            <RecipeTabsEditMode />
+          ) : (
+            <RecipeTabsPublicView setActiveTab={setActiveTab} />
+          )}
         </TabContext>
       </S.TabsWrapper>
     </>

@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { gql, useQuery } from '@apollo/client';
 import Avatar from '../components/Avatar';
 import Cookbook from '../components/Cookbook';
-import { RecipesListOrder } from './loggedin/HomeLoggedInPage';
+import { RecipesListOrder } from './HomeLoggedInPage';
 import RecipeCard, { RecipeProps, RECIPE_FRAGMENT } from '../components/RecipeCard';
 import styled from 'styled-components';
 

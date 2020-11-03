@@ -13,8 +13,8 @@ import {
 } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
 import { ThemeProvider, Fab, Icon } from '@material-ui/core';
-import LoggedInRoute from './pages/loggedin/LoggedInRoute';
-import LoggedOutRoute from './pages/loggedout/LoggedOutRoute';
+import LoggedInRoute from './routes/LoggedInRoute';
+import LoggedOutRoute from './routes/LoggedOutRoute';
 import theme from './theme';
 import styled, { createGlobalStyle } from 'styled-components';
 

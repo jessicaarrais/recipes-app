@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import EditableTextArea from '../editable-text-area/EditableTextArea';
+import EditableTextArea from '../EditableTextArea';
 
 const UPDATE_INGREDIENT = gql`
   mutation UpdateIngredient(

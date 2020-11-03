@@ -3,7 +3,7 @@ import { gql, useApolloClient } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import FavoriteRecipeButton from './FavoriteButton';
 import { Icon } from '@material-ui/core';
-import { INGREDIENT_FRAGMENT } from './recipe-page-edition-mode/recipe-page-edition-mode-ingredient/Ingredient';
+import { INGREDIENT_FRAGMENT } from './recipe-page-edit-mode/recipe-tabs-edit-mode-ingredient/Ingredient';
 import LikeButton from './LikeButton';
 import RecipeVisibilityButton from './RecipeVisibilityButton';
 import styled from 'styled-components';
@@ -163,7 +163,11 @@ function RecipeCard(props: RecipeProps) {
           {isOwner ? (
             <>
               <S.Actions>
-                <EditRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />
+                <EditRecipeButton
+                  recipeTitle={props.title}
+                  recipeId={props.id}
+                  cookbookId={props.cookbookId}
+                />
               </S.Actions>
               <S.Actions>
                 <DeleteRecipeButton recipeId={props.id} cookbookId={props.cookbookId} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import DeleteUserButton from './DeleteUserButton';
-import EditableTextArea from './recipe-page-edition-mode/editable-text-area/EditableTextArea';
+import EditableTextArea from './recipe-page-edit-mode/EditableTextArea';
 import UploadAvatar from './UploadAvatar';
 import { Typography } from '@material-ui/core';
 

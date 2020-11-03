@@ -4,7 +4,7 @@ import { Button, Icon } from '@material-ui/core';
 import {
   IngredientProps,
   INGREDIENT_FRAGMENT,
-} from './recipe-page-edition-mode/recipe-page-edition-mode-ingredient/Ingredient';
+} from './recipe-page-edit-mode/recipe-tabs-edit-mode-ingredient/Ingredient';
 
 const CREATE_INGREDIENT = gql`
   mutation CreateIngredient($text: String!, $isChecked: Boolean!, $recipeId: ID!) {

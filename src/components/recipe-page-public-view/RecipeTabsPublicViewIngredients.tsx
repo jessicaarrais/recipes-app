@@ -11,7 +11,7 @@ interface Props {
   ingredients: [{ id: string; text: string; instructionId: string }];
 }
 
-function RecipePageIngredients(props: Props) {
+function RecipeTabsPublicViewIngredients(props: Props) {
   return (
     <ul>
       {props.ingredients.map((ingredient) => (
@@ -24,4 +24,4 @@ function RecipePageIngredients(props: Props) {
   );
 }
 
-export default RecipePageIngredients;
+export default RecipeTabsPublicViewIngredients;
