@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import Cookbook from '../components/Cookbook';
+import NewRecipeModalButton from '../components/NewRecipeModalButton';
 import RecipeCard, { RECIPE_FRAGMENT, RecipeProps } from '../components/RecipeCard';
-import CreateRecipeButton from '../components/CreateRecipeButton';
 
 export const COOKBOOK_FRAGMENT = gql`
   fragment CookbookFragment on Cookbook {
@@ -56,7 +56,7 @@ function HomeLoggedInPage() {
   return (
     <>
       <Cookbook
-        createRecipeButton={<CreateRecipeButton />}
+        newRecipeModalButton={<NewRecipeModalButton />}
         order={order}
         refetchRecipes={(order) => refetch({ recipesListOrder: order })}
         setOrder={setOrder}
