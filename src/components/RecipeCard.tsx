@@ -25,12 +25,12 @@ const S = {
   Header: styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     width: 100%;
   `,
 
   Title: styled.h2`
-    margin: 0;
+    margin: 0 0 20px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -2,64 +2,106 @@ import React, { useState } from 'react';
 import { gql, useApolloClient, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
+import { AppBar, Button, Icon, Tab, Tabs } from '@material-ui/core';
+import { TabContext, TabPanel } from '@material-ui/lab';
 import Avatar from '../components/Avatar';
-import { AppBar, Icon, Tab, Tabs } from '@material-ui/core';
-import { TabContext } from '@material-ui/lab';
 import FavoriteRecipeButton from '../components/FavoriteButton';
+import { IngredientProps } from '../components/recipe-page-edit-mode/recipe-tabs-edit-mode-ingredient/Ingredient';
+import Instruction, {
+  InstructionProps,
+} from '../components/recipe-page-edit-mode/recipe-tabs-edit-mode-instruction/Instruction';
 import LikeButton from '../components/LikeButton';
 import PageNotFound from './PageNotFound';
 import { RECIPE_FRAGMENT } from '../components/RecipeCard';
-import RecipeTabsPublicView from '../components/recipe-page-public-view/RecipeTabsPublicView';
-import RecipeTabsEditMode from '../components/recipe-page-edit-mode/RecipeTabsEditMode';
-import RecipeTitleEditMode from '../components/recipe-page-edit-mode/RecipeTitleEditMode';
-import styled from 'styled-components';
 import RecipeMenuButton from '../components/RecipeMenuButton';
+import RecipeTitleEditMode from '../components/recipe-page-edit-mode/RecipeTitleEditMode';
+import RecipeTabsPublicViewIngredients from '../components/recipe-page-public-view/RecipeTabsPublicViewIngredients';
+import styled from 'styled-components';
+import CreateInstructionButton from '../components/CreateInstructionButton';
+import RecipeTabsPublicViewInstructions from '../components/recipe-page-public-view/RecipeTabsPublicViewInstructions';
 
 const S = {
   Header: styled.header`
     display: flex;
-    margin-top: 32px;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: right;
+    margin-bottom: 24px;
   `,
 
-  HeaderTextWrapper: styled.div`
-    flex: 1;
-    margin-right: 32px;
+  UserProfileLink: styled(Link)`
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-inline-end: 16px;
   `,
 
-  HeaderMediaWrapper: styled.div`
+  Title: styled.div`
     flex: 1;
+    display: inline-block;
+  `,
+
+  RecipeName: styled.span`
+    display: block;
+    font-size: 32px;
+  `,
+
+  Ownership: styled.span`
+    font-size: 16px;
+    font-weight: bold;
+  `,
+
+  ActionsWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
+
+  Info: styled.div`
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 24px 0;
+  `,
+
+  Description: styled.p`
+    flex: 1;
+    display: inline-block;
+    margin: 0 8px 16px 8px;
+    text-align: justify;
+  `,
+
+  Media: styled.div`
+    flex: 1;
+    width: 345px;
+    height: 194px;
     background-color: lightgray;
+    border-radius: 8px;
   `,
 
   Likes: styled.div`
     display: flex;
     align-items: center;
+    justify-content: end;
   `,
 
   TotalLikes: styled.p`
     margin: 0 4px;
   `,
 
-  UserProfileLink: styled(Link)`
-    display: block;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-  `,
-
-  Title: styled.span`
-    font-size: 32px;
-    margin-inline-end: 8px;
-  `,
-
   TabsWrapper: styled.div`
     width: 100%;
-    padding: 16px 24px 24px;
     margin: 24px auto;
-    border-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
     background-color: #ffffff;
     box-shadow: 1px 1px 1px 1px #bdbdbd;
+  `,
+
+  InstructionsList: styled.ul`
+    padding: 0;
   `,
 };
 
@@ -89,6 +131,8 @@ interface RecipeResponse {
     isFavorite: boolean;
     isLiked: boolean;
     isPublic: boolean;
+    ingredients: [IngredientProps];
+    instructions: [InstructionProps];
   };
 }
 
@@ -122,47 +166,56 @@ function RecipePage() {
   if (!data?.recipe) return <PageNotFound />;
 
   const isOwner = userLoggedIn?.me?.id === data.recipe.owner.id;
-  const editionModeOn = isEditing === 'editing';
+  const isEditionModeOn = isEditing === 'editing';
 
   return (
     <>
       <S.Header>
-        <S.HeaderTextWrapper>
-          <S.UserProfileLink to={`/users/${data.recipe.owner.username}`}>
-            <Avatar uri={data.recipe.owner.avatar?.uri} />
-          </S.UserProfileLink>
-          <h4>
-            <S.Title>
-              {isOwner && editionModeOn ? (
-                <RecipeTitleEditMode id={data.recipe.id} title={data.recipe.title} />
-              ) : (
-                data.recipe.title
-              )}
-            </S.Title>
-            by {data.recipe.owner.username}
-          </h4>
-          <p>{data.recipe.description}</p>
-        </S.HeaderTextWrapper>
-        <S.HeaderMediaWrapper>image/video</S.HeaderMediaWrapper>
+        <S.UserProfileLink to={`/users/${data.recipe.owner.username}`}>
+          <Avatar uri={data.recipe.owner.avatar?.uri} />
+        </S.UserProfileLink>
+
+        <S.Title>
+          <S.RecipeName>
+            {isOwner && isEditionModeOn ? (
+              <RecipeTitleEditMode id={data.recipe.id} title={data.recipe.title} />
+            ) : (
+              data.recipe.title
+            )}
+          </S.RecipeName>
+          <S.Ownership>by {data.recipe.owner.username}</S.Ownership>
+        </S.Title>
+
+        <S.ActionsWrapper>
+          <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
+          <FavoriteRecipeButton
+            recipeId={data.recipe.id}
+            isFavorite={data.recipe.isFavorite}
+          />
+          {isOwner && (
+            <RecipeMenuButton
+              isEditing={isEditionModeOn}
+              recipeId={data.recipe.id}
+              cookbookId={data.recipe.cookbookId}
+              recipeTitle={data.recipe.title}
+              isPublic={data.recipe.isPublic}
+            />
+          )}
+        </S.ActionsWrapper>
       </S.Header>
-      <RecipeMenuButton
-        isEditing={editionModeOn}
-        recipeId={data.recipe.id}
-        cookbookId={data.recipe.cookbookId}
-        recipeTitle={data.recipe.title}
-        isPublic={data.recipe.isPublic}
-      />
+
       <S.Likes>
-        <Icon>favorite</Icon>
+        <Icon fontSize="small">favorite</Icon>
         <S.TotalLikes>{data.recipe.likes}</S.TotalLikes>
       </S.Likes>
-      <div className="recipe-page-actions">
-        <LikeButton recipeId={data.recipe.id} isLiked={data.recipe.isLiked} />
-        <FavoriteRecipeButton
-          recipeId={data.recipe.id}
-          isFavorite={data.recipe.isFavorite}
-        />
-      </div>
+
+      <S.Info>
+        <S.Description>{data.recipe.description}</S.Description>
+        <div>
+          <S.Media>image/video</S.Media>
+        </div>
+      </S.Info>
+
       <S.TabsWrapper>
         <TabContext value={activeTab}>
           <AppBar position="static" color="transparent">
@@ -177,11 +230,41 @@ function RecipePage() {
               <Tab label="Instructions" value={TabSelector.INSTRUCTIONS} />
             </Tabs>
           </AppBar>
-          {isOwner && editionModeOn ? (
-            <RecipeTabsEditMode />
-          ) : (
-            <RecipeTabsPublicView setActiveTab={setActiveTab} />
-          )}
+
+          <TabPanel value={TabSelector.INGREDIENTS}>
+            <RecipeTabsPublicViewIngredients ingredients={data.recipe.ingredients} />
+            <Button
+              color="primary"
+              variant="contained"
+              size="medium"
+              onClick={() => setActiveTab(TabSelector.INSTRUCTIONS)}
+            >
+              {isOwner && isEditionModeOn ? 'Go to instructions to edit!' : "I'm ready!"}
+            </Button>
+          </TabPanel>
+          <TabPanel value={TabSelector.INSTRUCTIONS}>
+            {isOwner && isEditionModeOn ? (
+              <>
+                <S.InstructionsList>
+                  {data.recipe.instructions.map((instruction) => (
+                    <Instruction
+                      key={instruction.id}
+                      instruction={instruction}
+                      ingredients={data.recipe.ingredients}
+                    />
+                  ))}
+                </S.InstructionsList>
+                <div>
+                  <CreateInstructionButton recipeId={data.recipe.id} />
+                </div>
+              </>
+            ) : (
+              <RecipeTabsPublicViewInstructions
+                ingredients={data.recipe.ingredients}
+                instructions={data.recipe.instructions}
+              />
+            )}
+          </TabPanel>
         </TabContext>
       </S.TabsWrapper>
     </>

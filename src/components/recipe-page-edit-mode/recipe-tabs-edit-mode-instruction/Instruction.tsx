@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Icon } from '@material-ui/core';
+import CreateIngredientButton from '../../CreateIngredientButton';
 import DeleteInstructionButton from '../../DeleteInstructionButton';
+import Ingredient, {
+  IngredientProps,
+} from '../recipe-tabs-edit-mode-ingredient/Ingredient';
 import InstructionStep from './InstructionStep';
 import InstructionDescription from './InstructionDescription';
 import styled from 'styled-components';
 
 const S = {
-  ListItem: styled.li`
+  ListItem: styled.div`
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 32px;
-    margin: 8px 0 8px;
+    align-items: baseline;
   `,
-  ContentWrapper: styled.div`
-    width: 100%;
+
+  ListItemBodyWrapper: styled.div`
+    flex: 1;
+    margin-right: 8px;
+  `,
+
+  InstructionTip: styled.div`
+    padding: 12px;
+  `,
+
+  IngredientsList: styled.ul`
+    display: flex;
+    flex-wrap: wrap;
+  `,
+
+  hr: styled.hr`
+    color: floralwhite;
+    margin: 20px 0;
   `,
 };
 
@@ -26,34 +43,49 @@ export interface InstructionProps {
   tip: string;
 }
 
-function Instruction(props: InstructionProps) {
-  const [
-    isShowingDeleteInstructionButton,
-    setIsShowingDeleteInstructionButton,
-  ] = useState(false);
+interface Props {
+  instruction: InstructionProps;
+  ingredients: [IngredientProps];
+}
 
+function Instruction(props: Props) {
   return (
-    <S.ListItem
-      onMouseOver={() => setIsShowingDeleteInstructionButton(true)}
-      onMouseLeave={() => setIsShowingDeleteInstructionButton(false)}
-    >
-      <p>{props.tip}</p>
-      <S.ContentWrapper>
-        <InstructionStep
-          instructionId={props.id}
-          recipeId={props.recipeId}
-          step={props.step}
+    <>
+      <S.ListItem id={props.instruction.id}>
+        <S.ListItemBodyWrapper>
+          <InstructionStep
+            instructionId={props.instruction.id}
+            recipeId={props.instruction.recipeId}
+            step={props.instruction.step}
+          />
+          <S.InstructionTip>
+            <Icon title={`Tip: ${props.instruction.tip}`}>info</Icon>
+            <span>{props.instruction.tip}</span>
+          </S.InstructionTip>
+          <InstructionDescription
+            instructionId={props.instruction.id}
+            recipeId={props.instruction.recipeId}
+            description={props.instruction.description}
+          />
+          <S.IngredientsList>
+            {props.ingredients
+              .filter((ingredient) => ingredient.instructionId === props.instruction.id)
+              .map((ingredient) => (
+                <Ingredient key={ingredient.id} ingredient={ingredient} />
+              ))}
+          </S.IngredientsList>
+          <CreateIngredientButton
+            recipeId={props.instruction.recipeId}
+            instructionId={props.instruction.id}
+          />
+        </S.ListItemBodyWrapper>
+        <DeleteInstructionButton
+          instructionId={props.instruction.id}
+          recipeId={props.instruction.recipeId}
         />
-        <InstructionDescription
-          instructionId={props.id}
-          recipeId={props.recipeId}
-          description={props.description}
-        />
-      </S.ContentWrapper>
-      {isShowingDeleteInstructionButton && (
-        <DeleteInstructionButton instructionId={props.id} recipeId={props.recipeId} />
-      )}
-    </S.ListItem>
+      </S.ListItem>
+      <S.hr />
+    </>
   );
 }
 

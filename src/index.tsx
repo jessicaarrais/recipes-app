@@ -48,6 +48,10 @@ const GlobalCSS = createGlobalStyle`
     color: #000000;
   }
 
+  p {
+    margin: 8px 0;
+  }
+
   h2 {
     font-size: 24px;
   }
